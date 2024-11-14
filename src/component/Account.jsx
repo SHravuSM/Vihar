@@ -1,6 +1,7 @@
-import React from 'react'
+// import React from 'react'
 import { auth } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
+import { GoogleAuthProvider, deleteUser, reauthenticateWithPopup } from 'firebase/auth';
 
 export default function Account() {
 

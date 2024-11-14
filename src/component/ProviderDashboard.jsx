@@ -1,8 +1,8 @@
 // ProviderDashboard.js
 import React, { useState, useEffect } from 'react';
-import { db, storage, auth } from '../firebaseConfig';
+import { db, auth } from '../firebaseConfig';
 import { collection, addDoc, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { GoogleAuthProvider, reauthenticateWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
 import ProviderVehicles from './ProviderVehicles';
@@ -13,6 +13,7 @@ const ProviderDashboard = () => {
   const [imageUpload, setImageUpload] = useState(null);
   const [userRole, setUserRole] = useState(null);  // To store the role of the current user
   const vehiclesCollectionRef = collection(db, 'vehicles');
+  const [type, setType] = useState('Bike')
 
   const reauthenticateWithGoogle = async () => {
     const user = auth.currentUser;
@@ -35,6 +36,8 @@ const ProviderDashboard = () => {
   useEffect(() => {
     const checkUserRole = async () => {
       const user = auth.currentUser;
+      // console.log(user);
+
       if (user) {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
@@ -106,16 +109,16 @@ const ProviderDashboard = () => {
     alert("Account deleted successfully.");
   };
 
-  console.log(auth.currentUser);
-  console.log(auth.currentUser.displayName);
-  console.log(auth.currentUser.photoURL);
-  // console.log(auth.currentUser.metadata.lastLoginAt);
-  console.log(auth.currentUser.metadata.lastLoginAt);
+  //console.log(auth.currentUser);
+  //console.log(auth.currentUser.displayName);
+  //console.log(auth.currentUser.photoURL);
+  // //console.log(auth.currentUser.metadata.lastLoginAt);
+  //console.log(auth.currentUser.metadata.lastLoginAt);
 
 
   return (
-    <div className=" bg-gray-100 w-full min-h-screen flex flex-col items-center ">
-      <NavLink className=' w-full' to='/provider/account' state={userRole}>
+    <div className=" bg-gray-100 relative w-full min-h-screen flex flex-col gap-1 items-center ">
+      <NavLink className='px-2 w-full' to='/provider/account' state={userRole}>
         <div className='mb-2 flex flex-col gap-2 rounded-md w-full'>
           <h1 className="text-lg text-slate-500 font-bold text-center w-full">Vehicle Provider Dashboard</h1>
           <div className='w-full flex justify-around shadow-md border py-3 rounded-lg items-center '>
@@ -126,18 +129,28 @@ const ProviderDashboard = () => {
           </div>
         </div>
       </NavLink>
-      <div className='my-4'>
-        <h2 className="text-2xl mb-3 font-semibold text-center ">Your Vehicle Listings</h2>
-        <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-          <ProviderVehicles />
+      <div className='w-full flex flex-col py-2 gap-2 px-4'>
+        <h2 className="text-2xl mb-1 font-semibold text-center ">Your Vehicle Listings</h2>
+        <div className='w-full items-center flex self-start gap-1'>
+          <NavLink className='p-6 shadow-lg w-[70%] text-[16px] bg-blue-600 text-center text-white py-2 rounded ' to='/provider/add-vehicle'>Add Vehicles</NavLink>
+          <NavLink className='shadow-md w-[30%]  bg-blue-600 text-center text-white py-2 rounded ' to='/provider/account'>Renew</NavLink>
         </div>
+        <div className='border-2 flex items-center text-lg justify-around rounded-[20px] shadow-md w-full h-10 '>
+          <button onClick={()=>setType('Bike')} className='px-2 text-blue-500 active:bg-blue-500 drop-shadow-lg'>Bikes</button>
+          <button onClick={()=>setType('Scooter')} className='px-2 text-pink-500 active:bg-blue-500 drop-shadow-lg'>Scooters</button>
+          <button onClick={()=>setType('Car')} className='px-2 text-slate-500 active:bg-blue-500 drop-shadow-lg'>Cars</button>
+        </div >
+        <div className='w-full h-64 overflow-y-scroll'>
+
+        <ProviderVehicles type={type} />
+        </div>
+
       </div>
 
-      <NavLink className='p-6 shadow-md w-[50%] bg-blue-600 text-center text-white py-2 rounded ' to='/provider/add-vehicle'>Add Vehicle</NavLink>
-      <div className="mt-8 text-center -2">
+      <div className="mt-8 relative bottom-3 text-center">
         <button
           onClick={logout}
-          className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 mb-4"
+          className="w-full bg-green-500 text-white py-2 rounded px-4"
         >
           Logout
         </button>

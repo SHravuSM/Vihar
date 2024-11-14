@@ -16,7 +16,9 @@ const LoginComponent = () => {
   }, [role, navigate]);
 
   const handleGoogleLogin = async () => {
-    await signInWithGoogle();
+    await signInWithGoogle().then((val) =>
+      console.log('hello'))
+
   };
 
   return (

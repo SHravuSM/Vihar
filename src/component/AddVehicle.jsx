@@ -1,51 +1,56 @@
 import { useState } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { storage } from "../firebaseConfig"; // assuming you're using Firebase storage for images
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const AddVehicle = () => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState(null);
+  // const [imageUrl, setImageUrl] = useState(""); // Optional image URL field
   const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
 
   const auth = getAuth();
   const db = getFirestore();
 
-  const handleImageUpload = async (file) => {
-    const storageRef = ref(storage, `vehicles/${file.name}`);
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    return downloadURL;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    try {
-      const imageUrl = image ? await handleImageUpload(image) : null;
-      await addDoc(collection(db, "vehicles"), {
-        providerId: auth.currentUser.uid,
-        name,
-        type,
-        price,
-        description,
-        imageUrl,
-        location,
-      });
-      alert("Vehicle added successfully");
-      setLoading(false);
-    } catch (error) {
-      console.error("Error adding vehicle: ", error);
-      alert("Failed to add vehicle");
-      setLoading(false);
+    const user = auth.currentUser;
+    console.log(user);
+    
+    if (!user) {
+      console.error("User is not authenticated");
+      return;
     }
+    else {
+      try {
+        await addDoc(collection(db, "vehicles"), {
+          providerId: auth.currentUser.uid,
+          name,
+          type,
+          price,
+          description,
+          location,
+        });
+        alert("Vehicle added successfully");
+      } catch (error) {
+        console.error("Error adding vehicle: ", error);
+        alert("There was an error adding the vehicle. Please try again.");
+      }
+    }
+
+    setLoading(false);
+
+    // Reset form fields
+    setName("");
+    setType("");
+    setPrice("");
+    setDescription("");
+    setLocation("");
   };
+
 
   return (
     <div className="container mx-auto p-6">
@@ -90,11 +95,13 @@ const AddVehicle = () => {
           required
           className="w-full p-2 border rounded"
         />
-        <input
-          type="file"
-          onChange={(e) => setImage(e.target.files[0])}
+        {/* <input
+          type="text"
+          placeholder="Image URL (optional)"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
           className="w-full p-2 border rounded"
-        />
+        /> */}
         <button
           type="submit"
           className={`w-full p-2 text-white ${loading ? "bg-gray-400" : "bg-blue-500"} rounded`}
