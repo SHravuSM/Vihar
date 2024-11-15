@@ -13,7 +13,7 @@ import VehicleList from './component/VehicleList';
 import { auth } from './firebaseConfig';
 
 function App() {
-  console.log(auth.currentUser?.displayName);
+  //console.log(auth.currentUser?.displayName);
 
   return (
     <div className=" sm:gap-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center h-screen flex flex-col">

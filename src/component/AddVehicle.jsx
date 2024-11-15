@@ -18,10 +18,10 @@ const AddVehicle = () => {
     e.preventDefault();
     setLoading(true);
     const user = auth.currentUser;
-    console.log(user);
+    //////console.log(user);
     
     if (!user) {
-      console.error("User is not authenticated");
+      //////console.error("User is not authenticated");
       return;
     }
     else {
@@ -36,7 +36,7 @@ const AddVehicle = () => {
         });
         alert("Vehicle added successfully");
       } catch (error) {
-        console.error("Error adding vehicle: ", error);
+        //////console.error("Error adding vehicle: ", error);
         alert("There was an error adding the vehicle. Please try again.");
       }
     }

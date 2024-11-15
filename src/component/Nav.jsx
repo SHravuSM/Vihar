@@ -8,7 +8,7 @@ import { auth } from '../firebaseConfig';
 
 export default function Nav({white, pro}) {
     const { user } = useAuth();
-    console.log(user);
+    //////console.log(user);
     
     const [yes, No] = useState()
 

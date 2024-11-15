@@ -24,7 +24,7 @@ const ProviderDashboard = () => {
       return;
     }
 
-    // console.log(auth.currentUser);
+    // ////console.log(auth.currentUser);
     
 
     try {
@@ -32,7 +32,7 @@ const ProviderDashboard = () => {
       await reauthenticateWithPopup(user, provider);
       alert("Reauthenticated successfully.");
     } catch (error) {
-      console.error("Reauthentication Error:", error);
+      ////console.error("Reauthentication Error:", error);
       alert("Error reauthenticating.");
     }
   };
@@ -40,7 +40,7 @@ const ProviderDashboard = () => {
   useEffect(() => {
     const checkUserRole = async () => {
       const user = auth.currentUser;
-      // console.log(user);
+      // ////console.log(user);
 
       if (user) {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
@@ -94,7 +94,7 @@ const ProviderDashboard = () => {
       await signOut(auth); // Firebase sign out
       window.location.href = '/'; // Redirects to login page
     } catch (error) {
-      console.error("Logout Error:", error);
+      ////console.error("Logout Error:", error);
     }
   };
 
@@ -112,11 +112,11 @@ const ProviderDashboard = () => {
     alert("Account deleted successfully.");
   };
 
-  //console.log(auth.currentUser);
-  //console.log(auth.currentUser.displayName);
-  //console.log(auth.currentUser.photoURL);
-  // //console.log(auth.currentUser.metadata.lastLoginAt);
-  //console.log(auth.currentUser.metadata.lastLoginAt);
+  //////console.log(auth.currentUser);
+  //////console.log(auth.currentUser.displayName);
+  //////console.log(auth.currentUser.photoURL);
+  // //////console.log(auth.currentUser.metadata.lastLoginAt);
+  //////console.log(auth.currentUser.metadata.lastLoginAt);
 
 
   return (

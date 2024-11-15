@@ -19,7 +19,7 @@ const VehicleList = () => {
                 id: doc.id,
                 ...doc.data(),
             }));
-            // console.log(vehiclesList[0].type);
+            // //console.log(vehiclesList[0].type);
 
             const vehicles = vehiclesList.filter(each => {
                 return each.type == type;

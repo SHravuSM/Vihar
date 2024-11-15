@@ -8,7 +8,7 @@ import { auth } from '../firebaseConfig';
 
 export default function ProviderNav() {
     const { user } = useAuth();
-    console.log(user);
+    //console.log(user);
 
     return (
         <div className='w-full lg:h-32 lg:rounded-lg md:h-24 bg-blue-400 sm:h-20 rounded-md flex items-center lg:p-2 md:p-2 sm:p-1'>

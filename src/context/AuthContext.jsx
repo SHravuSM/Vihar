@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
         setRole(docSnap.data().role); // Set role if user exists in Firestore
       }
     } catch (error) {
-      console.error("Google sign-in error:", error);
+      //console.error("Google sign-in error:", error);
     } finally {
       setLoading(false);
     }

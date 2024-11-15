@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-const ProviderVehicles = ({ type }) => {
+const ProviderVehicles = () => {
   const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const db = getFirestore();
   const auth = getAuth();
@@ -11,20 +12,26 @@ const ProviderVehicles = ({ type }) => {
   const fetchVehicles = async () => {
     if (!auth.currentUser) return;
 
-    const vehiclesRef = collection(db, "vehicles");
-    const q = query(vehiclesRef, where("type", "==", type));
-    const querySnapshot = await getDocs(q);
+    try {
+      const vehiclesRef = collection(db, "vehicles");
+      // Filter vehicles by the current provider's uid
+      const q = query(vehiclesRef, where("providerId", "==", auth.currentUser.uid));
+      const querySnapshot = await getDocs(q);
 
-    const vehiclesList = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setVehicles(vehiclesList);
+      const vehiclesList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setVehicles(vehiclesList);
+    } catch (error) {
+      console.error("Error fetching vehicles:", error);
+      alert("Failed to fetch vehicles. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (vehicleId) => {
-    console.log(vehicleId);
-    console.log(auth.currentUser);
     if (!auth.currentUser) return;
 
     try {
@@ -39,7 +46,11 @@ const ProviderVehicles = ({ type }) => {
 
   useEffect(() => {
     fetchVehicles();
-  }, [type]);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="border-red-500 rounded">
