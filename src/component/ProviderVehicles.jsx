@@ -2,9 +2,21 @@ import { useState, useEffect } from "react";
 import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-const ProviderVehicles = () => {
+const ProviderVehicles = ({type}) => {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [vehitype, setVehiType] = useState(null)
+  
+  useEffect(()=>{
+    
+    const vehi = vehicles.filter(each=>{
+      return each.type == type;
+    })
+
+    setVehiType(vehi);
+  },[type])
+  console.log(vehitype);
+  
 
   const db = getFirestore();
   const auth = getAuth();
@@ -44,6 +56,9 @@ const ProviderVehicles = () => {
     }
   };
 
+console.log(vehicles);
+console.log(type);
+
   useEffect(() => {
     fetchVehicles();
   }, []);
@@ -58,7 +73,7 @@ const ProviderVehicles = () => {
         <div>No vehicles found</div>
       ) : (
         <div className="w-full flex gap-1 flex-col overflow-y-scroll">
-          {vehicles.map((vehicle) => (
+          {vehitype.map((vehicle) => (
             <div key={vehicle.id} className="flex border-2 h-32 justify-evenly items-center w-full rounded-md">
               <div className="rounded shadow">
                 <img
