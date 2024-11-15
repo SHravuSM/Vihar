@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import { getFirestore, collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import Loader from '../images/Loader.gif'
+import { useAuth } from "../context/AuthContext";
 
-const ProviderVehicles = ({type}) => {
+const ProviderVehicles = ({ type }) => {
+  const { Vahana } = useAuth();
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [vehitype, setVehiType] = useState(null)
-  
-  useEffect(()=>{
-    
-    const vehi = vehicles.filter(each=>{
+
+  useEffect(() => {
+
+    const vehi = vehicles.filter(each => {
       return each.type == type;
     })
 
     setVehiType(vehi);
-  },[type])
-  console.log(vehitype);
-  
+  }, [type])
+
 
   const db = getFirestore();
   const auth = getAuth();
@@ -56,15 +58,15 @@ const ProviderVehicles = ({type}) => {
     }
   };
 
-console.log(vehicles);
-console.log(type);
+  console.log(vehicles);
+  console.log(type);
 
   useEffect(() => {
     fetchVehicles();
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex items-center justify-center w-full"><img src={Loader} alt="" /></div>;
   }
 
   return (
@@ -75,11 +77,11 @@ console.log(type);
         <div className="w-full flex gap-1 flex-col overflow-y-scroll">
           {vehitype.map((vehicle) => (
             <div key={vehicle.id} className="flex border-2 h-32 justify-evenly items-center w-full rounded-md">
-              <div className="rounded shadow">
+              <div className="">
                 <img
-                  src={vehicle.imageUrl || "https://via.placeholder.com/150"}
+                  src={Vahana[vehicle.name] || "https://via.placeholder.com/150"}
                   alt={vehicle.name}
-                  className="h-24 rounded shadow-md object-cover"
+                  className="h-24 w-24 object-contain"
                 />
               </div>
               <div className="w-[50%] text-[12px] flex flex-col items-center ">

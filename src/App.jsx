@@ -8,29 +8,21 @@ import Home from './component/Home';
 import AddVehicle from './component/AddVehicle';
 import ProviderVehicles from './component/ProviderVehicles';
 import Account from './component/Account';
-import Nav from './component/Nav';
 import VehicleList from './component/VehicleList';
-import { auth } from './firebaseConfig';
 
 function App() {
-  //console.log(auth.currentUser?.displayName);
-
   return (
-    <div className=" sm:gap-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center h-screen flex flex-col">
-      {/* {!auth.currentUser?.displayName && <Nav />} */}
+    <div className="sm:gap-1 flex flex-col">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/vehicles" element={<VehicleList />} />
 
-        {/* Admin Route */}
         <Route path="/admin" element={
           <PrivateRoute allowedRoles={['admin']}>
             <AdminDashboard />
           </PrivateRoute>
         } />
 
-        {/* Provider Routes */}
-        {/* <Route path="/provider" element={<PrivateRoute allowedRoles={['vehicle provider']} />}> */}
         <Route path="/provider">
           <Route index element={<ProviderDashboard />} />
           <Route path="add-vehicle" element={<AddVehicle />} />

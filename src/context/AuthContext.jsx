@@ -3,7 +3,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
-// import Delete from '../images/Delete.png';
+import Splendor_Plus from '../images/Bikes/Splendor Plus.png';
+import Activa_6G from '../images/Scooters/Activa 6G.png';
+import Fascino from '../images/Scooters/Fascino.png';
+import Passion_Pro from '../images/Bikes/Passion Pro.png';
+import Shine from '../images/Bikes/Shine.png';
 
 const AuthContext = createContext();
 
@@ -14,11 +18,19 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const Vahana = {
+    "Shine": Shine,
+    "Fascino": Fascino,
+    "Passion Pro": Passion_Pro,
+    "Activa 6G" : Activa_6G,
+    "Splendor Plus": Splendor_Plus,
+  }
+
   const googleProvider = new GoogleAuthProvider();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setLoading(true); 
+      setLoading(true);
       if (user) {
         setUser(user);
 
@@ -68,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     user,
     role,
     loading,
+    Vahana,
     // Delete,
     signInWithGoogle,
   };

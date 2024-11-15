@@ -2,7 +2,10 @@
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Nav from "./Nav";
+import Loader from '../images/Loader.gif'
 import { auth } from "../firebaseConfig";
+import Card from './Card';
+import Radio from "./Radio";
 
 const VehicleList = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -19,7 +22,6 @@ const VehicleList = () => {
                 id: doc.id,
                 ...doc.data(),
             }));
-            // //console.log(vehiclesList[0].type);
 
             const vehicles = vehiclesList.filter(each => {
                 return each.type == type;
@@ -32,21 +34,16 @@ const VehicleList = () => {
     }, [db, type]);
 
     return (
-        <div className=" flex flex-col items-center p-1 gap-2 w-full">
-            {!auth.currentUser?.displayName && <Nav white={true} />}
+        <div className=" flex flex-col items-center gap-1 bg-white p-1 w-full">
+            <Nav />
             <div className="flex flex-col w-full">
-                {/* <h2 className="text-xl text-center font-bold">Available Vehicles for Rent</h2> */}
-                <div className='flex items-center text-xl justify-around bg-white rounded-[20px] shadow-md w-full h-11 '>
-                    <button onClick={() => setType('Bike')} className='px-2 text-blue-500 active:bg-blue-500 drop-shadow-lg'>Bikes</button>
-                    <button onClick={() => setType('Scooter')} className='px-2 text-pink-500 active:bg-blue-500 drop-shadow-lg'>Scooters</button>
-                    <button onClick={() => setType('Car')} className='px-2 text-slate-500 active:bg-blue-500 drop-shadow-lg'>Cars</button>
-                </div >
+                <h2 className="text-xl text-center font-bold">Available Vehicles for Rent</h2>
+                <Radio setType={setType} />
             </div>
 
             {loading ? (
-                <div>Loading...</div>
+                <div className="flex items-center justify-center h-[70vh] w-full"><img src={Loader} alt="" /></div>
             ) : (
-                // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex flex-col gap-1 rounded-md w-full ">
                     {vehicles.map((vehicle) => (
                         <div key={vehicle.id} className="flex bg-red-200 h-32 justify-evenly items-center w-full rounded-md">
@@ -66,6 +63,9 @@ const VehicleList = () => {
                         </div>
                     ))}
                 </div>
+                // <div className="flex flex-col gap-1 rounded-md w-full ">
+                //     <Card />
+                // </div>
             )}
         </div>
     );
