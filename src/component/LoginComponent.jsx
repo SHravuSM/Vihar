@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Google from '../images/Google.gif'
 
 const LoginComponent = () => {
   const { signInWithGoogle, role } = useAuth();
@@ -22,8 +23,11 @@ const LoginComponent = () => {
   };
 
   return (
-    <div>
-      <button className='border-2 border-blue-500 p-2 text-xl font-semibold rounded-lg' onClick={handleGoogleLogin}>Continue with Google</button>
+    <div onClick={handleGoogleLogin} className='flex items-center gap-0 rounded shadow-md'>
+      <button className=' p-2 text-xl font-semibold text-white' >Continue with Google</button>
+      <div className='h-10 w-10 rounded-lg flex justify-center items-center bg-white'>
+        <img className='h-8 ' src={Google} alt="" />
+      </div>
     </div>
   );
 };

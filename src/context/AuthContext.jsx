@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig';
 import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
-import Delete from '../component/images/Delete.png';
+// import Delete from '../images/Delete.png';
 
 const AuthContext = createContext();
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     user,
     role,
     loading,
-    Delete,
+    // Delete,
     signInWithGoogle,
   };
 

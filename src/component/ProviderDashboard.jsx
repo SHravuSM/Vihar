@@ -6,6 +6,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc, getDoc } from 'firebase/fi
 import { GoogleAuthProvider, reauthenticateWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { NavLink } from 'react-router-dom';
 import ProviderVehicles from './ProviderVehicles';
+import Nav from './Nav';
 
 const ProviderDashboard = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -22,6 +23,9 @@ const ProviderDashboard = () => {
       alert("No user is logged in.");
       return;
     }
+
+    // console.log(auth.currentUser);
+    
 
     try {
       const provider = new GoogleAuthProvider();
@@ -94,7 +98,6 @@ const ProviderDashboard = () => {
     }
   };
 
-
   const deleteAccount = async () => {
     const user = auth.currentUser;
     if (!user) {
@@ -118,6 +121,7 @@ const ProviderDashboard = () => {
 
   return (
     <div className=" bg-gray-100 relative w-full min-h-screen flex flex-col gap-1 items-center ">
+      {auth?.currentUser && <Nav  />}
       <NavLink className='px-2 w-full' to='/provider/account' state={userRole}>
         <div className='mb-2 flex flex-col gap-2 rounded-md w-full'>
           <h1 className="text-lg text-slate-500 font-bold text-center w-full">Vehicle Provider Dashboard</h1>
@@ -140,7 +144,7 @@ const ProviderDashboard = () => {
           <button onClick={()=>setType('Scooter')} className='px-2 text-pink-500 active:bg-blue-500 drop-shadow-lg'>Scooters</button>
           <button onClick={()=>setType('Car')} className='px-2 text-slate-500 active:bg-blue-500 drop-shadow-lg'>Cars</button>
         </div >
-        <div className='w-full h-64 overflow-y-scroll'>
+        <div className='w-full'>
 
         <ProviderVehicles type={type} />
         </div>

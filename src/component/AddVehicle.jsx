@@ -54,7 +54,7 @@ const AddVehicle = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h2 className="text-2xl mb-4">Add New Vehicle</h2>
+      <h2 className="text-2xl text-white font-semibold text-center mb-4">Add New Vehicle</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
