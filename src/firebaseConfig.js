@@ -1,7 +1,7 @@
 // firebaseConfig.js
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // import { getStorage } from "firebase/storage";
 
 // Firebase configuration
@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "testingapp-e26ee",
   storageBucket: "testingapp-e26ee.firebasestorage.app",
   messagingSenderId: "639801135629",
-  appId: "1:639801135629:web:d274a7443761f71ccf3b44"
+  appId: "1:639801135629:web:d274a7443761f71ccf3b44",
 };
 
 // Initialize Firebase

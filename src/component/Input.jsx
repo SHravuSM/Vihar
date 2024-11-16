@@ -1,16 +1,23 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Input = () => {
   return (
     <StyledWrapper>
       <div className="container">
-        <input required type="text border rounded-lg" name="text" className="input" />
-        <label className="label w-full text-black font-semibold">Search for vehicles</label>
+        <input
+          required
+          type="text border rounded-lg"
+          name="text"
+          className="input"
+        />
+        <label className="label w-full font-semibold text-black">
+          Search for vehicles
+        </label>
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .container {
@@ -40,33 +47,37 @@ const StyledWrapper = styled.div`
     color: #ffffff;
     font-size: 15px;
     background-color: transparent;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px white;
+    box-shadow:
+      3px 3px 10px rgba(0, 0, 0, 1),
+      -1px -1px 6px white;
   }
 
   .input:focus {
     border: 2px solid transparent;
     color: #000000;
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px white;
+    box-shadow:
+      3px 3px 10px rgba(0, 0, 0, 1),
+      -1px -1px 6px rgba(255, 255, 255, 0.4),
+      inset 3px 3px 10px rgba(0, 0, 0, 1),
+      inset -1px -1px 6px white;
   }
 
   .container .input:valid ~ .label,
   .container .input:focus ~ .label {
     transition: 0.3s;
     padding-left: 2px;
-    opacity : 0;
+    opacity: 0;
     transform: translateX(100px);
   }
 
   .container .input:valid,
   .container .input:focus {
-    box-shadow: 3px 3px 10px rgba(0,0,0,1),
-    -1px -1px 6px rgba(255, 255, 255, 0.4),
-    inset 3px 3px 10px rgba(0,0,0,1),
-    inset -1px -1px 6px rgba(255, 255, 255, 0.4);
-  }`;
+    box-shadow:
+      3px 3px 10px rgba(0, 0, 0, 1),
+      -1px -1px 6px rgba(255, 255, 255, 0.4),
+      inset 3px 3px 10px rgba(0, 0, 0, 1),
+      inset -1px -1px 6px rgba(255, 255, 255, 0.4);
+  }
+`;
 
 export default Input;

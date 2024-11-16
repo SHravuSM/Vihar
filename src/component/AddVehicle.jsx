@@ -51,7 +51,6 @@
 //     setLocation("");
 //   };
 
-
 //   return (
 //     <div className="container mx-auto p-6">
 //       <h2 className="text-2xl text-white font-semibold text-center mb-4">Add New Vehicle</h2>
@@ -116,26 +115,23 @@
 
 // export default AddVehicle;
 
-
-
-
 import { useState } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
-import Rupee from '../images/Rupee.png'
-import Adding from './Adding';
+import Rupee from "../images/Rupee.png";
+import Adding from "./Adding";
 
 const AddVehicle = () => {
   const { Vahana } = useAuth();
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("Bike");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState(""); // Image URL field
+  // const [imageUrl, setImageUrl] = useState(""); // Image URL field
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const auth = getAuth();
   const db = getFirestore();
@@ -144,7 +140,7 @@ const AddVehicle = () => {
     const input = e.target.value;
     setName(input);
     const matches = Object.keys(Vahana).filter((EV) =>
-      EV.toLowerCase().includes(input.toLowerCase())
+      EV.toLowerCase().includes(input.toLowerCase()),
     );
     setSuggestions(matches);
   };
@@ -156,7 +152,7 @@ const AddVehicle = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     const user = auth.currentUser;
 
     if (!user) {
@@ -171,29 +167,29 @@ const AddVehicle = () => {
         type,
         price,
         description,
-        // imageUrl,
         location,
       });
-      // alert("Vehicle added successfully");
-
-      // Reset form fields
       setName("");
-      setType("");
+      setType("Bike");
       setPrice("");
       setDescription("");
-      // setImageUrl("");
       setLocation("");
     } catch (error) {
       alert("Error adding vehicle. Please try again.");
     }
-
-    setLoading(false);
+    // setLoading(false);
   };
 
   return (
-    <div className="flex flex-col h-screen border items-center gap-3 pr-7 pl-7 pt-4">
-      <h2 className="text-2xl text-white font-semibold text-center">Add New Vehicle</h2>
-      <img className="h-36 rounded shadow-lg backdrop-filter" src={Vahana[name]} alt="" />
+    <div className="flex h-screen flex-col items-center gap-3 border pl-7 pr-7 pt-4">
+      <h2 className="text-center text-2xl font-semibold text-black">
+        Add New Vehicle
+      </h2>
+      <img
+        className="h-36 rounded drop-shadow-[1px_1px_2px_black]"
+        src={Vahana[name]}
+        alt=""
+      />
       <div className="space-y-4">
         <div className="relative">
           <input
@@ -202,10 +198,10 @@ const AddVehicle = () => {
             value={name}
             onChange={handleNameChange}
             required
-            className="w-full p-2 border rounded"
+            className="w-full rounded border p-2"
           />
           {suggestions.length > 0 && (
-            <ul className="absolute bg-white border rounded w-full mt-1 shadow-md">
+            <ul className="absolute mt-1 w-full rounded border bg-white shadow-md">
               {suggestions.map((suggestion) => (
                 <li
                   key={suggestion}
@@ -220,36 +216,35 @@ const AddVehicle = () => {
         </div>
 
         <div className="flex gap-1">
-
-          <div className="flex w-[70%] justify-evenly bg-white border rounded items-center">
-            <img className="h-6 w-6 " src={Rupee} alt="" />
+          <div className="flex w-[70%] items-center justify-evenly rounded border bg-white">
+            <img className="h-6 w-6" src={Rupee} alt="" />
             <input
               type="number"
               placeholder="Price per Day"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required
-              className="w-[84%] border-yellow-400 p-2 border-l-2"
+              className="w-[84%] border-l-2 border-yellow-400 p-2"
             />
           </div>
 
           <select
-            className="rounded w-[30%]"
+            className="w-[30%] rounded"
             name="Vehicle type"
             value={type}
-            onChange={(e) => setType(e.target.value)}>
+            onChange={(e) => setType(e.target.value)}
+          >
             <option value="Bike">Bike</option>
             <option value="Scooter">Scooter</option>
           </select>
-
-
         </div>
+
         <textarea
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full rounded border p-2"
         />
         <input
           type="text"
@@ -257,7 +252,7 @@ const AddVehicle = () => {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full rounded border p-2"
         />
         <Adding handleSubmit={handleSubmit} />
       </div>
@@ -267,32 +262,32 @@ const AddVehicle = () => {
 
 export default AddVehicle;
 
-
-
-
-
-
-
-{/* <input
+{
+  /* <input
           type="op"
           placeholder="Vehicle Type"
           value={type}
           onChange={(e) => setType(e.target.value)}
           required
           className="w-full p-2 border rounded"
-        /> */}
+        /> */
+}
 
-{/* <input
+{
+  /* <input
           type="text"
           placeholder="Image URL (auto-filled)"
           value={imageUrl}
           readOnly
           className="w-full p-2 border rounded bg-gray-100"
-        /> */}
-{/* <button
+        /> */
+}
+{
+  /* <button
           type="submit"
           className={`w-full p-2 text-white ${loading ? "bg-gray-400" : "bg-blue-500"} rounded`}
           disabled={loading}
         >
           {loading ? "Adding..." : "Add Vehicle"}
-        </button> */}
+        </button> */
+}

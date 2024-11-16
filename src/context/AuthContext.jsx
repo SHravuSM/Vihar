@@ -1,13 +1,17 @@
 // AuthContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth, db } from '../firebaseConfig';
-import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
-import { setDoc, doc, getDoc } from 'firebase/firestore';
-import Splendor_Plus from '../images/Bikes/Splendor Plus.png';
-import Activa_6G from '../images/Scooters/Activa 6G.png';
-import Fascino from '../images/Scooters/Fascino.png';
-import Passion_Pro from '../images/Bikes/Passion Pro.png';
-import Shine from '../images/Bikes/Shine.png';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebaseConfig";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import Splendor_Plus from "../images/Bikes/Splendor Plus.png";
+import Activa_6G from "../images/Scooters/Activa 6G.png";
+import Fascino from "../images/Scooters/Fascino.png";
+import Passion_Pro from "../images/Bikes/Passion Pro.png";
+import Shine from "../images/Bikes/Shine.png";
 
 const AuthContext = createContext();
 
@@ -19,12 +23,12 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const Vahana = {
-    "Shine": Shine,
-    "Fascino": Fascino,
+    Shine: Shine,
+    Fascino: Fascino,
     "Passion Pro": Passion_Pro,
-    "Activa 6G" : Activa_6G,
+    "Activa 6G": Activa_6G,
     "Splendor Plus": Splendor_Plus,
-  }
+  };
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -35,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         setUser(user);
 
         // Fetch the user's role from Firestore
-        const docRef = doc(db, 'users', user.uid);
+        const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setRole(docSnap.data().role); // Set role if user exists in Firestore
@@ -59,13 +63,13 @@ export const AuthProvider = ({ children }) => {
       const user = result.user;
       setUser(user);
 
-      const docRef = doc(db, 'users', user.uid);
+      const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
 
       if (!docSnap.exists()) {
         // Assign "vehicle provider" role if user doesn't already exist
-        await setDoc(docRef, { role: 'vehicle provider' });
-        setRole('vehicle provider');
+        await setDoc(docRef, { role: "vehicle provider" });
+        setRole("vehicle provider");
       } else {
         setRole(docSnap.data().role); // Set role if user exists in Firestore
       }

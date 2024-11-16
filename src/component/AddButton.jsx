@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const AddButton = () => {
   return (
     <StyledWrapper>
-      <button type="button" className=" p-0 w-36 button">
+      <button type="button" className="button w-36 p-0">
         <span className="fold" />
         <div className="points_wrapper">
           <i className="point" />
@@ -18,12 +18,25 @@ const AddButton = () => {
           <i className="point" />
           <i className="point" />
         </div>
-        <span className="inner"><svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5">
-            <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" /></svg>Add Vehicle</span>
+        <span className="inner">
+          <svg
+            className="icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.5"
+          >
+            <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37" />
+          </svg>
+          Add Vehicle
+        </span>
       </button>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .button {
@@ -244,6 +257,7 @@ const StyledWrapper = styled.div`
     to {
       fill: white;
     }
-  }`;
+  }
+`;
 
 export default AddButton;

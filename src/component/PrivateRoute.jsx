@@ -1,7 +1,7 @@
 // PrivateRoute.js
-import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { auth } from '../firebaseConfig'; // Import auth from your Firebase config
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { auth } from "../firebaseConfig"; // Import auth from your Firebase config
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const [loading, setLoading] = useState(true);
