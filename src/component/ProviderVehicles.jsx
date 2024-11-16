@@ -9,8 +9,8 @@ import {
   doc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import Loader from "../images/Loader.gif";
 import { useAuth } from "../context/AuthContext";
+import LOPA from "./LOPA.JSX";
 
 const ProviderVehicles = ({ type }) => {
   const { Vahana } = useAuth();
@@ -68,12 +68,8 @@ const ProviderVehicles = ({ type }) => {
   return (
     <div>
       {loading ? (
-        <div className="w-full rounded flex items-center justify-center shadow-[#9bb8e0]">
-          <img
-            className="h-20 duration-1000 ease-linear"
-            src={Loader}
-            alt="Loading..."
-          />
+        <div className="w-full h-80 bg-[#9bb8e062] rounded flex items-center justify-center shadow-[#9bb8e0]">
+          <LOPA />
         </div>
       ) : filteredVehicles.length === 0 ? (
         <div>No vehicles found</div>

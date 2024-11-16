@@ -168,13 +168,16 @@ const AddVehicle = () => {
   const db = getFirestore();
 
   // Fetch location automatically using Geolocation API
-  useEffect(() => {
-    LocationFetching()
-  }, []);
+  // useEffect(() => {
+  //   LocationFetching()
+  // }, []);
 
   function LocationFetching() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        
+        setLoading(true)
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
 
@@ -183,13 +186,15 @@ const AddVehicle = () => {
           `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
         )
           .then((response) => response.json())
-          .then((data) =>
-            setLocation(
-              data.address.city || data.address.town || "Unknown Location",
-            ),
-          )
-          .catch((error) =>
-            console.error("Error fetching location name:", error),
+          .then((data) => {
+            setLoading(false)
+            setLocation(data.address.city || data.address.city_district || "Unknown Location");
+            console.log(data)
+          })
+          .catch((error) => {
+            setLoading(false)
+            console.error("Error fetching location name:", error)
+          }
           );
       });
     }
@@ -310,14 +315,23 @@ const AddVehicle = () => {
           required
           className="w-full rounded border p-2"
         />
-        <input
+        {/* <input
           type="text"
           placeholder="Location"
           value={location}
-          onChange={(e) => setLocation((pre)=>LocationFetching())}
+          onChange={(e) => setLocation(e.target.value)}
           required
           className="w-full rounded border p-2"
-        />
+        /> */}
+        <button
+          type="button"
+          onClick={LocationFetching}
+          className="mt-2 w-full rounded bg-green-500 p-2 text-white hover:bg-green-600 disabled:bg-gray-400"
+          disabled={loading} // Disable while fetching
+        >
+          {loading ? "Fetching Location..." : "Use Current Location"}
+        </button>
+
         <Adding handleSubmit={handleSubmit} loading={loading} />
       </div>
     </div>
