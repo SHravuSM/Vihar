@@ -6,7 +6,7 @@ const Radio = ({ setType, type }) => {
     <StyledWrapper className="flex w-full items-center justify-center rounded-md">
       <div className="container flex h-16 w-full items-center justify-center">
         <div
-          className={`tabs ${type == "Scooter" ? "shadow-[0px_6px_12px_0px_pink]" : "shadow-[0px_5px_10px_0px_#92adde]"} text-md relative flex h-10 w-60 items-center justify-evenly gap-8 border-2`}
+          className={`tabs ${type == "Scooter" ? "shadow-[0px_6px_12px_0px_pink]" : "shadow-[0px_5px_10px_0px_#92adde]"} text-md relative flex h-12 w-60 items-center justify-evenly gap-6 `}
         >
           <input
             type="radio"
@@ -38,7 +38,7 @@ const Radio = ({ setType, type }) => {
             Cars
           </label>
           <span
-            className={`glider absolute flex h-10 w-16 ${type == "Bike" ? "bg-blue-300" : "bg-red-200"} duration-300 ease-linear`}
+            className={`glider absolute flex h-10 w-16 ${type == "Bike" ? "bg-blue-300" : "bg-red-200"} duration-300 ease-in-out`}
           />
         </div>
       </div>
@@ -109,7 +109,7 @@ const StyledWrapper = styled.div`
   }
 
   .container input[id="radio-1"]:checked ~ .glider {
-    transform: translateX(-140%);
+    transform: translateX(-130%);
   }
 
   .container input[id="radio-2"]:checked ~ .glider {
@@ -117,7 +117,7 @@ const StyledWrapper = styled.div`
   }
 
   .container input[id="radio-3"]:checked ~ .glider {
-    transform: translateX(140%);
+    transform: translateX(130%);
   }
 
   .glider {

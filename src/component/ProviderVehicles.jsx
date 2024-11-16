@@ -82,24 +82,21 @@ const ProviderVehicles = ({ type }) => {
           {filteredVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className={`flex h-32 py-5 ${
-                vehicle.type === "Bike" ? "shadow-[#9bb8e0]" : "shadow-red-200"
-              } w-full items-center justify-evenly rounded shadow-md`}
-            >
-              <div>
+              className={`grid grid-cols-[1fr_2fr] items-center px-2 h-32 ${vehicle.type === "Bike" ? "shadow-[#9bb8e0]" : "shadow-red-200"
+                } w-full rounded shadow-md`}>
+              <div className="w-32">
                 <img
                   src={
                     Vahana[vehicle.name] || "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
-                  className={`h-24 w-24 object-contain ${
-                    vehicle.type === "Bike"
-                      ? "drop-shadow-[0px_0px_50px_blue]"
-                      : "drop-shadow-[0px_0px_50px_red]"
-                  }`}
+                  className={`h-28 w-28 object-contain ${vehicle.type === "Bike"
+                    ? "drop-shadow-[0px_0px_50px_blue]"
+                    : "drop-shadow-[0px_0px_50px_red]"
+                    }`}
                 />
               </div>
-              <div className="flex w-[50%] flex-col items-center text-[12px]">
+              <div className="flex flex-col items-center text-[12px]">
                 <h3 className="text-sm font-semibold">{vehicle.name}</h3>
                 <p>{vehicle.type}</p>
                 <p>₹{vehicle.price} per day</p>

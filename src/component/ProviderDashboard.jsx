@@ -121,7 +121,7 @@ const ProviderDashboard = () => {
           <div className="mb-2 flex w-full flex-col gap-2 rounded-md">
             <div className="flex w-full items-center justify-around rounded-lg border border-[#e8e8e8] bg-[#e8e8e8] py-3 text-white shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
               <img
-                className="h-16 rounded-[50%]"
+                className="h-16 border-2 rounded-[50%]"
                 src={auth.currentUser.photoURL}
                 alt=""
               />
