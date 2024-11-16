@@ -3,18 +3,18 @@ import styled from "styled-components";
 
 const Card = ({ vehicles }) => {
   return (
-        // {vehicles.map((e, i) => {
+    // {vehicles.map((e, i) => {
     <StyledWrapper>
       <div className="card">
-          <div className="imge">
-            <div className="Usericon" />
-            <p className="UserName" />
-            <p className="Id" />
-          </div>
+        <div className="imge">
+          <div className="Usericon" />
+          <p className="UserName" />
+          <p className="Id" />
+        </div>
         <div className="Description" />
       </div>
     </StyledWrapper>
-        // })}
+    // })}
   );
 };
 

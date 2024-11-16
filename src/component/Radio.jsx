@@ -6,7 +6,7 @@ const Radio = ({ setType, type }) => {
     <StyledWrapper className="flex w-full items-center justify-center rounded-md">
       <div className="container flex h-16 w-full items-center justify-center">
         <div
-          className={`tabs ${type == "Scooter" ? "shadow-[0px_6px_12px_0px_pink]" : "shadow-[0px_5px_10px_0px_#92adde]"} text-md relative flex h-12 w-60 items-center justify-evenly gap-6 `}
+          className={`tabs ${type == "Scooter" ? "shadow-[0px_6px_12px_0px_pink]" : "shadow-[0px_5px_10px_0px_#92adde]"} text-md relative flex h-12 w-60 items-center justify-evenly gap-6`}
         >
           <input
             type="radio"

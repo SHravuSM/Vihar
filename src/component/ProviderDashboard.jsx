@@ -116,12 +116,12 @@ const ProviderDashboard = () => {
 
   return (
     <div className="relative flex max-h-full w-full flex-col items-center gap-1 p-2">
-      <div className="relative flex h-screen w-full flex-col items-center">
+      <div className="relative flex w-full flex-col items-center">
         <NavLink className="w-full" to="/provider/account" state={userRole}>
           <div className="mb-2 flex w-full flex-col gap-2 rounded-md">
             <div className="flex w-full items-center justify-around rounded-lg border border-[#e8e8e8] bg-[#e8e8e8] py-3 text-white shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
               <img
-                className="h-16 border-2 rounded-[50%]"
+                className="h-16 rounded-[50%] border-2"
                 src={auth.currentUser.photoURL}
                 alt=""
               />
@@ -163,7 +163,7 @@ const ProviderDashboard = () => {
           {/* 
         </div > */}
 
-          <div className="barbar h-[340px] w-full overflow-y-scroll rounded-md shadow-xl">
+          <div className="barbar w-full overflow-y-scroll rounded-md shadow-xl">
             <ProviderVehicles type={type} />
           </div>
         </div>

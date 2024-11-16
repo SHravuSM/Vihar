@@ -145,9 +145,6 @@
 
 // export default AddVehicle;
 
-
-
-
 import { useState, useEffect } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -158,20 +155,24 @@ import Adding from "./Adding";
 const AddVehicle = () => {
   const { Vahana } = useAuth();
   const [name, setName] = useState("");
-  const [type, setType] = useState("Bike");
   const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
+  const [type, setType] = useState("Bike");
   const [location, setLocation] = useState("");
+  const [loading, setLoading] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [description, setDescription] = useState("");
 
   const auth = getAuth();
   const db = getFirestore();
 
   // Fetch location automatically using Geolocation API
   useEffect(() => {
+    LocationFetching()
+  }, []);
+
+  function LocationFetching() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setLatitude(position.coords.latitude);
@@ -179,20 +180,26 @@ const AddVehicle = () => {
 
         // Optionally use reverse geocoding to get location name based on lat/lng
         fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
+          `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
         )
           .then((response) => response.json())
-          .then((data) => setLocation(data.address.city || data.address.town || "Unknown Location"))
-          .catch((error) => console.error("Error fetching location name:", error));
+          .then((data) =>
+            setLocation(
+              data.address.city || data.address.town || "Unknown Location",
+            ),
+          )
+          .catch((error) =>
+            console.error("Error fetching location name:", error),
+          );
       });
     }
-  }, []);
+  }
 
   const handleNameChange = (e) => {
     const input = e.target.value;
     setName(input);
     const matches = Object.keys(Vahana).filter((EV) =>
-      EV.toLowerCase().includes(input.toLowerCase())
+      EV.toLowerCase().includes(input.toLowerCase()),
     );
     setSuggestions(matches);
   };
@@ -243,7 +250,7 @@ const AddVehicle = () => {
         Add New Vehicle
       </h2>
       <img
-        className="h-36 rounded drop-shadow-[1px_1px_2px_black]"
+        className="h-36 rounded drop-shadow-[1px_1px_70px_#2b2b2b]"
         src={Vahana[name]}
         alt=""
       />
@@ -307,7 +314,7 @@ const AddVehicle = () => {
           type="text"
           placeholder="Location"
           value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          onChange={(e) => setLocation((pre)=>LocationFetching())}
           required
           className="w-full rounded border p-2"
         />

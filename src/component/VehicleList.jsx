@@ -80,17 +80,13 @@
 
 // export default VehicleList;
 
-
-
-
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Nav from "./Nav";
 import Loader from "../images/Loader.gif";
-// import Card from "./Card";
 import Radio from "./Radio";
 import { useAuth } from "../context/AuthContext";
-import GetDetails from './GetDetails';
+import GetDetails from "./GetDetails";
 
 const VehicleList = () => {
     const [vehicles, setVehicles] = useState([]);
@@ -100,7 +96,10 @@ const VehicleList = () => {
     const { Vahana } = useAuth();
 
     // To store user location
-    const [userLocation, setUserLocation] = useState({ latitude: null, longitude: null });
+    const [userLocation, setUserLocation] = useState({
+        latitude: null,
+        longitude: null,
+    });
 
     // Fetch vehicles based on user location and vehicle type
     useEffect(() => {
@@ -133,13 +132,13 @@ const VehicleList = () => {
                         userLocation.latitude,
                         userLocation.longitude,
                         a.latitude,
-                        a.longitude
+                        a.longitude,
                     );
                     const distanceB = calculateDistance(
                         userLocation.latitude,
                         userLocation.longitude,
                         b.latitude,
-                        b.longitude
+                        b.longitude,
                     );
                     return distanceA - distanceB;
                 });
@@ -160,16 +159,18 @@ const VehicleList = () => {
         const a =
             Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos((lat1 * Math.PI) / 180) *
-                Math.cos((lat2 * Math.PI) / 180) *
-                Math.sin(dLon / 2) *
-                Math.sin(dLon / 2);
+            Math.cos((lat2 * Math.PI) / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c; // Distance in km
     };
 
     return (
         <div className="flex w-full flex-col items-center gap-1 bg-white p-1">
-            <Nav />
+            <div className="w-full shadow-lg rounded-lg">
+                <Nav />
+            </div>
             <div className="flex w-full flex-col">
                 <h2 className="text-center text-xl font-bold">
                     Available Vehicles for Rent
@@ -182,17 +183,21 @@ const VehicleList = () => {
                     <img src={Loader} alt="" />
                 </div>
             ) : (
-                <div className="rounded-md grid gap-2 w-full p-1 grid-cols-2">
+                <div className="grid w-full grid-cols-2 gap-2 rounded-md p-1">
                     {vehicles.map((vehicle) => (
-                        <div key={vehicle.id} className="border h-full flex flex-col items-center w-full rounded-md">
-                            <div className=" flex p-2 items-center justify-center">
+                        <div
+                            key={vehicle.id}
+                            className="flex h-full w-full flex-col items-center rounded-md border">
+                            <div className="flex h-[60%] w-full items-center justify-center">
                                 <img
-                                    src={Vahana[vehicle.name] || "https://via.placeholder.com/150"}
+                                    src={
+                                        Vahana[vehicle.name] || "https://via.placeholder.com/150"
+                                    }
                                     alt={vehicle.name}
-                                    className="object-cover rounded"
+                                    className="rounded object-cover h-[90%]"
                                 />
                             </div>
-                            <div className={` w-full p-1 h-full ${vehicle.type === 'Bike' && 'bg-blue-300'} ${vehicle.type === 'Scooter' && 'bg-red-200'} rounded-[0_0_5px_5px] `}>
+                            <div className={`h-[40%] w-full p-1 ${vehicle.type === "Bike" && "bg-[#92adde]"} ${vehicle.type === "Scooter" && "bg-red-200"} rounded-[0_0_5px_5px]`}>
                                 <h3 className="text-sm font-semibold">{vehicle.name}</h3>
                                 <p className="text-sm">₹{vehicle.price}/day</p>
                                 <p>{vehicle.location}</p>

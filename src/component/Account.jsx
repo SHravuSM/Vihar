@@ -49,8 +49,7 @@ export default function Account() {
   };
   return (
     <div className="flex h-[100vh] flex-col items-center gap-0 p-1 pb-2">
-
-      <div className="mb-2 flex h-full w-full p-1 bg-[#e8e8e8] flex-col gap-2 rounded-md">
+      <div className="mb-2 flex h-full w-full flex-col gap-2 rounded-md bg-[#e8e8e8] p-1">
         <div className="flex w-full items-center justify-around rounded-[5px_5px_5px_5px] bg-[#e8e8e8] py-3 text-white shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
           <img
             className="h-16 rounded-[50%]"
@@ -74,7 +73,6 @@ export default function Account() {
         // </button>
 
         <AccountDelete deleteAccount={deleteAccount} />
-
       )}
     </div>
   );

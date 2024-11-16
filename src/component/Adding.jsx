@@ -41,16 +41,16 @@ const Adding = ({ handleSubmit }) => {
             </svg>
           </div>
           <p>
-            <span style={{ "--i": 0 }}>S</span>
-            <span style={{ "--i": 1 }}>e</span>
-            <span style={{ "--i": 2 }}>n</span>
-            <span style={{ "--i": 3 }}>d</span>
-            <span style={{ "--i": 4 }}>M</span>
+            <span style={{ "--i": 0 }}>A</span>
+            <span style={{ "--i": 1 }}>d</span>
+            <span style={{ "--i": 2 }}>d</span>
+            <span style={{ "--i": 3 }}></span>
+            <span style={{ "--i": 4 }}>V</span>
             <span style={{ "--i": 5 }}>e</span>
-            <span style={{ "--i": 6 }}>s</span>
-            <span style={{ "--i": 7 }}>s</span>
-            <span style={{ "--i": 8 }}>a</span>
-            <span style={{ "--i": 9 }}>g</span>
+            <span style={{ "--i": 6 }}>h</span>
+            <span style={{ "--i": 7 }}>i</span>
+            <span style={{ "--i": 8 }}>c</span>
+            <span style={{ "--i": 9 }}>l</span>
             <span style={{ "--i": 10 }}>e</span>
           </p>
         </div>
