@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const LOP = () => {
   return (
@@ -13,7 +13,7 @@ const LOP = () => {
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .container {
@@ -76,6 +76,7 @@ const StyledWrapper = styled.div`
     80% {
       opacity: 1;
     }
-  }`;
+  }
+`;
 
 export default LOP;

@@ -18,6 +18,7 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  const [inOff, setInOff] = useState(true)
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Google sign-in function
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async ({ number }) => {
     setLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
       if (!docSnap.exists()) {
         // Assign "vehicle provider" role if user doesn't already exist
-        await setDoc(docRef, { role: "vehicle provider" });
+        await setDoc(docRef, { role: "vehicle provider", mobile: number });
         setRole("vehicle provider");
       } else {
         setRole(docSnap.data().role); // Set role if user exists in Firestore
@@ -85,6 +86,8 @@ export const AuthProvider = ({ children }) => {
     role,
     loading,
     Vahana,
+    inOff,
+    setInOff,
     // Delete,
     signInWithGoogle,
   };

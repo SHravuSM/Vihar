@@ -68,18 +68,19 @@ const ProviderVehicles = ({ type }) => {
   return (
     <div>
       {loading ? (
-        <div className="w-full h-80 bg-[#9bb8e062] rounded flex items-center justify-center shadow-[#9bb8e0]">
+        <div className="flex h-80 w-full items-center justify-center rounded bg-[#9bb8e062] shadow-[#9bb8e0]">
           <LOPA />
         </div>
       ) : filteredVehicles.length === 0 ? (
-        <div>No vehicles found</div>
+        <div className="text-center">No vehicles found</div>
       ) : (
         <div className="flex flex-col gap-1 overflow-y-scroll p-2">
           {filteredVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-2 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
-                } w-full rounded shadow-md`}
+              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-2 ${
+                vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+              } w-full rounded shadow-md`}
             >
               <div className="w-32">
                 <img
@@ -87,10 +88,11 @@ const ProviderVehicles = ({ type }) => {
                     Vahana[vehicle.name] || "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
-                  className={`h-28 w-28 object-contain ${vehicle.type === "Bike"
+                  className={`h-28 w-28 object-contain ${
+                    vehicle.type === "Bike"
                       ? "drop-shadow-[0px_0px_50px_#005aeb]"
                       : "drop-shadow-[0px_0px_50px_red]"
-                    }`}
+                  }`}
                 />
               </div>
               <div className="flex flex-col items-center text-[12px]">

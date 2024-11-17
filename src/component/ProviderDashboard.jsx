@@ -20,7 +20,6 @@ import ProviderVehicles from "./ProviderVehicles";
 import Radio from "./Radio";
 import Logoff from "./Logoff";
 import Renew from "./Renew";
-import scrollbarHide from "tailwind-scrollbar-hide";
 
 const ProviderDashboard = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -115,7 +114,7 @@ const ProviderDashboard = () => {
   };
 
   return (
-    <div className="relative flex max-h-full w-full flex-col items-center gap-1 p-2">
+    <div className="relative flex max-h-full w-full flex-col items-center gap-2 p-2">
       <div className="relative flex w-full flex-col items-center">
         <NavLink className="w-full" to="/provider/account" state={userRole}>
           <div className="mb-2 flex w-full flex-col gap-2 rounded-md">
@@ -170,8 +169,9 @@ const ProviderDashboard = () => {
       </div>
 
       <div className="text-center">
-        <Logoff logout={logout} />
+        {/* <Logoff logout={logout} /> */}
         {/* Conditionally render Delete Account button based on role */}
+        <Logoff logout={logout} />
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const ConWithGoo = () => {
             d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
           />
         </svg>
-        Continue with Google
+        Log in
       </button>
     </StyledWrapper>
   );
@@ -35,9 +35,9 @@ const ConWithGoo = () => {
 
 const StyledWrapper = styled.div`
   button {
-    max-width: 320px;
+    max-width: 200px;
     display: flex;
-    padding: 0.5rem 1.4rem;
+    padding: .7rem .7rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 700;
@@ -47,7 +47,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     border-radius: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.25);
-    gap: 0.75rem;
+    gap: 0.5rem;
     color: rgb(65, 63, 63);
     background-color: #fff;
     cursor: pointer;
@@ -55,7 +55,7 @@ const StyledWrapper = styled.div`
   }
 
   .button svg {
-    height: 24px;
+    height: 20px;
   }
 
   button:hover {

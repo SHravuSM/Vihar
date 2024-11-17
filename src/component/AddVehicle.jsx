@@ -176,8 +176,8 @@ const AddVehicle = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log(position);
-        
-        setLoading(true)
+
+        setLoading(true);
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
 
@@ -187,15 +187,18 @@ const AddVehicle = () => {
         )
           .then((response) => response.json())
           .then((data) => {
-            setLoading(false)
-            setLocation(data.address.city || data.address.city_district || "Unknown Location");
-            console.log(data)
+            setLoading(false);
+            setLocation(
+              data.address.city ||
+                data.address.city_district ||
+                "Unknown Location",
+            );
+            console.log(data);
           })
           .catch((error) => {
-            setLoading(false)
-            console.error("Error fetching location name:", error)
-          }
-          );
+            setLoading(false);
+            console.error("Error fetching location name:", error);
+          });
       });
     }
   }

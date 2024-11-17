@@ -16,7 +16,7 @@ export default function Nav({ white }) {
 
   return (
     <div
-      className={`w-full lg:h-32 ${!yes ? "bg-white" : "bg-transparent"} flex items-center justify-around rounded-md sm:h-20 md:h-24 md:p-2 lg:rounded-lg lg:p-2`}
+      className={`w-full  lg:h-32 ${!yes ? "bg-white" : "bg-transparent"} flex items-center justify-around sm:h-20 md:h-24 md:p-2 lg:p-2`}
     >
       <div className="flex items-center justify-center sm:h-16 sm:w-[15%]">
         <img className="sm:h-14 md:h-24 lg:h-28" src={Shiv} alt="" />

@@ -2,10 +2,9 @@
 import React, { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Google from "../images/Google.gif";
 import ConWithGoo from "./ConWithGoo";
 
-const LoginComponent = () => {
+const LoginComponent = ({ number }) => {
   const { signInWithGoogle, role } = useAuth();
   const navigate = useNavigate();
 
@@ -18,7 +17,7 @@ const LoginComponent = () => {
   }, [role, navigate]);
 
   const handleGoogleLogin = async () => {
-    await signInWithGoogle();
+    await signInWithGoogle({ number });
   };
 
   return (
@@ -29,6 +28,9 @@ const LoginComponent = () => {
       <ConWithGoo />
     </div>
   );
+
+
+  
 };
 
 export default LoginComponent;

@@ -81,4 +81,5 @@ const StyledWrapper = styled.div`
   }
 `;
 
-export default Input;5
+export default Input;
+5;

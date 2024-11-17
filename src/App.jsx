@@ -9,12 +9,14 @@ import AddVehicle from "./component/AddVehicle";
 import ProviderVehicles from "./component/ProviderVehicles";
 import Account from "./component/Account";
 import VehicleList from "./component/VehicleList";
+import Join from './component/Join';
 
 function App() {
   return (
     <div className="flex flex-col sm:gap-1">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/join-us" element={<Join />} />
         <Route path="/vehicles" element={<VehicleList />} />
 
         <Route
