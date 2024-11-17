@@ -9,7 +9,8 @@ import AddVehicle from "./component/AddVehicle";
 import ProviderVehicles from "./component/ProviderVehicles";
 import Account from "./component/Account";
 import VehicleList from "./component/VehicleList";
-import Join from './component/Join';
+import Join from "./component/Join";
+import NotFound from "./component/NotFound";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="add-vehicle" element={<AddVehicle />} />
           <Route path="account" element={<Account />} />
           <Route path="provider-vehicles" element={<ProviderVehicles />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>

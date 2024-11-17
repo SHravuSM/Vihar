@@ -37,7 +37,7 @@ const StyledWrapper = styled.div`
   button {
     max-width: 200px;
     display: flex;
-    padding: .7rem .7rem;
+    padding: 0.7rem 0.7rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 700;

@@ -12,16 +12,19 @@ import Activa_6G from "../images/Scooters/Activa 6G.png";
 import Fascino from "../images/Scooters/Fascino.png";
 import Passion_Pro from "../images/Bikes/Passion Pro.png";
 import Shine from "../images/Bikes/Shine.png";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [inOff, setInOff] = useState(true)
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+  const [inOff, setInOff] = useState(true);
   const [loading, setLoading] = useState(true);
+  const googleProvider = new GoogleAuthProvider();
 
   const Vahana = {
     Shine: Shine,
@@ -31,21 +34,17 @@ export const AuthProvider = ({ children }) => {
     "Splendor Plus": Splendor_Plus,
   };
 
-  const googleProvider = new GoogleAuthProvider();
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
       if (user) {
         setUser(user);
-
-        // Fetch the user's role from Firestore
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setRole(docSnap.data().role); // Set role if user exists in Firestore
+          setRole(docSnap.data().role);
         } else {
-          setRole(null); // No role found
+          setRole(null);
         }
       } else {
         setUser(null);
@@ -56,40 +55,48 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  // Google sign-in function
-  const signInWithGoogle = async ({ number }) => {
-    setLoading(true);
+  const handleRegister = async (number) => {
+    if (number.length !== 10) {
+      alert("Please enter a valid 10-digit mobile number.");
+      return;
+    }
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      setUser(user);
-
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+      const { uid, displayName, email, photoURL } = user;
+      const userRef = doc(db, "users", uid);
+      const docSnap = await getDoc(userRef);
 
       if (!docSnap.exists()) {
-        // Assign "vehicle provider" role if user doesn't already exist
-        await setDoc(docRef, { role: "vehicle provider", mobile: number });
-        setRole("vehicle provider");
+        await setDoc(userRef, {
+          mobile: number,
+          role: "vehicle provider",
+          name: displayName || "N/A",
+          email: email || "N/A",
+          photoURL: photoURL || null,
+          createdAt: new Date().toISOString(),
+        });
+        navigate("/provider");
       } else {
-        setRole(docSnap.data().role); // Set role if user exists in Firestore
+        alert("You are already registered. Please log in.");
       }
     } catch (error) {
-      //console.error("Google sign-in error:", error);
-    } finally {
-      setLoading(false);
+      console.error("Error during registration:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
   const value = {
     user,
+    auth,
+    googleProvider,
     role,
     loading,
     Vahana,
     inOff,
     setInOff,
-    // Delete,
-    signInWithGoogle,
+    handleRegister,
   };
 
   return (

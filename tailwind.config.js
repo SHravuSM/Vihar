@@ -4,7 +4,7 @@ export default {
   theme: {
     screens: {
       // Minimum width of 500px and maximum width of 767px
-      sm: { min: "319px", max: "430px" },
+      sm: { min: "319px", max: "431px" },
 
       // Minimum width of 768px and maximum width of 1023px
       md: { min: "431px", max: "900px" },

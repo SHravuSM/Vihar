@@ -1,13 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const GetStarted = () => {
-    return (
-        <StyledWrapper>
-            <pre className="sm:text-sm btn-shine"><p>Join to Get Started &</p> List your<span className='sm:text-xl text-black'>🚲</span>Today.</pre>
-        </StyledWrapper>
-    );
-}
+  return (
+    <StyledWrapper>
+      <p className="btn-shine sm:text-sm">
+        Join to Get Started & List your
+        <span className="text-black sm:text-xl">🚲</span>Today.
+      </p>
+    </StyledWrapper>
+  );
+};
 
 const StyledWrapper = styled.div`
   .btn-shine {
@@ -74,6 +77,7 @@ const StyledWrapper = styled.div`
     100% {
       background-position: 120px;
     }
-  }`;
+  }
+`;
 
 export default GetStarted;
