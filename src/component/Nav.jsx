@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Shiv from "../images/Shiv.png";
 import profile from "../images/Profile.png";
+import van from "../images/Vehicle.gif";
+import home from "../images/Home.png";
 import { useAuth } from "../context/AuthContext";
 import { auth } from "../firebaseConfig";
-import Input from "./Input";
 
 export default function Nav({ white }) {
   const { user } = useAuth();
@@ -15,34 +16,38 @@ export default function Nav({ white }) {
   }, [white]);
 
   return (
-    <div
-      className={`w-full lg:h-32 ${!yes ? "bg-white" : "bg-transparent"} flex items-center justify-around sm:h-20 md:h-24 md:p-2 lg:p-2`}
-    >
-      <div className="flex items-center justify-center sm:h-16 sm:w-[15%]">
-        <img className="sm:h-14 md:h-24 lg:h-28" src={Shiv} alt="" />
+    <div className={`w-full lg:h-32 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-transparent"}  flex items-center justify-evenly sm:h-32 md:h-24 md:p-2 lg:p-2`}>
+
+      <div className="flex items-center justify-center sm:w-[20%] border-white">
+        <img className="sm:w-12 md:h-24 lg:h-28" src={Shiv} alt="" />
       </div>
 
-      <div className="flex items-center sm:w-[84%] sm:justify-evenly lg:gap-80">
-        <Input />
-        <div
-          className={`flex font-semibold sm:h-10 sm:justify-center sm:text-[14px] md:w-72 md:text-[10px] lg:max-w-max lg:pr-8 lg:text-[18px] ${!yes ? "text-black" : "text-white"} items-center sm:w-32 sm:gap-3 md:gap-5 lg:gap-8 lg:p-2`}
-        >
-          <NavLink to="/">Home</NavLink>
-          {!auth?.currentUser && (
+      <div className='flex bg-none lg:h-10 md:h-8 sm:h-10 border-2 sm:w-[45%] md:w-64 rounded-md items-center '>
+        <input className='sm:w-full rounded-md border bg-none bg-transparent border-blue-300 duration-1000 ease-in-out h-full lg:pl-2 md:pl-2 sm:pl-3 lg:text-xl md:text-xl sm:text-sm text-white placeholder:text-white lg:placeholder:text-lg md:placeholder:text-lg sm:placeholder:text-[17px] sm:rounded-sm' type="text" placeholder='Search here' />
+      </div>
+      <div>
+
+      </div>
+      <div
+        className={`flex font-semibold sm:w-[32%] sm:h-full items-center justify-evenly sm:pl-1 border-red-500 md:w-72 md:text-[10px] lg:max-w-max lg:pr-8 lg:text-[18px] sm:gap-1 sm:p-0 md:gap-5 lg:gap-8 lg:p-2`}>
+        <div className=" h-full pt-6">
+          <NavLink to="/">
+            <img className="h-10" src={home} alt="" />
+          </NavLink>
+        </div>
+        <div className="h-full pt-8">
+          {!auth?.currentUser ?
             <NavLink
               to="/vehicles"
               className={({ isActive }) =>
-                isActive ? "cursor-pointer text-orange-500" : "cursor-pointer"
+                isActive ? "cursor-pointer  text-orange-500" : "cursor-pointer"
               }
             >
-              Vehicles
-            </NavLink>
-          )}
-          {user != null && (
-            <NavLink
+              <img className="h-10 self-baseline " src={van} alt="" />
+            </NavLink> : <NavLink
               to="/provider"
               className={({ isActive }) =>
-                isActive ? "cursor-pointer text-orange-500" : "cursor-pointer"
+                isActive ? "cursor-pointer  text-orange-500" : "cursor-pointer"
               }
             >
               <img
@@ -50,10 +55,11 @@ export default function Nav({ white }) {
                 src={profile}
                 alt="Profile"
               />
-            </NavLink>
-          )}
+            </NavLink>}
         </div>
       </div>
+
     </div>
+    // </div>
   );
 }

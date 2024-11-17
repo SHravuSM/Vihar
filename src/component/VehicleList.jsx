@@ -77,31 +77,29 @@ const VehicleList = () => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c; // Distance in km
   };
 
   return (
-    <div className="flex w-full flex-col items-center gap-1 bg-white">
-      <div className="w-full rounded-lg shadow-lg">
-        <Nav />
-      </div>
+    <div className="flex w-full h-full pt-4 flex-col items-center gap-2">
+
       <div className="flex w-full flex-col">
         <h2 className="text-center text-xl font-bold">
           Available Vehicles for Rent
         </h2>
-        <Radio type={type} setType={setType} />
       </div>
+      <Radio type={type} setType={setType} />
 
       {loading ? (
         <div className="flex h-[70vh] w-full items-center justify-center">
           <img src={Loader} alt="" />
         </div>
       ) : (
-        <div className="grid w-full grid-cols-2 gap-1 rounded-md p-2">
+        <div className="grid w-full grid-cols-2 gap-2 h-full rounded-md p-2">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}

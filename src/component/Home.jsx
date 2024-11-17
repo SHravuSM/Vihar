@@ -12,7 +12,7 @@ export default function Home() {
       <Nav white={true} />
       <div className="h-full w-full"></div>
       {!auth.currentUser && (
-        <div className="flex w-full flex-col items-center justify-around gap-2 border bg-gradient-to-b from-transparent to-black p-2">
+        <div className="flex w-full flex-col items-center justify-around gap-2 bg-gradient-to-b from-transparent to-black pb-3">
           <GetStarted />
           <div className="flex w-full items-center justify-around">
             <NavLink to="/join-us">
