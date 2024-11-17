@@ -34,8 +34,8 @@ function App() {
           <Route path="add-vehicle" element={<AddVehicle />} />
           <Route path="account" element={<Account />} />
           <Route path="provider-vehicles" element={<ProviderVehicles />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
