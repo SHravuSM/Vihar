@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
-import LOPA from "./LOPA.JSX";
+import LOPA from './LOPA';
 
 const ProviderVehicles = ({ type }) => {
   const { Vahana } = useAuth();
