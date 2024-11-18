@@ -27,7 +27,7 @@ const StyledWrapper = styled.div`
     animation: shine 3s infinite linear;
     animation-fill-mode: forwards;
     -webkit-text-size-adjust: none;
-    font-weight: lighter;
+    font-weight: normal;
     /* width: 10px; */
     /* font-size: 16px; */
     text-decoration: none;
