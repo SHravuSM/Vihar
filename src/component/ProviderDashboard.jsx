@@ -19,11 +19,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import ProviderVehicles from "./ProviderVehicles";
 import Radio from "./Radio";
 import Logoff from "./Logoff";
-import Add from './Add';
+import Add from "./Add";
 import Renewal from "./Renewal";
 
 const ProviderDashboard = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [vehicles, setVehicles] = useState([]);
   const [newVehicle, setNewVehicle] = useState({
     name: "",
@@ -37,28 +37,9 @@ const ProviderDashboard = () => {
   const vehiclesCollectionRef = collection(db, "vehicles");
   const [type, setType] = useState("Bike");
 
-  const reauthenticateWithGoogle = async () => {
-    const user = auth.currentUser;
-
-    if (!user) {
-      alert("No user is logged in.");
-      return;
-    }
-
-    try {
-      const provider = new GoogleAuthProvider();
-      await reauthenticateWithPopup(user, provider);
-      alert("Reauthenticated successfully.");
-    } catch (error) {
-      ////console.error("Reauthentication Error:", error);
-      alert("Error reauthenticating.");
-    }
-  };
-  // Check user role
   useEffect(() => {
     const checkUserRole = async () => {
       const user = auth.currentUser;
-      // ////console.log(user);
 
       if (user) {
         const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -85,41 +66,20 @@ const ProviderDashboard = () => {
     return await getDownloadURL(imageRef);
   };
 
-  const deleteVehicle = async (id) => {
-    const vehicleDoc = doc(db, "vehicles", id);
-    // reauthenticateWithGoogle();
-    await deleteDoc(vehicleDoc);
-    setVehicles(vehicles.filter((vehicle) => vehicle.id !== id));
-  };
-
   const logout = async () => {
     setTimeout(() => {
       try {
-        signOut(auth).then(() => window.location.href = "/") // Redirects to login page
+        signOut(auth).then(() => (window.location.href = "/")); // Redirects to login page
       } catch (error) {
         console.error("Logout Error:", error);
       }
     }, 200);
   };
 
-  const deleteAccount = async () => {
-    const user = auth.currentUser;
-    if (!user) {
-      alert("No user is logged in.");
-      return;
-    }
-    const provider = new GoogleAuthProvider();
-    await reauthenticateWithPopup(user, provider);
-    alert("Reauthenticated successfully.");
-    await deleteUser(user);
-    window.location.href = "/";
-    alert("Account deleted successfully.");
-  };
-
   return (
     <div className="relative flex max-h-full w-full flex-col items-center gap-2 p-2">
       <div className="relative flex w-full flex-col items-center">
-        <NavLink className="w-full" to="/provider/account" state={userRole}>
+        <NavLink className="w-full" to="/provider/account">
           <div className="mb-2 flex w-full flex-col gap-2 rounded-md">
             <div className="flex w-full items-center justify-around rounded-lg border border-[#e8e8e8] bg-white py-3 shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
               <img
@@ -135,18 +95,26 @@ const ProviderDashboard = () => {
             </div>
           </div>
         </NavLink>
-        <div className="flex w-full items-center flex-col gap-2 px-4 py-2">
+        <div className="flex w-full flex-col items-center gap-2 px-4 py-2">
           <h2 className="mb-1 text-center text-2xl font-semibold">
             Your Vehicle Listings
           </h2>
           <div className="flex items-center gap-2">
-            <div onClick={() => setTimeout(() => navigate('/provider/add-vehicle'), 400)}>
+            <div
+              onClick={() =>
+                setTimeout(() => navigate("/provider/add-vehicle"), 400)
+              }
+            >
               <Add />
             </div>
             {/* <NavLink to="/provider/account">
               <Renew />
             </NavLink> */}
-            <div onClick={() => setTimeout(() => navigate('/provider/account'), 400)}>
+            <div
+              onClick={() =>
+                setTimeout(() => navigate("/provider/account"), 400)
+              }
+            >
               <Renewal />
             </div>
           </div>

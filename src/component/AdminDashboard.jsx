@@ -27,18 +27,18 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl font-bold mb-6">Admin Dashboard</h2>
+      <h2 className="mb-6 text-3xl font-bold">Admin Dashboard</h2>
       {/* Dashboard Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <div className="bg-blue-500 text-white p-4 rounded shadow">
+      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="rounded bg-blue-500 p-4 text-white shadow">
           <h3 className="text-xl font-semibold">Total Vehicles</h3>
           <p className="text-2xl">{totalVehicles}</p>
         </div>
-        <div className="bg-green-500 text-white p-4 rounded shadow">
+        <div className="rounded bg-green-500 p-4 text-white shadow">
           <h3 className="text-xl font-semibold">Total Users</h3>
           <p className="text-2xl">{totalUsers}</p>
         </div>
-        <div className="bg-purple-500 text-white p-4 rounded shadow">
+        <div className="rounded bg-purple-500 p-4 text-white shadow">
           <h3 className="text-xl font-semibold">Manage</h3>
           <div>
             <Link

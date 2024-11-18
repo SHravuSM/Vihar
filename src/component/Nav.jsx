@@ -1,66 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import Shiv from "../images/Vihar.png";
-import profile from "../images/Profile.png";
-import van from "../images/Vehicle.gif";
 import home from "../images/Home.png";
-import { useAuth } from "../context/AuthContext";
+import Shiv from "../images/Vihar.png";
+import van from "../images/Vehicle.gif";
 import { auth } from "../firebaseConfig";
+import { NavLink } from "react-router-dom";
+import profile from "../images/Profile.png";
+import { useEffect } from "react";
 
-export default function Nav({ white }) {
-  const { user } = useAuth();
-  const [yes, No] = useState();
-
-  useEffect(() => {
-    No(white);
-  }, [white]);
-
+export default function Nav() {
   return (
-    <div className={`rounded-[5px] w-full h-24 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-transparent"} flex items-center justify-around shadow-[1px_1px_8px_#4d1601]`}>
-
-
-      <div className="flex items-center justify-center sm:w-[20%] border-white">
-        <img className="sm:w-12 md:h-24 lg:h-28 rounded-lg drop-shadow-[1px_1px_2px_#ffffff]" src={Shiv} alt="" />
+    <div
+      className={`h-24 w-full rounded-[5px] bg-transparent flex items-center justify-around shadow-[1px_1px_8px_#4d1601]`}
+    >
+      <div className="flex items-center justify-center border-white sm:w-[20%]">
+        <img
+          className="rounded-lg drop-shadow-[1px_1px_2px_#ffffff] sm:w-12 md:h-24 lg:h-28"
+          src={Shiv}
+          alt=""
+        />
       </div>
 
-      <div className='flex lg:h-10 bg-transparent shadow-[1px_1px_4px_#fde4c3] md:h-8 sm:h-10 sm:w-[45%] md:w-64 rounded-md items-center '>
-        <input className='sm:w-full duration-1000 ease-in-out bg-transparent font-normal h-full lg:pl-2 md:pl-2 sm:pl-3 lg:text-xl md:text-xl sm:text-lg text-white placeholder:text-white lg:placeholder:text-lg md:placeholder:text-lg sm:placeholder:text-[17px] sm:placeholder:font-light sm:rounded-sm' type="text" placeholder='Search here' />
+      <div className="flex items-center rounded-md bg-transparent shadow-[1px_1px_4px_#fde4c3] sm:h-10 sm:w-[45%] md:h-8 md:w-64 lg:h-10">
+        <input
+          className="h-full bg-transparent font-normal text-white duration-1000 ease-in-out placeholder:text-white sm:w-full sm:rounded-sm sm:pl-3 sm:text-lg sm:placeholder:text-[17px] sm:placeholder:font-light md:pl-2 md:text-xl md:placeholder:text-lg lg:pl-2 lg:text-xl lg:placeholder:text-lg"
+          type="text"
+          placeholder="Search here"
+        />
       </div>
-      <div>
-
-      </div>
+      <div></div>
       <div
-        className={`flex font-semibold sm:w-[32%] sm:h-full  items-center justify-evenly border-red-500 md:w-72 md:text-[10px] lg:max-w-max lg:pr-8 lg:text-[18px] sm:gap-1 sm:p-0 md:gap-5 lg:gap-8 lg:p-2`}>
-        <div className="  border-blue-500">
+        className={`flex items-center justify-evenly border-red-500 font-semibold sm:h-full sm:w-[32%] sm:gap-1 sm:p-0 md:w-72 md:gap-5 md:text-[10px] lg:max-w-max lg:gap-8 lg:p-2 lg:pr-8 lg:text-[18px]`}
+      >
+        <div className="border-blue-500">
           <NavLink to="/">
             <img className="h-8" src={home} alt="" />
           </NavLink>
         </div>
-        <div className="  border-blue-500">
-          {!auth?.currentUser ?
-            <NavLink
-              to="/vehicles"
-              className={({ isActive }) =>
-                isActive ? "cursor-pointer  text-orange-500" : "cursor-pointer"
-              }
-            >
-              <img className="h-8 self-baseline " src={van} alt="" />
-            </NavLink> : <NavLink
-              to="/provider"
-              className={({ isActive }) =>
-                isActive ? "cursor-pointer  text-orange-500" : "cursor-pointer"
-              }
-            >
-              <img
-                className="sm:h-10 lg:h-14 lg:w-14"
-                src={profile}
-                alt="Profile"
-              />
-            </NavLink>}
+        <div className="border-blue-500">
+          <NavLink
+            to="/vehicles"
+            className={({ isActive }) =>
+              isActive ? "cursor-pointer text-orange-500" : "cursor-pointer"
+            }>
+            <img className="h-8 self-baseline" src={van} alt="" />
+          </NavLink>
         </div>
       </div>
-
-    </div>
-    // </div>
+    </div >
   );
 }

@@ -16,6 +16,7 @@ import {
 import AccountDelete from "./AccountDelete";
 
 export default function Account() {
+
   const handleDelete = async (user) => {
     const vehiclesRef = collection(db, "vehicles");
     const q = query(vehiclesRef, where("providerId", "==", user));
@@ -26,7 +27,6 @@ export default function Account() {
       );
       await Promise.all(deletePromises);
       await deleteDoc(doc(db, "users", user));
-      // alert("User and their vehicles deleted successfully");
     } catch (error) {
       console.error("Error deleting user or vehicles:", error);
       alert("Failed to delete user or vehicles. Please try again.");
@@ -42,10 +42,13 @@ export default function Account() {
     const provider = new GoogleAuthProvider();
     await reauthenticateWithPopup(user, provider);
     alert("Reauthenticated successfully.");
-    await handleDelete(user.uid);
-    await deleteUser(user);
-    window.location.href = "/";
-    alert("Account deleted successfully.");
+    const res = confirm('Do you want to Delete your account');
+    if (res) {
+      await handleDelete(user.uid);
+      await deleteUser(user);
+      window.location.href = "/";
+      alert("Account deleted successfully.");
+    }
   };
   return (
     <div className="flex h-[100vh] flex-col items-center gap-0 p-1 pb-2">
@@ -63,17 +66,7 @@ export default function Account() {
           </div>
         </div>
       </div>
-
-      {auth?.currentUser?.displayName && (
-        // <button
-        //   onClick={deleteAccount}
-        //   className="h-[7vh] w-full rounded bg-red-600 p-2 text-white hover:bg-red-700"
-        // >
-        //   Delete Account
-        // </button>
-
-        <AccountDelete deleteAccount={deleteAccount} />
-      )}
+      <AccountDelete deleteAccount={deleteAccount} />
     </div>
   );
 }

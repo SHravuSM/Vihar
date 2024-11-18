@@ -343,15 +343,12 @@
 
 // export default AddVehicle;
 
-
-
-
-import { useState, useEffect } from "react";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { useAuth } from "../context/AuthContext";
-import Rupee from "../images/Rupee.png";
 import Adding from "./Adding";
+import Rupee from "../images/Rupee.png";
+import { getAuth } from "firebase/auth";
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const AddVehicle = () => {
   const { Vahana } = useAuth();
@@ -384,8 +381,8 @@ const AddVehicle = () => {
             setLoading(false);
             setLocation(
               data.address.city ||
-                data.address.city_district ||
-                "Unknown Location",
+              data.address.city_district ||
+              "Unknown Location",
             );
           })
           .catch((error) => {

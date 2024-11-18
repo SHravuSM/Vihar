@@ -117,55 +117,8 @@ const ProviderVehicles = ({ type }) => {
 
 export default ProviderVehicles;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <div className="flex flex-col gap-1 overflow-y-scroll p-2">
+{
+  /* <div className="flex flex-col gap-1 overflow-y-scroll p-2">
           {filteredVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
@@ -200,4 +153,5 @@ export default ProviderVehicles;
               </div>
             </div>
           ))}
-        </div> */}
+        </div> */
+}

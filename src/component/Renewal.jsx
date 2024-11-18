@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Renew from './Renewal';
+import Renew from "./Renewal";
 
 const Renewal = () => {
   return (
@@ -31,11 +31,11 @@ const StyledWrapper = styled.div`
     color: white;
     background-color: rgb(15, 15, 15);
     font-weight: 500;
-    letter-spacing: .5px;
-    border-radius: .15rem;
-    font-size: .7rem;
-    line-height: .8rem;
-    padding: .5em;
+    letter-spacing: 0.5px;
+    border-radius: 0.15rem;
+    font-size: 0.7rem;
+    line-height: 0.8rem;
+    padding: 0.5em;
     cursor: pointer;
     // width: 100px;
     // height: 50px;

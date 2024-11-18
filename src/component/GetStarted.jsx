@@ -32,7 +32,8 @@ const StyledWrapper = styled.div`
     /* font-size: 16px; */
     text-decoration: none;
     white-space: nowrap;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+      "Lucida Sans", Arial, sans-serif;
   }
   @-moz-keyframes shine {
     0% {

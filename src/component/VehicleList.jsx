@@ -162,7 +162,6 @@
 
 // export default VehicleList;
 
-
 import React, { useState, useEffect, useRef } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Radio from "./Radio";
@@ -190,7 +189,6 @@ const VehicleList = () => {
     const fetchVehicles = async () => {
       const vehiclesRef = collection(db, "vehicles");
       const querySnapshot = await getDocs(vehiclesRef);
-
       const vehiclesList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -235,23 +233,19 @@ const VehicleList = () => {
   // Navigate to the previous image
   const previousImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0
-        ? Vahana[selectedVehicle.name].length - 1
-        : prevIndex - 1
+      prevIndex === 0 ? Vahana[selectedVehicle.name].length - 1 : prevIndex - 1,
     );
   };
 
   // Navigate to the next image
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === Vahana[selectedVehicle.name].length - 1
-        ? 0
-        : prevIndex + 1
+      prevIndex === Vahana[selectedVehicle.name].length - 1 ? 0 : prevIndex + 1,
     );
   };
 
   return (
-    <div className="flex h-screen w-full flex-col items-center pt-4 p-1 gap-3">
+    <div className="flex h-screen w-full flex-col items-center gap-3 p-1 pt-4">
       <div className="flex w-full flex-col">
         <h2 className="text-center text-xl font-bold">
           Available Vehicles for Rent
@@ -260,22 +254,23 @@ const VehicleList = () => {
       <Radio type={type} setType={setType} />
 
       {loading ? (
-        <div className="flex h-[80vh] p-2 w-full items-center justify-center rounded shadow-[#9bb8e0]">
+        <div className="flex h-[80vh] w-full items-center justify-center rounded p-2 shadow-[#9bb8e0]">
           <LOPA />
         </div>
       ) : (
-        <div className="flex h-full gap-3 w-full flex-col p-2">
+        <div className="flex h-full w-full flex-col gap-3 p-2">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-1  ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-1 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
                 } w-full rounded shadow-md`}
               onClick={() => openModal(vehicle)} // Open modal on click
             >
               <div className="w-28">
                 <img
                   src={
-                    Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"
+                    Vahana[vehicle.name]?.[0] ||
+                    "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
                   className={`h-24 object-contain ${vehicle.type === "Bike"
@@ -284,7 +279,7 @@ const VehicleList = () => {
                     }`}
                 />
               </div>
-              <div className="flex flex-col items-start p-1 relative text-[12px] h-full">
+              <div className="relative flex h-full flex-col items-start p-1 text-[12px]">
                 <h3 className="text-lg font-light">{vehicle.name}</h3>
                 <p className="text-sm">₹{vehicle.price}/day</p>
                 <p>{vehicle.location}</p>
@@ -296,26 +291,28 @@ const VehicleList = () => {
 
       {/* Modal */}
       {showModal && selectedVehicle && (
-        <div className="fixed inset-0 p-6 w-full flex items-center justify-center bg-gray-400 bg-opacity-50 transition-all duration-300">
+        <div className="fixed inset-0 flex w-full items-center justify-center bg-gray-400 bg-opacity-50 p-6 transition-all duration-300">
           <div
             ref={modalRef} // Attach ref to the modal content
-            className="p-5 pt-3 rounded-lg w-full md:w-1/2 lg:w-1/3 bg-white transform transition-all duration-500 ease-in-out shadow-[0px_0px_100px_white,1px_1px_8px_black] max-h-max"
+            className="max-h-max w-full transform rounded-lg bg-white p-5 pt-3 shadow-[0px_0px_100px_white,1px_1px_8px_black] transition-all duration-500 ease-in-out md:w-1/2 lg:w-1/3"
           >
             {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-3xl text-gray-600 hover:text-black"
+              className="absolute right-2 top-2 text-3xl text-gray-600 hover:text-black"
             >
               <img className="h-6" src={Close} alt="Close" />
             </button>
 
-            <h2 className="text-3xl text-center font-normal">{selectedVehicle.name}</h2>
+            <h2 className="text-center text-3xl font-normal">
+              {selectedVehicle.name}
+            </h2>
 
-            <div className="relative w-full flex items-center justify-center mb-1">
+            <div className="relative mb-1 flex w-full items-center justify-center">
               {/* Previous Button */}
               <button
                 onClick={previousImage}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-transparent rounded-full p-2 "
+                className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-transparent p-2"
               >
                 <img className="h-7 w-3" src={left} alt="" />
               </button>
@@ -328,14 +325,16 @@ const VehicleList = () => {
                     "https://via.placeholder.com/150"
                   }
                   alt={selectedVehicle.name}
-                  className="w-48 h-48 object-contain mx-auto mt-2 mb-1"
+                  className="mx-auto mb-1 mt-2 h-48 w-48 object-contain"
                 />
                 <div className="flex w-full items-center justify-center space-x-2">
                   {Vahana[selectedVehicle.name]?.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-3 h-3 rounded-full ${currentImageIndex === index ? "bg-blue-500" : "bg-gray-300"
+                      className={`h-3 w-3 rounded-full ${currentImageIndex === index
+                        ? "bg-blue-500"
+                        : "bg-gray-300"
                         } transition-all duration-300`}
                     ></button>
                   ))}
@@ -345,7 +344,7 @@ const VehicleList = () => {
               {/* Next Button */}
               <button
                 onClick={nextImage}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent rounded-full p-2 "
+                className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-transparent p-2"
               >
                 <img className="h-7 w-3" src={right} alt="" />
               </button>
@@ -353,7 +352,9 @@ const VehicleList = () => {
 
             <div className="space-y-4">
               <p className="text-xl">{selectedVehicle.description}</p>
-              <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
+              <p className="text-lg font-semibold">
+                ₹{selectedVehicle.price}/day
+              </p>
             </div>
           </div>
         </div>

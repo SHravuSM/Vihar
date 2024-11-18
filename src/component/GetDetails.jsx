@@ -4,7 +4,9 @@ import styled from "styled-components";
 const GetDetails = ({ type }) => {
   return (
     <StyledWrapper>
-      <button className={`button absolute bottom-1 ${type == "Bike" ? "bg-[#85a3dc]" : 'bg-red-300'}`}>
+      <button
+        className={`button absolute bottom-1 ${type == "Bike" ? "bg-[#85a3dc]" : "bg-red-300"}`}
+      >
         <svg
           viewBox="0 0 16 16"
           className="bi bi-cart-check"

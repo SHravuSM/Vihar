@@ -36,7 +36,6 @@ import {
   deleteUser,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut,
 } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig"; // Firebase setup
@@ -58,15 +57,13 @@ const LoginComponent = () => {
 
         if (userData.role === "vehicle provider") navigate("/provider");
         else if (userData.role === "admin") navigate("/admin");
-        else "nothing";
+        else navigate('/');
       } else {
-        // await signOut(auth);
         await deleteUser(user);
         navigate("/join-us");
       }
     } catch (error) {
       console.error("Login failed:", error.message);
-      setErrorMessage("Login failed. Please try again.");
     }
   };
 

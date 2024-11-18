@@ -4,7 +4,7 @@ import { getDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebaseConfig"; // Firebase configuration
 
-export default function AdminRoute({ children }){
+export default function AdminRoute({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
@@ -27,4 +27,4 @@ export default function AdminRoute({ children }){
   }, [navigate]);
 
   return isAdmin ? children : null; // Only render children if the user is an admin
-};
+}

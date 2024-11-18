@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 const ManageUsers = () => {
@@ -28,9 +35,7 @@ const ManageUsers = () => {
       role: role,
     });
     setUsers(
-      users.map((user) =>
-        user.id === id ? { ...user, role: role } : user
-      )
+      users.map((user) => (user.id === id ? { ...user, role: role } : user)),
     );
   };
 
@@ -38,27 +43,32 @@ const ManageUsers = () => {
   const handleDelete = async (id) => {
     const userRef = doc(db, "users", id);
     await deleteDoc(userRef);
-    setUsers(users.filter(user => user.id !== id)); // Update UI after delete
+    setUsers(users.filter((user) => user.id !== id)); // Update UI after delete
   };
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl font-bold mb-6">Manage Users</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 className="mb-6 text-3xl font-bold">Manage Users</h2>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {users.map((user) => (
-          <div key={user.id} className="bg-white p-4 rounded shadow">
+          <div key={user.id} className="rounded bg-white p-4 shadow">
             <h3 className="font-semibold">{user.name}</h3>
             <p>{user.email}</p>
             <p>Role: {user.role}</p>
             <button
-              onClick={() => handleChangeRole(user.id, user.role === "admin" ? "vehicle provider" : "admin")}
-              className="text-blue-500 hover:text-blue-700 ml-2"
+              onClick={() =>
+                handleChangeRole(
+                  user.id,
+                  user.role === "admin" ? "vehicle provider" : "admin",
+                )
+              }
+              className="ml-2 text-blue-500 hover:text-blue-700"
             >
               Toggle Role
             </button>
             <button
               onClick={() => handleDelete(user.id)}
-              className="text-red-500 hover:text-red-700 ml-2"
+              className="ml-2 text-red-500 hover:text-red-700"
             >
               Delete
             </button>
