@@ -8,7 +8,7 @@ import GetStarted from "./GetStarted";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center bg-[url('../src/images/Hampi7.png')] bg-cover bg-center">
+    <div className="flex h-screen flex-col items-center p-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center">
       <Nav white={true} />
       <div className="h-full w-full"></div>
       {!auth.currentUser && (

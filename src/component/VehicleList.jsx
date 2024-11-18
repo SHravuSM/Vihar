@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Nav from "./Nav";
-import Loader from "../images/Globe1.gif";
+import Loader from "../images/Globe.gif";
 import Radio from "./Radio";
 import { useAuth } from "../context/AuthContext";
 import GetDetails from "./GetDetails";
@@ -77,16 +77,15 @@ const VehicleList = () => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c; // Distance in km
   };
 
   return (
-    <div className="flex w-full h-full pt-4 flex-col items-center gap-2">
-
+    <div className="flex h-full w-full flex-col items-center gap-2 pt-4">
       <div className="flex w-full flex-col">
         <h2 className="text-center text-xl font-bold">
           Available Vehicles for Rent
@@ -95,11 +94,11 @@ const VehicleList = () => {
       <Radio type={type} setType={setType} />
 
       {loading ? (
-        <div className="flex h-[70vh] w-full items-center justify-center">
-          <img src={Loader} alt="" />
+        <div className="flex h-[50vh] w-full items-center justify-center p-2">
+          <img src={Loader} className="h-full" alt="" />
         </div>
       ) : (
-        <div className="grid w-full grid-cols-2 gap-2 h-full rounded-md p-2">
+        <div className="grid h-full w-full grid-cols-2 gap-2 rounded-md p-2">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}

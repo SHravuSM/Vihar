@@ -32,13 +32,17 @@
 // export default LoginComponent;
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  deleteUser,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig"; // Firebase setup
 import ConWithGoo from "./ConWithGoo"; // Google login button component
 
 const LoginComponent = () => {
-
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
@@ -52,11 +56,10 @@ const LoginComponent = () => {
       if (docSnap.exists()) {
         const userData = docSnap.data();
 
-        if (userData.role === "vehicle provider") navigate("/provider")
-        else if (userData.role === "admin") navigate("/admin")
-        else ('nothing')
-      }
-      else {
+        if (userData.role === "vehicle provider") navigate("/provider");
+        else if (userData.role === "admin") navigate("/admin");
+        else "nothing";
+      } else {
         // await signOut(auth);
         await deleteUser(user);
         navigate("/join-us");
@@ -69,7 +72,10 @@ const LoginComponent = () => {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div onClick={handleGoogleLogin} className="flex cursor-pointer items-center gap-0 rounded shadow-md">
+      <div
+        onClick={handleGoogleLogin}
+        className="flex cursor-pointer items-center gap-0 rounded shadow-md"
+      >
         <ConWithGoo />
       </div>
     </div>
