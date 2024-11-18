@@ -64,17 +64,3 @@ export default function Nav({ white }) {
     // </div>
   );
 }
-
-
-
-
-
-
-
-{/* <div className="flex w-full items-center justify-around rounded-[5px_5px_5px_5px] bg-[#e8e8e8] py-3 text-white shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]"></div> */ }
-
-
-
-{/* <div className={`w-full rounded-[5px_5px_5px_5px] lg:h-32 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-[#e8e8e8]"}  flex items-center justify-evenly sm:h-32 md:h-24 md:p-2 lg:p-2 py-3 text-white shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]`}> */ }
-
-{/* <div className={`w-full lg:h-32 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-transparent"}  flex items-center justify-evenly sm:h-32 md:h-24 md:p-2 lg:p-2`}></div> */ }

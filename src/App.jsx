@@ -11,6 +11,10 @@ import Account from "./component/Account";
 import VehicleList from "./component/VehicleList";
 import Join from "./component/Join";
 import NotFound from "./component/NotFound";
+import VehicleDetail from "./component/VehicleDetail";
+import ManageVehicles from "./component/ManageVehicles";
+import ManageUsers from "./component/ManageUsers";
+import AdminRoute from "./component/AdminRoute";
 
 function App() {
   return (
@@ -19,15 +23,35 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/join-us" element={<Join />} />
         <Route path="/vehicles" element={<VehicleList />} />
+        <Route path="/vehicle/:id" element={<VehicleDetail />} />
 
         <Route
-          path="/admin"
+          path="/admin/*" // Add wildcard to catch all sub-routes
           element={
-            <PrivateRoute allowedRoles={["admin"]}>
+            <AdminRoute>
               <AdminDashboard />
-            </PrivateRoute>
+            </AdminRoute>
           }
         />
+
+        <Route
+          path="/admin/manage-vehicles"
+          element={
+            <AdminRoute>
+              <ManageVehicles />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/manage-users"
+          element={
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          }
+        />
+
 
         <Route path="/provider">
           <Route index element={<ProviderDashboard />} />

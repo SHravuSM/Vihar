@@ -13,7 +13,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
       const user = auth.currentUser;
       if (user) {
         // Placeholder for actual Firestore role lookup
-        const userRoleFromFirestore = "vehicle_provider"; // This should come from Firestore or Firebase DB
+        const userRoleFromFirestore = "vehicle provider"; // This should come from Firestore or Firebase DB
 
         setUserRole(userRoleFromFirestore);
         setIsAuthenticated(true);
