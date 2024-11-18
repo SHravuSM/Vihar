@@ -27,12 +27,12 @@ const StyledWrapper = styled.div`
     animation: shine 3s infinite linear;
     animation-fill-mode: forwards;
     -webkit-text-size-adjust: none;
-    font-weight: normal;
+    font-weight: bold;
     /* width: 10px; */
     /* font-size: 16px; */
     text-decoration: none;
     white-space: nowrap;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
   @-moz-keyframes shine {
     0% {

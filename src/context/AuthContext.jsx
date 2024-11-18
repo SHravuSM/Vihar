@@ -27,11 +27,11 @@ export const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const Vahana = {
-    Shine: Shine,
-    Fascino: Fascino,
-    "Passion Pro": Passion_Pro,
-    "Activa 6G": Activa_6G,
-    "Splendor Plus": Splendor_Plus,
+    "Shine": [Shine, Fascino, Passion_Pro,],
+    "Fascino": [Fascino, Shine, Passion_Pro,],
+    "Passion Pro": [Passion_Pro, Fascino, Shine,],
+    "Activa 6G": [Activa_6G, Passion_Pro, Fascino, Shine,],
+    "Splendor Plus": [Splendor_Plus,],
   };
 
   useEffect(() => {

@@ -11,7 +11,6 @@ import Account from "./component/Account";
 import VehicleList from "./component/VehicleList";
 import Join from "./component/Join";
 import NotFound from "./component/NotFound";
-import VehicleDetail from "./component/VehicleDetail";
 import ManageVehicles from "./component/ManageVehicles";
 import ManageUsers from "./component/ManageUsers";
 import AdminRoute from "./component/AdminRoute";
@@ -23,7 +22,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/join-us" element={<Join />} />
         <Route path="/vehicles" element={<VehicleList />} />
-        <Route path="/vehicle/:id" element={<VehicleDetail />} />
 
         <Route
           path="/admin/*" // Add wildcard to catch all sub-routes
@@ -57,7 +55,7 @@ function App() {
           <Route index element={<ProviderDashboard />} />
           <Route path="add-vehicle" element={<AddVehicle />} />
           <Route path="account" element={<Account />} />
-          <Route path="provider-vehicles" element={<ProviderVehicles />} />
+          {/* <Route path="provider-vehicles" element={<ProviderVehicles />} /> */}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
