@@ -5,7 +5,7 @@ const LOPA = () => {
   return (
     <StyledWrapper>
       <div>
-        <svg className="loader" viewBox="0 0 48 30" width="48px" height="30px">
+        <svg className="loader" viewBox="0 0 48 30" width="100px" height="80px">
           <g
             fill="none"
             stroke="currentColor"
@@ -96,7 +96,7 @@ const LOPA = () => {
 const StyledWrapper = styled.div`
   .loader {
     display: block;
-    width: 50px;
+    width: 70px;
     height: auto;
   }
 

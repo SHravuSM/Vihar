@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import Nav from "./Nav";
-import Loader from "../images/Globe.gif";
 import Radio from "./Radio";
 import { useAuth } from "../context/AuthContext";
 import GetDetails from "./GetDetails";
+import LOPA from "./LOPA";
 
 const VehicleList = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -77,15 +76,16 @@ const VehicleList = () => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c; // Distance in km
   };
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-2 pt-4">
+    <div className="flex h-screen w-full flex-col items-center pt-4 p-1 gap-3">
+      {/* <Nav/> */}
       <div className="flex w-full flex-col">
         <h2 className="text-center text-xl font-bold">
           Available Vehicles for Rent
@@ -94,29 +94,60 @@ const VehicleList = () => {
       <Radio type={type} setType={setType} />
 
       {loading ? (
-        <div className="flex h-[50vh] w-full items-center justify-center p-2">
-          <img src={Loader} className="h-full" alt="" />
+        <div className="flex h-[80vh] p-2 w-full items-center justify-center rounded shadow-[#9bb8e0]">
+          <LOPA />
         </div>
       ) : (
-        <div className="grid h-full w-full grid-cols-2 gap-2 rounded-md p-2">
+        // <div className="grid h-full w-full grid-cols-2 gap-1 rounded-md">
+        //   {vehicles.map((vehicle) => (
+        //     <div
+        //       key={vehicle.id}
+        //       className="flex h-full w-full flex-col items-center rounded-md border-2"
+        //     >
+        //       <div className="flex h-[60%] w-full items-center justify-center">
+        //         <img
+        //           src={
+        //             Vahana[vehicle.name] || "https://via.placeholder.com/150"
+        //           }
+        //           alt={vehicle.name}
+        //           className="h-[90%] rounded object-cover"
+        //         />
+        //       </div>
+        //       <div
+        //         className={`h-[40%] w-full p-1 ${vehicle.type === "Bike" && "bg-[#92adde]"} ${vehicle.type === "Scooter" && "bg-red-200"} rounded-[0_0_5px_5px]`}
+        //       >
+        //         <h3 className="text-sm font-semibold">{vehicle.name}</h3>
+        //         <p className="text-sm">₹{vehicle.price}/day</p>
+        //         <p>{vehicle.location}</p>
+        //         <GetDetails type={vehicle.type} />
+        //       </div>
+        //     </div>
+        //   ))}
+        // </div>
+
+        <div className="flex h-full gap-3 w-full flex-col p-2">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className="flex h-full w-full flex-col items-center rounded-md border"
+              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-1  ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+                } w-full rounded shadow-md`}
             >
-              <div className="flex h-[60%] w-full items-center justify-center">
+              <div className="w-28">
                 <img
                   src={
                     Vahana[vehicle.name] || "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
-                  className="h-[90%] rounded object-cover"
+                  className={`h-24 object-contain ${vehicle.type === "Bike"
+                    ? "drop-shadow-[0px_0px_50px_#005aeb]"
+                    : "drop-shadow-[0px_0px_50px_red]"
+                    }`}
                 />
               </div>
               <div
-                className={`h-[40%] w-full p-1 ${vehicle.type === "Bike" && "bg-[#92adde]"} ${vehicle.type === "Scooter" && "bg-red-200"} rounded-[0_0_5px_5px]`}
+                className='flex flex-col items-start p-1 relative text-[12px]  h-full'
               >
-                <h3 className="text-sm font-semibold">{vehicle.name}</h3>
+                <h3 className="text-lg font-light">{vehicle.name}</h3>
                 <p className="text-sm">₹{vehicle.price}/day</p>
                 <p>{vehicle.location}</p>
                 <GetDetails type={vehicle.type} />

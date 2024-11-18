@@ -14,7 +14,7 @@ import NotFound from "./component/NotFound";
 
 function App() {
   return (
-    <div className="flex flex-col sm:gap-1">
+    <div className="flex flex-col sm:gap-0">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/join-us" element={<Join />} />

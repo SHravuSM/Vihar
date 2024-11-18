@@ -16,8 +16,9 @@ const StyledWrapper = styled.div`
     color: white;
     padding: 0.5em 1.5em;
     font-size: 18px;
+    font-weight: 100;
     border-radius: 0.5em;
-    background: #e8e8e8;
+    background: #c1bfbfaa;
     cursor: pointer;
     margin-bottom: 10px;
     border: 1px solid #e8e8e8;
@@ -33,8 +34,8 @@ const StyledWrapper = styled.div`
 
   button:active {
     box-shadow:
-      4px 4px 12px #c5c5c5,
-      -4px -4px 12px #ffffff;
+      4px 4px 12px #f56d6d,
+      -4px -4px 12px #000000;
   }
 `;
 
