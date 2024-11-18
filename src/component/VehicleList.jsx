@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Nav from "./Nav";
-import Loader from "../images/Loader.gif";
+import Loader from "../images/Globe1.gif";
 import Radio from "./Radio";
 import { useAuth } from "../context/AuthContext";
 import GetDetails from "./GetDetails";

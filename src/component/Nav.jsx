@@ -19,7 +19,7 @@ export default function Nav({ white }) {
     <div className={`w-full lg:h-32 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-transparent"}  flex items-center justify-evenly sm:h-32 md:h-24 md:p-2 lg:p-2`}>
 
       <div className="flex items-center justify-center sm:w-[20%] border-white">
-        <img className="sm:w-10 md:h-24 lg:h-28 drop-shadow-[1px_1px_5px_#ffffff]" src={Shiv} alt="" />
+        <img className="sm:w-12 md:h-24 lg:h-28 drop-shadow-[1px_1px_5px_#ffffff]" src={Shiv} alt="" />
       </div>
 
       <div className='flex bg-none lg:h-10 md:h-8 sm:h-10 border-2 sm:w-[45%] md:w-64 rounded-md items-center '>
