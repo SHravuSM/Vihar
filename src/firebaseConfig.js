@@ -6,12 +6,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDxQLlgdNmldNS2UdhSgufg9jNy0_8yvao",
-  authDomain: "testingapp-e26ee.firebaseapp.com",
-  projectId: "testingapp-e26ee",
-  storageBucket: "testingapp-e26ee.firebasestorage.app",
-  messagingSenderId: "639801135629",
-  appId: "1:639801135629:web:d274a7443761f71ccf3b44",
+  apiKey: "AIzaSyCGa9-VXOotA47mY1EIBCPPan7Npz5-LQ0",
+  authDomain: "vihar-enterprise.firebaseapp.com",
+  projectId: "vihar-enterprise",
+  storageBucket: "vihar-enterprise.firebasestorage.app",
+  messagingSenderId: "1020787252700",
+  appId: "1:1020787252700:web:cfd5fae674d9a2004ac319",
+  measurementId: "G-2LKV4DXHS7"
 };
 
 // Initialize Firebase

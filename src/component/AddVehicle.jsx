@@ -258,7 +258,7 @@ const AddVehicle = () => {
         Add New Vehicle
       </h2>
       <img
-        className="h-36 rounded drop-shadow-[1px_1px_70px_#2b2b2b]"
+        className="h-36 rounded drop-shadow-[1px_1px_90px_#c53838]"
         src={Vahana[name]}
         alt=""
       />
