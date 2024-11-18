@@ -12,7 +12,7 @@ const firebaseConfig = {
   storageBucket: "vihar-enterprise.firebasestorage.app",
   messagingSenderId: "1020787252700",
   appId: "1:1020787252700:web:cfd5fae674d9a2004ac319",
-  measurementId: "G-2LKV4DXHS7"git 
+  measurementId: "G-2LKV4DXHS7"
 };
 
 // Initialize Firebase
