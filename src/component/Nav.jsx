@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Shiv from "../images/Shiv.png";
+import Shiv from "../images/Vihar.png";
 import profile from "../images/Profile.png";
 import van from "../images/Vehicle.gif";
 import home from "../images/Home.png";
@@ -19,11 +19,11 @@ export default function Nav({ white }) {
     <div className={`w-full lg:h-32 ${!yes ? "bg-gradient-to-r from-blue-400 via-red-200 to pink-400" : "bg-transparent"}  flex items-center justify-evenly sm:h-32 md:h-24 md:p-2 lg:p-2`}>
 
       <div className="flex items-center justify-center sm:w-[20%] border-white">
-        <img className="sm:w-12 md:h-24 lg:h-28" src={Shiv} alt="" />
+        <img className="sm:w-10 md:h-24 lg:h-28 drop-shadow-[1px_1px_5px_#ffffff]" src={Shiv} alt="" />
       </div>
 
       <div className='flex bg-none lg:h-10 md:h-8 sm:h-10 border-2 sm:w-[45%] md:w-64 rounded-md items-center '>
-        <input className='sm:w-full rounded-md border bg-none bg-transparent border-blue-300 duration-1000 ease-in-out h-full lg:pl-2 md:pl-2 sm:pl-3 lg:text-xl md:text-xl sm:text-sm text-white placeholder:text-white lg:placeholder:text-lg md:placeholder:text-lg sm:placeholder:text-[17px] sm:rounded-sm' type="text" placeholder='Search here' />
+        <input className='sm:w-full rounded-md bg-none bg-transparent duration-1000 ease-in-out h-full lg:pl-2 md:pl-2 sm:pl-3 lg:text-xl md:text-xl sm:text-sm text-white placeholder:text-white lg:placeholder:text-lg md:placeholder:text-lg sm:placeholder:text-[17px] sm:rounded-sm' type="text" placeholder='Search here' />
       </div>
       <div>
 
