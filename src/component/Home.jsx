@@ -34,14 +34,14 @@ import LoginComponent from "./LoginComponent";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col p-1 items-center bg-[url('../src/images/Hampi7.png')] bg-cover bg-center text-white">
+    <div className="flex h-screen flex-col p-1 gap-1 items-center bg-[url('../src/images/Hampi7.png')] bg-cover bg-center text-white">
       {/* Navigation */}
       <Nav />
 
       {/* Main Content */}
       <div className="flex flex-1 w-full items-center justify-center px-4">
         {/* <div className="flex flex-col items-center gap-6 text-center bg-black/10 backdrop-blur-sm p-8 border-[1px] border-white/20 rounded-lg shadow-2xl"> */}
-        <div className="flex flex-col items-center gap-6 text-center bg-black/10 backdrop-blur-sm p-8 border-[1px] border-white/20 rounded-lg shadow-2xl"
+        <div className="flex flex-col items-center gap-6 text-center bg-black/10 backdrop-blur-sm p-1 border-white/20 rounded-lg shadow-2xl"
           style={{
             backdropFilter: "blur(2px)", // Frosted-glass blur effect
             background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
@@ -59,8 +59,8 @@ export default function Home() {
       </div>
 
       {/* Footer Section */}
-      <div className="flex w-full flex-col items-center gap-6 px-6 py-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent shadow-lg">
-        <div className="flex w-full items-center justify-center gap-8">
+      <div className="flex w-full flex-col items-center gap-5 px-2 py-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent shadow-lg">
+        <div className="flex w-full items-center justify-center gap-5">
           <NavLink to="/join-us">
             <JoinUsBtn />
           </NavLink>
