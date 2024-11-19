@@ -85,6 +85,9 @@
 // export default AdminDashboard;
 
 
+
+
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
@@ -94,6 +97,7 @@ import { signOut } from "firebase/auth";
 const AdminDashboard = () => {
   const [totalVehicles, setTotalVehicles] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [loading, setLoading] = useState(true); // Loading state
 
   const handleLogout = async () => {
     setTimeout(() => {
@@ -108,6 +112,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true); // Start loading
         const vehiclesRef = collection(db, "vehicles");
         const usersRef = collection(db, "users");
 
@@ -118,11 +123,17 @@ const AdminDashboard = () => {
         setTotalUsers(userSnapshot.size);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false); // Stop loading
       }
     };
 
     fetchData();
   }, []);
+
+  // if (loading) {
+  //   return <div className="flex justify-center items-center"><Spinner animation="border" /></div>; // Loading spinner
+  // }
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">

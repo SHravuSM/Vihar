@@ -46,26 +46,31 @@
 
 // export default PrivateRoute;
 
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+// import { Spinner } from "react-bootstrap"; // You can use any spinner
 
 // ProtectedRoute component for Admin or Provider routes
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user, role } = useAuth(); // Get the current user and their role from context
+  const { user, role, loading } = useAuth(); // Get user, role, and loading state from context
+
+  // If loading, show spinner or loading component
+  if (loading) {
+    return <div className="flex justify-center items-center"><Spinner animation="border" /></div>;
+  }
 
   // If not authenticated, redirect to login
   if (!user) {
     return <Navigate to="/join-us" />;
   }
 
-  // If the user does not have an allowed role, redirect to a "No Access" page
+  // If user role is not in allowedRoles, redirect to No Access page
   if (!allowedRoles.includes(role)) {
-    return <Navigate to="/" />;
+    return <Navigate to="/no-access" />; // Create a custom "No Access" page
   }
 
-  return children; // Render children (protected component) if authenticated and authorized
+  return children; // Render children (protected route) if authenticated and authorized
 };
 
 export default ProtectedRoute;

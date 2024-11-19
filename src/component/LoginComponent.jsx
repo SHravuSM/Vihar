@@ -30,7 +30,10 @@
 // };
 
 // export default LoginComponent;
-import React from "react";
+
+
+
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   deleteUser,
@@ -57,7 +60,6 @@ const LoginComponent = () => {
 
         if (userData.role === "vehicle provider") navigate("/provider");
         else if (userData.role === "admin") navigate("/admin");
-        else navigate('/');
       } else {
         await deleteUser(user);
         navigate("/join-us");
@@ -66,6 +68,28 @@ const LoginComponent = () => {
       console.error("Login failed:", error.message);
     }
   };
+
+  // UseEffect to prevent back navigation to login page after login
+  useEffect(() => {
+    // Check if user is already logged in
+    const user = auth.currentUser;
+    if (user) {
+      // Redirect based on role if user is already logged in
+      const checkUserRole = async () => {
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          if (userData.role === "vehicle provider") {
+            navigate("/provider");
+          } else if (userData.role === "admin") {
+            navigate("/admin");
+          }
+        }
+      };
+      checkUserRole();
+    }
+  }, [navigate]);
 
   return (
     <div className="flex flex-col items-center gap-4">

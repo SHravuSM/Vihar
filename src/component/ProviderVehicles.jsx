@@ -59,7 +59,7 @@ const ProviderVehicles = ({ type }) => {
 
   useEffect(() => {
     fetchVehicles();
-  }, []);
+  }, [type]);
 
   const filteredVehicles = type
     ? vehicles.filter((vehicle) => vehicle.type === type)
@@ -71,8 +71,8 @@ const ProviderVehicles = ({ type }) => {
         <div className="flex h-80 w-full items-center justify-center rounded bg-[#9bb8e062] shadow-[#9bb8e0]">
           <LOPA />
         </div>
-      ) : filteredVehicles.length === 0 ? (
-        <div className="text-center">No vehicles found</div>
+      ) : 
+      filteredVehicles.length === 0 ? (<div className="text-center">No vehicles found</div>
       ) : (
         <div className="flex flex-col gap-1 overflow-y-scroll p-2">
           {filteredVehicles.map((vehicle) => (
@@ -85,7 +85,7 @@ const ProviderVehicles = ({ type }) => {
               <div className="w-32">
                 <img
                   src={
-                    Vahana[vehicle.name] || "https://via.placeholder.com/150"
+                    Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
                   className={`h-28 w-28 object-contain ${
