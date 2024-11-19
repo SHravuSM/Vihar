@@ -147,9 +147,9 @@ export default function Nav() {
       </div>
 
       {/* Search Bar with Floating Effect */}
-      <div className="relative flex h-12 w-1/3 items-center rounded-full border bg-gray-800/10 shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(0,0,0,0.4)] sm:w-1/2 md:h-14 md:w-[45%]">
+      <div className=" relative flex h-12 w-1/3 items-center bg-black/10 backdrop-blur-sm shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] border-[1px] border-white/20 rounded-md shadow-2xl sm:w-1/2 md:h-14 md:w-[45%]">
         <input
-          className="w-full h-full rounded-full bg-transparent px-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 sm:text-sm md:text-base"
+          className="w-full h-full bg-transparent px-4 text-red-300 focus:placeholder:text-red-300 placeholder-white focus:outline-none focus:border border-red-300 focus:ring-transparent rounded-md  focus:ring-offset-2 sm:text-sm md:text-base"
           type="text"
           placeholder="Search here"
         />
