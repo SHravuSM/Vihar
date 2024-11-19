@@ -162,14 +162,16 @@
 
 // export default VehicleList;
 
+
 import React, { useState, useEffect, useRef } from "react";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import Radio from "./Radio";
 import { useAuth } from "../context/AuthContext";
 import LOPA from "./LOPA";
 import Close from "../images/Close.png";
-import left from "../images/Left.png";
-import right from "../images/Right.png";
+import RIGHT from "../images/Right.png";
+import LEFT from "../images/Left.png";
+import { useSwipeable } from "react-swipeable";
 
 const VehicleList = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -178,13 +180,11 @@ const VehicleList = () => {
   const [type, setType] = useState("Bike");
   const { Vahana } = useAuth();
 
-  // Modal state and ref
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); // To track the current image in the modal
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalRef = useRef(null);
 
-  // Fetch vehicles based on type
   useEffect(() => {
     const fetchVehicles = async () => {
       const vehiclesRef = collection(db, "vehicles");
@@ -194,7 +194,9 @@ const VehicleList = () => {
         ...doc.data(),
       }));
 
-      const filteredVehicles = vehiclesList.filter((each) => each.type === type);
+      const filteredVehicles = vehiclesList.filter(
+        (each) => each.type === type
+      );
       setVehicles(filteredVehicles);
       setLoading(false);
     };
@@ -202,20 +204,17 @@ const VehicleList = () => {
     fetchVehicles();
   }, [db, type]);
 
-  // Open modal with vehicle details
   const openModal = (vehicle) => {
     setSelectedVehicle(vehicle);
-    setCurrentImageIndex(0); // Reset to the first image
+    setCurrentImageIndex(0);
     setShowModal(true);
   };
 
-  // Close modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedVehicle(null);
   };
 
-  // Close modal when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -230,22 +229,37 @@ const VehicleList = () => {
     };
   }, []);
 
-  // Navigate to the previous image
-  const previousImage = () => {
+  const handleSwipeLeft = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? Vahana[selectedVehicle.name].length - 1 : prevIndex - 1,
+      prevIndex === Vahana[selectedVehicle.name].length - 1 ? 0 : prevIndex + 1
     );
   };
 
-  // Navigate to the next image
-  const nextImage = () => {
+  const handleSwipeRight = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === Vahana[selectedVehicle.name].length - 1 ? 0 : prevIndex + 1,
+      prevIndex === 0 ? Vahana[selectedVehicle.name].length - 1 : prevIndex - 1
     );
+  };
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleSwipeLeft,
+    onSwipedRight: handleSwipeRight,
+    delta: 10,
+    trackTouch: true,
+    trackMouse: true,
+    preventScrollOnSwipe: true,
+  });
+
+  const handlePrev = () => {
+    handleSwipeRight();
+  };
+
+  const handleNext = () => {
+    handleSwipeLeft();
   };
 
   return (
-    <div className="flex h-screen w-full flex-col items-center gap-3 p-1 pt-4">
+    <div className="flex flex-col items-center w-full gap-4 p-4">
       <div className="flex w-full flex-col">
         <h2 className="text-center text-xl font-bold">
           Available Vehicles for Rent
@@ -258,100 +272,74 @@ const VehicleList = () => {
           <LOPA />
         </div>
       ) : (
-        <div className="flex h-full w-full flex-col gap-3 p-2">
+        <div className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-1 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
-                } w-full rounded shadow-md`}
-              onClick={() => openModal(vehicle)} // Open modal on click
+              className={`flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+                }`}
+              onClick={() => openModal(vehicle)}
             >
-              <div className="w-28">
-                <img
-                  src={
-                    Vahana[vehicle.name]?.[0] ||
-                    "https://via.placeholder.com/150"
-                  }
-                  alt={vehicle.name}
-                  className={`h-24 object-contain ${vehicle.type === "Bike"
-                    ? "drop-shadow-[0px_0px_50px_#005aeb]"
-                    : "drop-shadow-[0px_0px_50px_red]"
-                    }`}
-                />
-              </div>
-              <div className="relative flex h-full flex-col items-start p-1 text-[12px]">
-                <h3 className="text-lg font-light">{vehicle.name}</h3>
-                <p className="text-sm">₹{vehicle.price}/day</p>
-                <p>{vehicle.location}</p>
-              </div>
+              <img
+                src={
+                  Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"
+                }
+                alt={vehicle.name}
+                className="w-full h-32 object-contain"
+              />
+              <h3 className="text-lg font-medium">{vehicle.name}</h3>
+              <p className="text-sm">₹{vehicle.price}/day</p>
+              <p className="text-xs text-gray-600">{vehicle.location}</p>
             </div>
           ))}
         </div>
       )}
 
-      {/* Modal */}
       {showModal && selectedVehicle && (
-        <div className="fixed inset-0 flex w-full items-center justify-center bg-gray-400 bg-opacity-50 p-6 transition-all duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <div
-            ref={modalRef} // Attach ref to the modal content
-            className="max-h-max w-full transform rounded-lg bg-white p-5 pt-3 shadow-[0px_0px_100px_white,1px_1px_8px_black] transition-all duration-500 ease-in-out md:w-1/2 lg:w-1/3"
+            ref={modalRef}
+            className="relative w-full max-w-md rounded-lg bg-white shadow-lg p-6 space-y-4 md:max-w-lg"
           >
-            {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute right-2 top-2 text-3xl text-gray-600 hover:text-black"
+              className="absolute top-4 right-4 text-xl text-gray-600 hover:text-black"
             >
-              <img className="h-6" src={Close} alt="Close" />
+              <img className="h-5" src={Close} alt="Close" />
             </button>
 
-            <h2 className="text-center text-3xl font-normal">
+            <h2 className="text-2xl font-semibold text-center">
               {selectedVehicle.name}
             </h2>
 
-            <div className="relative mb-1 flex w-full items-center justify-center">
-              {/* Previous Button */}
+            <div
+              {...swipeHandlers}
+              className="relative flex items-center justify-center gap-2 overflow-hidden"
+            >
               <button
-                onClick={previousImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-transparent p-2"
+                onClick={handlePrev}
+                className="p-2 text-gray-500 hover:text-gray-700"
               >
-                <img className="h-7 w-3" src={left} alt="" />
+                <img className="h-6" src={LEFT} alt="Previous" />
               </button>
-
-              {/* Vehicle Image */}
-              <div className="flex flex-col">
-                <img
-                  src={
-                    Vahana[selectedVehicle.name]?.[currentImageIndex] ||
-                    "https://via.placeholder.com/150"
-                  }
-                  alt={selectedVehicle.name}
-                  className="mx-auto mb-1 mt-2 h-48 w-48 object-contain"
-                />
-                <div className="flex w-full items-center justify-center space-x-2">
-                  {Vahana[selectedVehicle.name]?.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`h-3 w-3 rounded-full ${currentImageIndex === index
-                        ? "bg-blue-500"
-                        : "bg-gray-300"
-                        } transition-all duration-300`}
-                    ></button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Next Button */}
+              <img
+                src={
+                  Vahana[selectedVehicle.name]?.[currentImageIndex] ||
+                  "https://via.placeholder.com/150"
+                }
+                alt={selectedVehicle.name}
+                className="w-48 h-48 object-contain"
+              />
               <button
-                onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-transparent p-2"
+                onClick={handleNext}
+                className="p-2 text-gray-500 hover:text-gray-700"
               >
-                <img className="h-7 w-3" src={right} alt="" />
+                <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
 
-            <div className="space-y-4">
-              <p className="text-xl">{selectedVehicle.description}</p>
+            <div className="space-y-2">
+              <p className="text-gray-800">{selectedVehicle.description}</p>
               <p className="text-lg font-semibold">
                 ₹{selectedVehicle.price}/day
               </p>
