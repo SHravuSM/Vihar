@@ -40,12 +40,18 @@ export default function Home() {
 
       {/* Main Content */}
       <div className="flex flex-1 w-full items-center justify-center px-4">
-        <div className="flex flex-col items-center gap-6 text-center bg-black/50 backdrop-blur-md p-8 border-[1px] border-white/20 rounded-lg shadow-2xl">
-          <h1 className="text-5xl font-extrabold tracking-wider leading-snug drop-shadow-md">
+        {/* <div className="flex flex-col items-center gap-6 text-center bg-black/10 backdrop-blur-sm p-8 border-[1px] border-white/20 rounded-lg shadow-2xl"> */}
+        <div className="flex flex-col items-center gap-6 text-center bg-black/10 backdrop-blur-sm p-8 border-[1px] border-white/20 rounded-lg shadow-2xl"
+          style={{
+            backdropFilter: "blur(2px)", // Frosted-glass blur effect
+            background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
+            border: "1px solid rgba(255, 255, 255, 0.2)", // Subtle border for definition
+          }}>
+          <h1 className="text-4xl font-light tracking-wider leading-snug drop-shadow-md">
             Explore Your Journey with{" "}
-            <span className="text-yellow-400">Vihar</span>
+            <span className="text-yellow-500 text-6xl font-normal">Vihar</span>
           </h1>
-          <p className="text-xl font-light leading-relaxed text-gray-300">
+          <p className="text-xl font-normal leading-relaxed text-gray-300">
             Your trusted partner for renting vehicles, anytime, anywhere.
           </p>
           <GetStarted />
@@ -53,21 +59,21 @@ export default function Home() {
       </div>
 
       {/* Footer Section */}
-      <div className="flex w-full flex-col items-center gap-6 px-6 py-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent shadow-inner">
-        <div className="flex w-full items-center justify-center gap-6">
+      <div className="flex w-full flex-col items-center gap-6 px-6 py-8 bg-gradient-to-t from-black/90 via-black/60 to-transparent shadow-lg">
+        <div className="flex w-full items-center justify-center gap-8">
           <NavLink to="/join-us">
             <JoinUsBtn />
           </NavLink>
-          <span className="text-lg font-medium tracking-wider text-gray-300">
+          <span className="text-xl font-semibold tracking-wide text-gray-200">
             OR
           </span>
           <LoginComponent />
         </div>
-        <p className="text-sm font-light text-gray-400 text-center leading-relaxed">
-          Experience hassle-free bookings and access the best vehicle options
-          tailored to your needs.
+        <p className="text-base font-light text-gray-300 text-center leading-relaxed max-w-xl">
+          Discover a seamless experience with hassle-free bookings and a curated selection of the best vehicle options, tailored just for you.
         </p>
       </div>
+
     </div>
   );
 }

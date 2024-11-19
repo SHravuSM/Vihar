@@ -130,12 +130,12 @@ import { NavLink } from "react-router-dom";
 export default function Nav() {
   return (
     <div
-      className="flex h-24 w-full items-center justify-around rounded-md shadow-lg"
-      style={{
-        backdropFilter: "blur(2px)", // Frosted-glass blur effect
-        background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
-        border: "1px solid rgba(255, 255, 255, 0.2)", // Subtle border for definition
-      }}
+      className="flex h-24 w-full items-center bg-black/10 backdrop-blur-[2px] justify-around border-[1px] border-white/20 rounded-lg shadow-2xl"
+      // style={{
+      //   backdropFilter: "blur(2px)", // Frosted-glass blur effect
+      //   background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
+      //   border: "1px solid rgba(255, 255, 255, 0.2)", // Subtle border for definition
+      // }}
     >
       {/* Logo Section */}
       <div className="flex items-center">
