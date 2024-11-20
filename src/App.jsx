@@ -4,7 +4,6 @@ import Home from "./component/Home";
 import Join from "./component/Join";
 import Account from "./component/Account";
 import NotFound from "./component/NotFound";
-// import AdminRoute from "./component/AdminRoute";
 import AddVehicle from "./component/AddVehicle";
 import { Routes, Route } from "react-router-dom";
 import ManageUsers from "./component/ManageUsers";
@@ -25,7 +24,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }
@@ -33,7 +32,7 @@ function App() {
         <Route
           path="/admin/manage-vehicles"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <ManageVehicles />
             </ProtectedRoute>
           }
@@ -41,14 +40,21 @@ function App() {
         <Route
           path="/admin/manage-users"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <ManageUsers />
             </ProtectedRoute>
           }
         />
 
         <Route path="/provider">
-          <Route index element={<ProtectedRoute allowedRoles={['vehicle provider']}> <ProviderDashboard /> </ProtectedRoute>} />
+          <Route
+            index
+            element={
+              <ProtectedRoute allowedRoles={["vehicle provider"]}>
+                <ProviderDashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="account" element={<Account />} />
           <Route path="add-vehicle" element={<AddVehicle />} />
         </Route>

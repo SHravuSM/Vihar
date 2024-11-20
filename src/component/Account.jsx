@@ -16,7 +16,6 @@ import {
 import AccountDelete from "./AccountDelete";
 
 export default function Account() {
-
   const handleDelete = async (user) => {
     const vehiclesRef = collection(db, "vehicles");
     const q = query(vehiclesRef, where("providerId", "==", user));
@@ -42,7 +41,7 @@ export default function Account() {
     const provider = new GoogleAuthProvider();
     await reauthenticateWithPopup(user, provider);
     alert("Reauthenticated successfully.");
-    const res = confirm('Do you want to Delete your account');
+    const res = confirm("Do you want to Delete your account");
     if (res) {
       await handleDelete(user.uid);
       await deleteUser(user);

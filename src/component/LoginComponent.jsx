@@ -31,15 +31,9 @@
 
 // export default LoginComponent;
 
-
-
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteUser,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { deleteUser, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig"; // Firebase setup
 import ConWithGoo from "./ConWithGoo"; // Google login button component

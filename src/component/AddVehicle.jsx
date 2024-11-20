@@ -381,8 +381,8 @@ const AddVehicle = () => {
             setLoading(false);
             setLocation(
               data.address.city ||
-              data.address.city_district ||
-              "Unknown Location",
+                data.address.city_district ||
+                "Unknown Location",
             );
           })
           .catch((error) => {

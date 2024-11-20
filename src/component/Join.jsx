@@ -28,12 +28,14 @@ export default function Join() {
             value={number}
             onChange={handleNum}
           />
-          {number.length == 10 && <button
-            onClick={() => handleRegister(number)}
-            className="oauthButton"
-          >
-            Register with Google
-          </button>}
+          {number.length == 10 && (
+            <button
+              onClick={() => handleRegister(number)}
+              className="oauthButton"
+            >
+              Register with Google
+            </button>
+          )}
         </div>
       </StyledWrapper>
     </div>

@@ -49,10 +49,6 @@
 //   );
 // }
 
-
-
-
-
 // import React from "react";
 // import home from "../images/Home.png";
 // import Shiv from "../images/Vihar.png";
@@ -116,7 +112,7 @@
 //             alt="Vehicles"
 //           />
 //         </NavLink>
-        
+
 //       </div>
 //     </div>
 //   );
@@ -130,7 +126,7 @@ import { NavLink } from "react-router-dom";
 export default function Nav() {
   return (
     <div
-      className="flex h-24 w-full items-center bg-black/10 backdrop-blur-[2px] justify-around border-[1px] border-white/20 rounded-lg shadow-2xl"
+      className="flex h-24 w-full items-center justify-around rounded-lg border-[1px] border-white/20 bg-black/10 shadow-2xl backdrop-blur-[2px]"
       // style={{
       //   backdropFilter: "blur(2px)", // Frosted-glass blur effect
       //   background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
@@ -147,9 +143,9 @@ export default function Nav() {
       </div>
 
       {/* Search Bar with Floating Effect */}
-      <div className=" relative flex h-12 w-1/3 items-center bg-black/10 backdrop-blur-sm shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] border-[1px] border-white/20 rounded-md shadow-2xl sm:w-1/2 md:h-14 md:w-[45%]">
+      <div className="shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] relative flex h-12 w-1/3 items-center rounded-md border-[1px] border-white/20 bg-black/10 shadow-2xl backdrop-blur-sm sm:w-1/2 md:h-14 md:w-[45%]">
         <input
-          className="w-full h-full bg-transparent px-4 text-red-300 focus:placeholder:text-red-300 placeholder-white focus:outline-none focus:border border-red-300 focus:ring-transparent rounded-md  focus:ring-offset-2 sm:text-sm md:text-base"
+          className="h-full w-full rounded-md border-red-300 bg-transparent px-4 text-red-300 placeholder-white focus:border focus:outline-none focus:ring-transparent focus:ring-offset-2 focus:placeholder:text-red-300 sm:text-sm md:text-base"
           type="text"
           placeholder="Search here"
         />
@@ -162,11 +158,11 @@ export default function Nav() {
           className={({ isActive }) =>
             isActive
               ? "text-orange-400"
-              : "hover:text-orange-400 transition-colors duration-300"
+              : "transition-colors duration-300 hover:text-orange-400"
           }
         >
           <img
-            className="h-10 hover:scale-110 transform transition-transform duration-300"
+            className="h-10 transform transition-transform duration-300 hover:scale-110"
             src={home}
             alt="Home"
           />
@@ -176,11 +172,11 @@ export default function Nav() {
           className={({ isActive }) =>
             isActive
               ? "text-orange-400"
-              : "hover:text-orange-400 transition-colors duration-300"
+              : "transition-colors duration-300 hover:text-orange-400"
           }
         >
           <img
-            className="h-10 hover:scale-110 transform transition-transform duration-300"
+            className="h-10 transform transition-transform duration-300 hover:scale-110"
             src={van}
             alt="Vehicles"
           />

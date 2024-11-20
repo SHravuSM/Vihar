@@ -3,24 +3,19 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from "../firebaseConfig";
 import {
   collection,
-  addDoc,
   getDocs,
-  deleteDoc,
-  doc,
   getDoc,
+  arrayUnion,
 } from "firebase/firestore";
-import {
-  GoogleAuthProvider,
-  reauthenticateWithPopup,
-  signOut,
-  deleteUser,
-} from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 import ProviderVehicles from "./ProviderVehicles";
 import Radio from "./Radio";
 import Logoff from "./Logoff";
 import Add from "./Add";
+import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
 import Renewal from "./Renewal";
+import Base64ImageUpload from './Base64ImageUpload';
 
 const ProviderDashboard = () => {
   const navigate = useNavigate();
@@ -51,6 +46,39 @@ const ProviderDashboard = () => {
     checkUserRole();
   }, []);
 
+  const handleRenewal = async () => {
+    try {
+      const user = auth.currentUser;
+
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        let date = new Date();
+        // Assuming payment has been processed successfully via some gateway
+        const paymentDetails = {
+          transactionId: "txn_123456", // Example: Replace with actual transaction ID from payment gateway
+          amount: 100, // Example: Replace with actual amount paid
+          Date: date.toISOString()
+
+        };
+
+        // Update payment details
+        await updateDoc(userDocRef, {
+          isPaid: true, // Mark as paid
+          paymentDetails: paymentDetails, // Store payment details like transaction ID
+          paymentDate: serverTimestamp(), // Store the current timestamp
+          paymentHistory: arrayUnion(paymentDetails),
+        });
+
+        alert(
+          "Payment successful! Your vehicles are now visible for the next 24 hours.",
+        );
+      }
+    } catch (error) {
+      console.error("Error updating payment status:", error);
+      alert("Payment failed. Please try again.");
+    }
+  };
+
   useEffect(() => {
     const fetchVehicles = async () => {
       const data = await getDocs(vehiclesCollectionRef);
@@ -79,14 +107,15 @@ const ProviderDashboard = () => {
   return (
     <div className="relative flex max-h-full w-full flex-col items-center gap-2 p-2">
       <div className="relative flex w-full flex-col items-center">
-        <NavLink className="w-full" to="/provider/account">
+        <div className="w-full" >
           <div className="mb-2 flex w-full flex-col gap-2 rounded-md">
-            <div className="flex w-full items-center justify-around rounded-lg border border-[#e8e8e8] bg-white py-3 shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
-              <img
+            <div className="flex w-full items-center justify-evenly rounded-lg border border-[#e8e8e8] bg-white py-3 shadow-[6px_6px_12px_#c5c5c5,-6px_-6px_12px_#ffffff]">
+              {/* <img
                 className="h-16 rounded-[50%] border-2"
                 src={auth.currentUser.photoURL}
                 alt=""
-              />
+              /> */}
+              <Base64ImageUpload />
               <div className="">
                 <h3 className="text-md font-semibold">
                   {auth.currentUser.displayName}
@@ -94,7 +123,7 @@ const ProviderDashboard = () => {
               </div>
             </div>
           </div>
-        </NavLink>
+        </div>
         <div className="flex w-full flex-col items-center gap-2 px-4 py-2">
           <h2 className="mb-1 text-center text-2xl font-semibold">
             Your Vehicle Listings
@@ -110,13 +139,10 @@ const ProviderDashboard = () => {
             {/* <NavLink to="/provider/account">
               <Renew />
             </NavLink> */}
-            <div
-              onClick={() =>
-                setTimeout(() => navigate("/provider/account"), 400)
-              }
-            >
+            <button className="renew" onClick={handleRenewal}>
+              {/* // onClick={() => setTimeout(() => navigate("/provider/account"), 400)} */}
               <Renewal />
-            </div>
+            </button>
           </div>
 
           {/* <div className='border-2 flex items-center text-lg justify-around rounded-[20px] shadow-md w-full h-10 '> */}
