@@ -119,14 +119,16 @@
 // }
 import React from "react";
 import home from "../images/Home.png";
-import Shiv from "../images/Vihar.png";
+// import Shiv from "../images/Vihar.png";
+import HAMPI from "../images/H2.png";
 import van from "../images/Vehicle.gif";
 import { NavLink } from "react-router-dom";
 
 export default function Nav() {
   return (
     <div
-      className="flex h-24 w-full items-center justify-around rounded-lg border-[1px] border-white/20 bg-black/10 shadow-2xl backdrop-blur-[2px]"
+      className="flex h-24 w-full items-center p-1 justify-around rounded-lg border-[1px] border-white/20 "
+      // bg-gradient-to-r from-white/80 via-white/60 to-transparent shadow-2xl backdrop-blur-[10px]
       // style={{
       //   backdropFilter: "blur(2px)", // Frosted-glass blur effect
       //   background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
@@ -136,8 +138,8 @@ export default function Nav() {
       {/* Logo Section */}
       <div className="flex items-center">
         <img
-          className="h-12 rounded-lg shadow-md transition-transform duration-300 hover:scale-110 sm:w-12 md:h-20 lg:h-24"
-          src={Shiv}
+          className=" rounded-lg transition-transform duration-300 hover:scale-110 bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black] md:h-20 lg:h-28"
+          src={HAMPI}
           alt="Logo"
         />
       </div>

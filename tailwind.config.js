@@ -10,7 +10,7 @@ export default {
       md: { min: "431px", max: "900px" },
 
       // Maximum width of 1279px
-      lg: { min: "901px", max: "1440px" },
+      lg: { min: "901px", max: "2440px" },
     },
     extend: {},
   },
