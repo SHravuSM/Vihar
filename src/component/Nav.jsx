@@ -143,7 +143,7 @@ export default function Nav() {
       </div>
 
       {/* Search Bar with Floating Effect */}
-      <div className="shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] relative flex h-12 w-1/3 items-center rounded-md border-[1px] border-white/20 bg-black/10 shadow-2xl backdrop-blur-sm sm:w-1/2 md:h-14 md:w-[45%]">
+      <div className="shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] relative flex h-12 w-1/3 items-center rounded-md border-[1px] border-white/20 bg-black/10 shadow-2xl sm:mr-1 backdrop-blur-sm sm:w-1/2 md:h-14 md:w-[45%]">
         <input
           className="h-full w-full rounded-md border-red-300 bg-transparent px-4 text-red-300 placeholder-white focus:border focus:outline-none focus:ring-transparent focus:ring-offset-2 focus:placeholder:text-red-300 sm:text-sm md:text-base"
           type="text"
@@ -152,7 +152,7 @@ export default function Nav() {
       </div>
 
       {/* Navigation Links */}
-      <div className="flex items-center gap-8 text-sm font-semibold text-white lg:text-lg">
+      <div className="flex items-center sm:gap-6 text-sm font-semibold text-white lg:text-lg">
         <NavLink
           to="/"
           className={({ isActive }) =>
