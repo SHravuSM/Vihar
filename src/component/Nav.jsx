@@ -176,7 +176,7 @@ export default function Nav() {
           }
         >
           <img
-            className="h-10 transform transition-transform duration-300 hover:scale-110"
+            className="h-9 transform transition-transform duration-300 hover:scale-110"
             src={van}
             alt="Vehicles"
           />
