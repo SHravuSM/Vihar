@@ -497,7 +497,7 @@ const VehicleList = () => {
           <LOPA />
         </div>
       ) : (
-        <div className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
