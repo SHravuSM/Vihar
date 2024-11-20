@@ -447,7 +447,7 @@ const AddVehicle = () => {
       </h2>
       <img
         className="h-36 rounded drop-shadow-[1px_1px_90px_#c53838]"
-        src={Vahana[name]}
+        src={Vahana[name]?.[0]}
         alt=""
       />
       <div className="space-y-4">

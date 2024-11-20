@@ -130,11 +130,21 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
-import Splendor_Plus from "../images/Bikes/Splendor Plus.png";
-import Activa_6G from "../images/Scooters/Activa 6G.png";
-import Fascino from "../images/Scooters/Fascino.png";
-import Passion_Pro from "../images/Bikes/Passion Pro.png";
-import Shine from "../images/Bikes/Shine.png";
+import Splendor_Plus1 from "../images/Bikes/Splendor Plus1.png";
+import Splendor_Plus2 from "../images/Bikes/Splendor Plus2.png";
+import Splendor_Plus3 from "../images/Bikes/Splendor Plus3.png";
+import Activa_6G1 from "../images/Scooters/Activa 6G1.png";
+import Activa_6G2 from "../images/Scooters/Activa 6G2.png";
+import Activa_6G3 from "../images/Scooters/Activa 6G3.png";
+import Fascino1 from "../images/Scooters/Fascino1.png";
+import Fascino2 from "../images/Scooters/Fascino2.png";
+import Fascino3 from "../images/Scooters/Fascino3.png";
+import Passion_Pro1 from "../images/Bikes/Passion Pro1.png";
+import Passion_Pro2 from "../images/Bikes/Passion Pro2.png";
+import Passion_Pro3 from "../images/Bikes/Passion Pro3.png";
+import Shine1 from "../images/Bikes/Shine1.png";
+import Shine2 from "../images/Bikes/Shine2.png";
+import Shine3 from "../images/Bikes/Shine3.png";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -150,11 +160,11 @@ export const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const Vahana = {
-    Shine: [Shine, Fascino, Passion_Pro],
-    Fascino: [Fascino, Shine, Passion_Pro],
-    "Passion Pro": [Passion_Pro, Fascino, Shine],
-    "Activa 6G": [Activa_6G, Passion_Pro, Fascino, Shine],
-    "Splendor Plus": [Splendor_Plus],
+    'Shine': [Shine1, Shine2, Shine3],
+    'Fascino': [Fascino1, Fascino2, Fascino3],
+    "Passion Pro": [Passion_Pro1, Passion_Pro2, Passion_Pro3],
+    "Activa 6G": [Activa_6G1, Activa_6G2, Activa_6G3],
+    "Splendor Plus": [Splendor_Plus1, Splendor_Plus2, Splendor_Plus3],
   };
 
   useEffect(() => {
