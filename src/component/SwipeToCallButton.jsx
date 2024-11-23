@@ -35,7 +35,7 @@
 import React, { useState } from "react";
 import Call from "../images/Call.png";
 
-const SwipeToCallButton = ({ phoneNumber }) => {
+const SwipeToCallButton = ({ mobile }) => {
   const [startX, setStartX] = useState(0); // Start position of the swipe
   const [currentX, setCurrentX] = useState(0); // Current position of the swipe
   const [isSwiped, setIsSwiped] = useState(false);
@@ -64,7 +64,7 @@ const SwipeToCallButton = ({ phoneNumber }) => {
     if (swipeDistance > containerWidth * 0.8) {
       setIsSwiped(true);
       setTimeout(() => {
-        window.location.href = `tel:${phoneNumber}`;
+        window.location.href = `tel:${mobile}`;
         setTimeout(() => {
           setIsSwiped(false);
           setIsSwiped(false);

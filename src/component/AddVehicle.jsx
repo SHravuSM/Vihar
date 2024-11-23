@@ -364,33 +364,103 @@ const AddVehicle = () => {
   const auth = getAuth();
   const db = getFirestore();
 
-  // Fetch location automatically using Geolocation API
-  function LocationFetching() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLoading(true);
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
+  // // Fetch location automatically using Geolocation API
+  // function LocationFetching() {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       setLoading(true);
+  //       setLatitude(position.coords.latitude);
+  //       setLongitude(position.coords.longitude);
+  //       // Optionally use reverse geocoding to get location name based on lat/lng
+  //       fetch(
+  //         `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
+  //       )
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           setLoading(false);
+  //           setLocation(
+  //             data.address.city ||
+  //               data.address.city_district ||
+  //               "Unknown Location",
+  //           );
+  //         })
+  //         .catch((error) => {
+  //           setLoading(false);
+  //           console.error("Error fetching location name:", error);
+  //         });
+  //     });
+  //   }
+  // }
 
-        // Optionally use reverse geocoding to get location name based on lat/lng
+  function LocationFetching() {
+    if (!navigator.geolocation) {
+      console.error("Geolocation is not supported by this browser.");
+      return;
+    }
+
+    // Show a loading state
+    setLoading(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+
+        // Use reverse geocoding to fetch location name
         fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
         )
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              // throw new Error(HTTP error! status: ${ response.status });
+            }
+            return response.json();
+          })
           .then((data) => {
-            setLoading(false);
-            setLocation(
+            const locationName =
               data.address.city ||
-                data.address.city_district ||
-                "Unknown Location",
-            );
+              data.address.town ||
+              data.address.village ||
+              data.address.city_district ||
+              "Unknown Location";
+            setLocation(locationName);
           })
           .catch((error) => {
-            setLoading(false);
             console.error("Error fetching location name:", error);
+            setLocation("Unable to fetch location");
+          })
+          .finally(() => {
+            setLoading(false);
           });
-      });
-    }
+      },
+      (error) => {
+        // Handle geolocation errors
+        setLoading(false);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.error("User denied the request for Geolocation.");
+            setLocation("Permission denied");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.error("Location information is unavailable.");
+            setLocation("Location unavailable");
+            break;
+          case error.TIMEOUT:
+            console.error("The request to get user location timed out.");
+            setLocation("Location request timed out");
+            break;
+          default:
+            console.error("An unknown error occurred.");
+            setLocation("Unknown error");
+        }
+      },
+      {
+        enableHighAccuracy: true, // Request high accuracy (uses GPS if available)
+        timeout: 10000,          // Timeout after 10 seconds
+        maximumAge: 0,           // Do not use cached results
+      }
+    );
   }
 
   const handleNameChange = (e) => {

@@ -587,6 +587,7 @@ import Close from "../images/Close.png";
 import RIGHT from "../images/Right.png";
 import LEFT from "../images/Left.png";
 import { useSwipeable } from "react-swipeable";
+import SwipeToCallButton from './SwipeToCallButton';
 
 const VehicleList = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -778,6 +779,7 @@ const VehicleList = () => {
             <div className="space-y-2">
               <p className="text-gray-800">{selectedVehicle.description}</p>
               <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
+              <SwipeToCallButton mobile={selectedVehicle.mobile} />
             </div>
           </div>
         </div>
