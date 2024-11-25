@@ -578,75 +578,246 @@
 
 
 
+// import React, { useState, useEffect, useRef } from "react";
+// import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore";
+// import Radio from "./Radio"; // Assuming this component handles the type filter
+// import { useAuth } from "../context/AuthContext";
+// import LOPA from "./LOPA";
+// import Close from "../images/Close.png";
+// import RIGHT from "../images/Right.png";
+// import LEFT from "../images/Left.png";
+// import { useSwipeable } from "react-swipeable";
+// import SwipeToCallButton from './SwipeToCallButton';
+
+// const VehicleList = () => {
+//   const db = getFirestore();
+//   const { Vahana } = useAuth();
+//   const [type, setType] = useState("Bike"); // Default to "Bike"
+//   const [loading, setLoading] = useState(true);
+//   const [vehicles, setVehicles] = useState([]);
+
+//   const [showModal, setShowModal] = useState(false);
+//   const [selectedVehicle, setSelectedVehicle] = useState(null);
+//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+//   const modalRef = useRef(null);
+
+//   useEffect(() => {
+//     const fetchVehicles = async () => {
+//       setLoading(true);
+//       const providerRef = collection(db, "users")
+//       const vehiclesRef = collection(db, "vehicles");
+//       const ProviderSnapshot = await getDocs(providerRef);
+//       const VehicleSnapshot = await getDocs(vehiclesRef);
+//       const vehiclesList = VehicleSnapshot.docs.map((doc) => ({
+//         id: doc.id,
+//         ...doc.data(),
+//       }));
+
+//       const filteredVehicles = [];
+
+//       for (const vehicle of vehiclesList) {
+//         const providerRef = doc(db, "users", vehicle.providerId); // Assuming `providerId` is stored in vehicle data
+//         const providerDoc = await getDoc(providerRef);
+
+//         if (providerDoc.exists()) {
+//           const providerData = providerDoc.data();
+
+//           if (providerData.isPaid && isPaymentWithin24Hours(providerData.paymentDate)) {
+//             // Filter vehicles by type
+//             if (vehicle.type === type) {
+//               filteredVehicles.push({
+//                 ...vehicle,
+//                 providerMobile: providerData.mobile, // Add provider's mobile number
+//               });
+//             }
+//           }
+//         }
+
+//         setVehicles(filteredVehicles);
+//         setLoading(false);
+//       };
+
+//       fetchVehicles();
+//     }
+//   }, [db, type]); // Fetch vehicles when type changes
+
+//   const isPaymentWithin24Hours = (paymentDate) => {
+//     if (!paymentDate) return false;
+//     const paymentTimestamp = paymentDate.seconds * 1000;
+//     const currentTime = Date.now();
+//     return currentTime - paymentTimestamp <= 24 * 60 * 60 * 1000;
+//   };
+
+//   const openModal = (vehicle) => {
+//     setSelectedVehicle(vehicle);
+//     setCurrentImageIndex(0);
+//     setShowModal(true);
+//   };
+
+//   const closeModal = () => {
+//     setShowModal(false);
+//     setSelectedVehicle(null);
+//   };
+
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (modalRef.current && !modalRef.current.contains(event.target)) {
+//         closeModal();
+//       }
+//     };
+
+//     if (showModal) {
+//       document.addEventListener("mousedown", handleClickOutside);
+//     }
+
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, [showModal]);
+
+//   const handleSwipeLeft = () => {
+//     setCurrentImageIndex((prevIndex) =>
+//       prevIndex === Vahana[selectedVehicle.name].length - 1 ? 0 : prevIndex + 1
+//     );
+//   };
+
+//   const handleSwipeRight = () => {
+//     setCurrentImageIndex((prevIndex) =>
+//       prevIndex === 0 ? Vahana[selectedVehicle.name].length - 1 : prevIndex - 1
+//     );
+//   };
+
+//   const swipeHandlers = useSwipeable({
+//     onSwipedLeft: handleSwipeLeft,
+//     onSwipedRight: handleSwipeRight,
+//     delta: 10,
+//     trackTouch: true,
+//     trackMouse: true,
+//     preventScrollOnSwipe: true,
+//   });
+
+//   const handlePrev = () => {
+//     handleSwipeRight();
+//   };
+
+//   const handleNext = () => {
+//     handleSwipeLeft();
+//   };
+
+//   return (
+//     <div className="flex flex-col items-center w-full gap-4 p-4">
+//       <div className="flex w-full flex-col">
+//         <h2 className="text-center text-xl font-bold">Available Vehicles for Rent</h2>
+//       </div>
+//       <Radio type={type} setType={setType} /> {/* Filter component */}
+
+//       {loading ? (
+//         <div className="flex h-[80vh] w-full items-center justify-center rounded p-2 shadow-[#9bb8e0]">
+//           <LOPA />
+//         </div>
+//       ) : (
+//         <div className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+//           {vehicles.length === 0 ? (
+//             <p className="text-center w-full">No vehicles available for this type</p>
+//           ) : (
+//             vehicles.map((vehicle) => (
+//               <div
+//                 key={vehicle.id}
+//                 className={`flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+//                   }`}
+//                 onClick={() => openModal(vehicle)}
+//               >
+//                 <img
+//                   src={Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"}
+//                   alt={vehicle.name}
+//                   className="w-full h-32 object-contain"
+//                 />
+//                 <h3 className="text-lg font-medium">{vehicle.name}</h3>
+//                 <p className="text-sm">₹{vehicle.price}/day</p>
+//                 <p className="text-xs text-gray-600">{vehicle.location}</p>
+//               </div>
+//             ))
+//           )}
+//         </div>
+//       )}
+
+//       {showModal && selectedVehicle && (
+//         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+//           <div
+//             ref={modalRef}
+//             className="relative w-full max-w-md rounded-lg bg-white shadow-lg p-6 space-y-4 md:max-w-lg"
+//           >
+//             <button
+//               onClick={closeModal}
+//               className="absolute top-4 right-4 text-xl text-gray-600 hover:text-black"
+//             >
+//               <img className="h-5" src={Close} alt="Close" />
+//             </button>
+
+//             <h2 className="text-2xl font-semibold text-center">{selectedVehicle.name}</h2>
+
+//             <div
+//               {...swipeHandlers}
+//               className="relative flex items-center justify-center gap-2 overflow-hidden"
+//             >
+//               <button
+//                 onClick={handlePrev}
+//                 className="p-2 text-gray-500 hover:text-gray-700"
+//               >
+//                 <img className="h-6" src={LEFT} alt="Previous" />
+//               </button>
+//               <img
+//                 src={Vahana[selectedVehicle.name]?.[currentImageIndex] || "https://via.placeholder.com/150"}
+//                 alt={selectedVehicle.name}
+//                 className="w-48 h-48 object-contain"
+//               />
+//               <button
+//                 onClick={handleNext}
+//                 className="p-2 text-gray-500 hover:text-gray-700"
+//               >
+//                 <img className="h-6" src={RIGHT} alt="Next" />
+//               </button>
+//             </div>
+
+//             <div className="space-y-2">
+//               <p className="text-gray-800">{selectedVehicle.description}</p>
+//               <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
+//               <SwipeToCallButton mobile={selectedVehicle.providerMobile} />
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default VehicleList;
+
+
+
+
+
+
 import React, { useState, useEffect, useRef } from "react";
-import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore";
-import Radio from "./Radio"; // Assuming this component handles the type filter
+import Radio from "./Radio"; // Component for selecting vehicle type
 import { useAuth } from "../context/AuthContext";
-import LOPA from "./LOPA";
+import LOPA from "./LOPA"; // Loading spinner component
 import Close from "../images/Close.png";
 import RIGHT from "../images/Right.png";
 import LEFT from "../images/Left.png";
 import { useSwipeable } from "react-swipeable";
-import SwipeToCallButton from './SwipeToCallButton';
+import SwipeToCallButton from "./SwipeToCallButton";
+import useFetchVehicles from "../hooks/useFetchVehicles"; // Custom hook for fetching vehicles
 
 const VehicleList = () => {
-  const db = getFirestore();
   const { Vahana } = useAuth();
   const [type, setType] = useState("Bike"); // Default to "Bike"
-  const [loading, setLoading] = useState(true);
-  const [vehicles, setVehicles] = useState([]);
+  const { vehicles, loading, error } = useFetchVehicles(type);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalRef = useRef(null);
-
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      setLoading(true);
-      const providerRef = collection(db, "users")
-      const vehiclesRef = collection(db, "vehicles");
-      const ProviderSnapshot = await getDocs(providerRef);
-      const VehicleSnapshot = await getDocs(vehiclesRef);
-      const vehiclesList = VehicleSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      const filteredVehicles = [];
-
-      for (const vehicle of vehiclesList) {
-        const providerRef = doc(db, "users", vehicle.providerId); // Assuming `providerId` is stored in vehicle data
-        const providerDoc = await getDoc(providerRef);
-
-        if (providerDoc.exists()) {
-          const providerData = providerDoc.data();
-
-          if (providerData.isPaid && isPaymentWithin24Hours(providerData.paymentDate)) {
-            // Filter vehicles by type
-            if (vehicle.type === type) {
-              filteredVehicles.push({
-                ...vehicle,
-                providerMobile: providerData.mobile, // Add provider's mobile number
-              });
-            }
-          }
-        }
-
-        setVehicles(filteredVehicles);
-        setLoading(false);
-      };
-
-      fetchVehicles();
-    }
-  }, [db, type]); // Fetch vehicles when type changes
-
-  const isPaymentWithin24Hours = (paymentDate) => {
-    if (!paymentDate) return false;
-    const paymentTimestamp = paymentDate.seconds * 1000;
-    const currentTime = Date.now();
-    return currentTime - paymentTimestamp <= 24 * 60 * 60 * 1000;
-  };
 
   const openModal = (vehicle) => {
     setSelectedVehicle(vehicle);
@@ -696,48 +867,40 @@ const VehicleList = () => {
     preventScrollOnSwipe: true,
   });
 
-  const handlePrev = () => {
-    handleSwipeRight();
-  };
-
-  const handleNext = () => {
-    handleSwipeLeft();
-  };
+  const handlePrev = () => handleSwipeRight();
+  const handleNext = () => handleSwipeLeft();
 
   return (
     <div className="flex flex-col items-center w-full gap-4 p-4">
-      <div className="flex w-full flex-col">
-        <h2 className="text-center text-xl font-bold">Available Vehicles for Rent</h2>
-      </div>
+      <h2 className="text-center text-xl font-bold">Available Vehicles for Rent</h2>
       <Radio type={type} setType={setType} /> {/* Filter component */}
 
       {loading ? (
         <div className="flex h-[80vh] w-full items-center justify-center rounded p-2 shadow-[#9bb8e0]">
           <LOPA />
         </div>
+      ) : error ? (
+        <div className="text-center text-red-500">{error}</div>
+      ) : vehicles.length === 0 ? (
+        <p className="text-center w-full">No vehicles available for this type</p>
       ) : (
         <div className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-          {vehicles.length === 0 ? (
-            <p className="text-center w-full">No vehicles available for this type</p>
-          ) : (
-            vehicles.map((vehicle) => (
-              <div
-                key={vehicle.id}
-                className={`flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
-                  }`}
-                onClick={() => openModal(vehicle)}
-              >
-                <img
-                  src={Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"}
-                  alt={vehicle.name}
-                  className="w-full h-32 object-contain"
-                />
-                <h3 className="text-lg font-medium">{vehicle.name}</h3>
-                <p className="text-sm">₹{vehicle.price}/day</p>
-                <p className="text-xs text-gray-600">{vehicle.location}</p>
-              </div>
-            ))
-          )}
+          {vehicles.map((vehicle) => (
+            <div
+              key={vehicle.id}
+              className="flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+              onClick={() => openModal(vehicle)}
+            >
+              <img
+                src={Vahana[vehicle.name]?.[0] || "https://via.placeholder.com/150"}
+                alt={vehicle.name}
+                className="w-full h-32 object-contain"
+              />
+              <h3 className="text-lg font-medium">{vehicle.name}</h3>
+              <p className="text-sm">₹{vehicle.price}/day</p>
+              <p className="text-xs text-gray-600">{vehicle.location}</p>
+            </div>
+          ))}
         </div>
       )}
 
@@ -753,17 +916,12 @@ const VehicleList = () => {
             >
               <img className="h-5" src={Close} alt="Close" />
             </button>
-
             <h2 className="text-2xl font-semibold text-center">{selectedVehicle.name}</h2>
-
             <div
               {...swipeHandlers}
               className="relative flex items-center justify-center gap-2 overflow-hidden"
             >
-              <button
-                onClick={handlePrev}
-                className="p-2 text-gray-500 hover:text-gray-700"
-              >
+              <button onClick={handlePrev} className="p-2 text-gray-500 hover:text-gray-700">
                 <img className="h-6" src={LEFT} alt="Previous" />
               </button>
               <img
@@ -771,14 +929,10 @@ const VehicleList = () => {
                 alt={selectedVehicle.name}
                 className="w-48 h-48 object-contain"
               />
-              <button
-                onClick={handleNext}
-                className="p-2 text-gray-500 hover:text-gray-700"
-              >
+              <button onClick={handleNext} className="p-2 text-gray-500 hover:text-gray-700">
                 <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
-
             <div className="space-y-2">
               <p className="text-gray-800">{selectedVehicle.description}</p>
               <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
