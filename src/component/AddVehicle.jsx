@@ -509,6 +509,8 @@ const AddVehicle = () => {
     }
     setLoading(false);
   };
+console.log(location);
+
 
   return (
     <div className="flex h-screen flex-col items-center gap-3 border pl-7 pr-7 pt-4">

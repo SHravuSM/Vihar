@@ -590,11 +590,11 @@ import { useSwipeable } from "react-swipeable";
 import SwipeToCallButton from './SwipeToCallButton';
 
 const VehicleList = () => {
-  const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true);
   const db = getFirestore();
-  const [type, setType] = useState("Bike"); // Default to "Bike"
   const { Vahana } = useAuth();
+  const [type, setType] = useState("Bike"); // Default to "Bike"
+  const [loading, setLoading] = useState(true);
+  const [vehicles, setVehicles] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
@@ -604,10 +604,11 @@ const VehicleList = () => {
   useEffect(() => {
     const fetchVehicles = async () => {
       setLoading(true);
-
+      const providerRef = collection(db, "users")
       const vehiclesRef = collection(db, "vehicles");
-      const querySnapshot = await getDocs(vehiclesRef);
-      const vehiclesList = querySnapshot.docs.map((doc) => ({
+      const ProviderSnapshot = await getDocs(providerRef);
+      const VehicleSnapshot = await getDocs(vehiclesRef);
+      const vehiclesList = VehicleSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -624,17 +625,20 @@ const VehicleList = () => {
           if (providerData.isPaid && isPaymentWithin24Hours(providerData.paymentDate)) {
             // Filter vehicles by type
             if (vehicle.type === type) {
-              filteredVehicles.push(vehicle); // Only add vehicles of the selected type
+              filteredVehicles.push({
+                ...vehicle,
+                providerMobile: providerData.mobile, // Add provider's mobile number
+              });
             }
           }
         }
-      }
 
-      setVehicles(filteredVehicles);
-      setLoading(false);
-    };
+        setVehicles(filteredVehicles);
+        setLoading(false);
+      };
 
-    fetchVehicles();
+      fetchVehicles();
+    }
   }, [db, type]); // Fetch vehicles when type changes
 
   const isPaymentWithin24Hours = (paymentDate) => {
@@ -719,9 +723,8 @@ const VehicleList = () => {
             vehicles.map((vehicle) => (
               <div
                 key={vehicle.id}
-                className={`flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 ${
-                  vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
-                }`}
+                className={`flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+                  }`}
                 onClick={() => openModal(vehicle)}
               >
                 <img
@@ -779,7 +782,7 @@ const VehicleList = () => {
             <div className="space-y-2">
               <p className="text-gray-800">{selectedVehicle.description}</p>
               <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
-              <SwipeToCallButton mobile={selectedVehicle.mobile} />
+              <SwipeToCallButton mobile={selectedVehicle.providerMobile} />
             </div>
           </div>
         </div>

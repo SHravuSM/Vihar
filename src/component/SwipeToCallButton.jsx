@@ -41,6 +41,9 @@ const SwipeToCallButton = ({ mobile }) => {
   const [isSwiped, setIsSwiped] = useState(false);
   const [isSwiping, setIsSwiping] = useState(false);
 
+  console.log(mobile);
+  
+
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
     setCurrentX(e.touches[0].clientX);
@@ -64,6 +67,8 @@ const SwipeToCallButton = ({ mobile }) => {
     if (swipeDistance > containerWidth * 0.8) {
       setIsSwiped(true);
       setTimeout(() => {
+        console.log(mobile);
+        
         window.location.href = `tel:${mobile}`;
         setTimeout(() => {
           setIsSwiped(false);
