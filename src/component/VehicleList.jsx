@@ -888,7 +888,7 @@ const VehicleList = () => {
           {vehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className="flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+              className={`${type == 'Bike' ? 'shadow-blue-300' : 'shadow-red-300'} flex flex-col items-start p-3 gap-2 border rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300 `}
               onClick={() => openModal(vehicle)}
             >
               <img

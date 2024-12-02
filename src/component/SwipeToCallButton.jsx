@@ -86,7 +86,7 @@ const SwipeToCallButton = ({ mobile }) => {
   const progress = Math.min(currentX - startX, 76); // Limit swipe progress to container width
 
   return (
-    <div className="relative h-14 w-28 overflow-hidden rounded-md bg-green-600 shadow-lg">
+    <div className="relative h-10 w-28 overflow-hidden rounded-md bg-green-600 shadow-lg">
       {isSwiped ? (
         <p className="text-md flex h-full w-full items-center justify-center text-center tracking-wider text-white">
           Calling...
