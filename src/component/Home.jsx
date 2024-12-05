@@ -27,18 +27,18 @@ import Nav from "./Nav";
 import JoinUsBtn from "./JoinUsBtn";
 import GetStarted from "./GetStarted";
 import { NavLink } from "react-router-dom";
-import HAMPI from '../images/HAMPI1.jpg'
+import HAMPI from '../images/Hampi2.png'
 import LoginComponent from "./LoginComponent";
 
 export default function Home() {
   return (
     //  bg-gradient-to-b from-pink-300 via-violet-500 to-red-300
     <div
-      className={`flex h-screen flex-col items-center gap-1 bg-cover p-1 pt-0 text-white`}
+      className={`flex h-screen flex-col items-center bg-right gap-1 bg-cover p-1 pt-0 text-white`}
       style={{
         backgroundImage: `url(${HAMPI})`,
         // backgroundSize: 'cover', // Ensures the image covers the entire div
-        backgroundPosition: 'center', // Centers the image
+        // backgroundPosition: 'center', // Centers the image
         backgroundRepeat: 'no-repeat', // Prevents tiling
       }}
     >
