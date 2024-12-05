@@ -132,6 +132,7 @@ import {
 import { getAuth } from "firebase/auth";
 import { useAuth } from "../context/AuthContext";
 import LOPA from "./LOPA";
+import HELMET from '../images/Helmet.gif'
 
 const ProviderVehicles = ({ type }) => {
   const { Vahana } = useAuth();
@@ -215,11 +216,8 @@ const ProviderVehicles = ({ type }) => {
           {filteredVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-2 w-full rounded shadow-md ${
-                vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
-              } ${
-                vehicle.isSold ? "opacity-50" : "opacity-100"
-              } transition-opacity duration-300`}
+              className={`grid h-32 grid-cols-[1fr_2fr] items-center px-2 w-full rounded shadow-md ${vehicle.type === "Bike" ? "shadow-[#92adde]" : "shadow-red-200"
+                } transition-opacity duration-300`}
             >
               <div className="w-32">
                 <img
@@ -228,25 +226,29 @@ const ProviderVehicles = ({ type }) => {
                     "https://via.placeholder.com/150"
                   }
                   alt={vehicle.name}
-                  className={`h-28 w-28 object-contain ${
-                    vehicle.type === "Bike"
+                  className={`${vehicle.isSold ? "opacity-30" : "opacity-100"
+                    } h-28 w-28 object-contain ${vehicle.type === "Bike"
                       ? "drop-shadow-[0px_0px_50px_#005aeb]"
                       : "drop-shadow-[0px_0px_50px_red]"
-                  }`}
+                    }`}
                 />
               </div>
               <div className="flex flex-col items-center text-[12px]">
-                <h3 className="text-sm font-semibold">{vehicle.name}</h3>
-                <p>{vehicle.type}</p>
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-semibold">{vehicle.name}</h3>
+                  {vehicle.helmetsIncluded ? <img className="h-4" src={HELMET} alt="" /> : <></>}
+                </div>
                 <p>₹{vehicle.price} per day</p>
-                <p>{vehicle.location}</p>
-                <p className="text-xs">
-                  Status: {vehicle.isSold ? "Sold" : "Available"}
+                {/* <p>{vehicle.location}</p> */}
+                <p className={`text-xs`}>
+                  Status: <span className={` ${vehicle.isSold ? "text-red-500 font-semibold" : "text-green-600 font-semibold"
+                    }`}>{vehicle.isSold ? "Sold" : "Available"}</span>
                 </p>
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleDelete(vehicle.id)}
-                    className="rounded bg-red-500 px-2 py-1 text-white shadow-lg hover:bg-red-600 opacity-100"
+                    className={`${vehicle.isSold ? "opacity-30" : "opacity-100"
+                      } rounded bg-red-500 px-2 py-1 text-white shadow-lg hover:bg-red-600 opacity-100`}
                   >
                     Delete
                   </button>
@@ -254,13 +256,12 @@ const ProviderVehicles = ({ type }) => {
                     onClick={() =>
                       toggleSoldStatus(vehicle.id, vehicle.isSold)
                     }
-                    className={`rounded px-2 py-1 text-white shadow-lg opacity-100 ${
-                      vehicle.isSold
-                        ? "bg-green-500 hover:bg-green-600"
-                        : "bg-yellow-500 hover:bg-yellow-600"
-                    }`}
+                    className={`rounded px-2 py-1 text-white shadow-lg opacity-100 ${vehicle.isSold
+                      ? "bg-green-500 hover:bg-green-600"
+                      : "bg-yellow-500 hover:bg-yellow-600"
+                      }`}
                   >
-                    {vehicle.isSold ? "Mark as Available" : "Mark as Sold"}
+                    {vehicle.isSold ? "Available" : "Sold"}
                   </button>
                 </div>
               </div>

@@ -31,7 +31,7 @@ const StyledWrapper = styled.div`
     background-color: rgb(15, 15, 15);
     font-weight: 500;
     letter-spacing: 0.5px;
-    border-radius: 0.15rem;
+    /* border-radius: 0.15rem; */
     font-size: 0.7rem;
     line-height: 0.8rem;
     padding: 0.5em;

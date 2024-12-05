@@ -911,7 +911,7 @@ const VehicleList = () => {
                     {vehicle.helmetsIncluded ? <img className="h-4" src={HELMET} alt="" /> : <></>}
                   </div>
                   <p className="text-sm">₹{vehicle.price}/day</p>
-                  <p className="text-xs text-gray-600">{vehicle.location}</p>
+                  {/* <p className="text-xs text-gray-600">{vehicle.location}</p> */}
                 </div>
               </div>
             ))}

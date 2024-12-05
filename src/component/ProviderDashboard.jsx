@@ -194,6 +194,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import ProviderVehicles from "./ProviderVehicles";
 import Radio from "./Radio";
 import Logoff from "./Logoff";
+import CONTACTUS from '../images/Contact-Us.png';
 import Add from "./Add";
 import Renewal from "./Renewal";
 import Base64ImageUpload from "./Base64ImageUpload";
@@ -342,26 +343,27 @@ const ProviderDashboard = () => {
             </div>
           </div>
         </div>
-        <button onClick={()=>navigate('/provider/contact-us')} >ContactUs</button>
         <div className="flex w-full flex-col items-center gap-2 px-4 py-2">
           <h2 className="mb-1 text-center text-2xl font-semibold">
             Your Vehicle Listings
           </h2>
-          <div className="flex items-center gap-2">
-            <div onClick={() => setTimeout(() => navigate("/provider/add-vehicle"), 400)}>
+          <div className="flex items-center gap-3">
+            <img src={CONTACTUS} className="h-7" onClick={() => navigate('/provider/contact-us')} alt="" />
+            <div className="flex gap-1">
+              <div onClick={() => setTimeout(() => navigate("/provider/add-vehicle"), 400)}>
               <Add />
             </div>
             <button className="renew" onClick={handleRenewal}>
               <Renewal />
               {/* <Payment /> */}
             </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 mt-2">
             <div
-              className={`h-4 w-4 rounded-full ${
-                isSubscriptionActive ? "bg-green-500" : "bg-red-500"
-              }`}
+              className={`h-4 w-4 rounded-full ${isSubscriptionActive ? "bg-green-500" : "bg-red-500"
+                }`}
               title={isSubscriptionActive ? "Access Active" : "Access Expired"}
             ></div>
             <span className="text-sm font-medium">

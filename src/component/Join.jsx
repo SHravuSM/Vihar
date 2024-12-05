@@ -22,18 +22,21 @@ export default function Join() {
             <pre className="flex text-center">Thank❤You</pre>
             <div />
           </div>
+
+          <input
+            type="text"
+            placeholder="Enter name"
+            onChange={(e) => setComName(e.target.value)}
+            value={comName}
+          />
+
           <input
             type="number"
             placeholder="Mobile number"
             value={number}
             onChange={handleNum}
           />
-          <input
-            type="text"
-            placeholder="Enter Business company name"
-            onChange={(e) => setComName(e.target.value)}
-            value={comName}
-          />
+
           {number.length == 10 && (
             <button
               onClick={() => handleRegister(number)}
