@@ -48,7 +48,7 @@ export default function Home() {
         >
           <h1 className="text-4xl font-light leading-snug tracking-wider drop-shadow-md">
             Explore Your Journey with{" "}
-            <span className="text-6xl font-normal text-yellow-500">Vihar</span>
+            <span className="text-6xl font-normal text-yellow-500">ViHAR</span>
           </h1>
           <NavLink to="/vehicles" className="text-[15px] font-semibold underline leading-relaxed text-red-400">
             Booking Vehicles is Simple.
