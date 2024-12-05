@@ -152,15 +152,15 @@ export default function Nav() {
           }
         >
           <img
-            className="h-8 mt-6 transform ml-3 transition-transform duration-300 hover:scale-110"
+            className="h-8 mt-4 transform ml-3 transition-transform duration-300 hover:scale-110"
             src={CONTACTUS}
             alt="Home"
           />
         </NavLink>
 
-        <div className="fixed top-0 sm:left-[165px]">
+        <div className="fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-50">
           <img
-            className=" rounded-lg transition-transform duration-300 hover:scale-110 sm:h-20 md:h-20 lg:h-28 "
+            className="sm:h-16 md:h-20 lg:h-28 "
             src={LOGO}
             // bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black]
             alt="Logo"
@@ -176,7 +176,7 @@ export default function Nav() {
           }
         >
           <img
-            className="h-14 mt-3 mr-3 transform transition-transform duration-300 hover:scale-110"
+            className="h-14 mt-1 mr-3 transform transition-transform duration-300 hover:scale-110"
             src={BIKE}
             alt="Vehicles"
           />
