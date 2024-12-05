@@ -145,7 +145,7 @@ export default function Nav() {
       {/* Navigation Links */}
       {/* <div className="flex items-center justify-between text-sm font-semibold text-white lg:text-lg"> */}
 
-      <div className="fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-0">
+      <div className="fixed top-0 left-0 w-full flex justify-center items-center  z-0">
         <img
           className="sm:h-20 md:h-20 lg:h-28 "
           src={LOGO}

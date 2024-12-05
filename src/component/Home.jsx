@@ -61,8 +61,8 @@ export default function Home() {
             Explore Your Journey with{" "}
             <span className="text-6xl font-normal text-yellow-500">V!HAR</span>
           </h1>
-          <NavLink to="/vehicles" className="text-[16px] font-normal underline leading-relaxed text-blue-400">
-            Booking Vehicles is simple.
+          <NavLink to="/vehicles" className="text-[16px] font-normal underline leading-relaxed text-red-400">
+            Vehicle booking Simplified...
           </NavLink>
           <p className="text-lg font-light text-white">Enjoy on your journey — we’ll make booking the easy part.</p>
 

@@ -182,7 +182,7 @@ const Base64ImageUpload = () => {
     return (
         <div className="flex flex-col items-center gap-3">
             {/* Profile Image */}
-            <div className="relative w-24 h-24 rounded-full overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden drop-shadow-[0px_0px_6px_rgba(0,0,0,0.5)]">
                 <img
                     src={image || photoURL || Profile}
                     alt="User Profile"
