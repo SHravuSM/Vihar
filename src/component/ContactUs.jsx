@@ -76,7 +76,7 @@ const ContactUs = () => {
               <span className="text-yellow-500 text-2xl">
                 <i className="fas fa-phone"></i>
               </span>
-              <p className="text-gray-700 font-medium text-lg">+91 0123456789</p>
+              <p className="text-gray-700 font-medium text-lg">+91 9019206067</p>
             </div>
             {/* Location */}
             <div className="flex items-center space-x-4">
