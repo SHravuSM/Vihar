@@ -343,6 +343,226 @@
 
 // export default AddVehicle;
 
+// import Adding from "./Adding";
+// import Rupee from "../images/Rupee.png";
+// import { getAuth } from "firebase/auth";
+// import { useState, useEffect } from "react";
+// import { useAuth } from "../context/AuthContext";
+// import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+// const AddVehicle = () => {
+//   const { Vahana } = useAuth();
+//   const [name, setName] = useState("");
+//   const [price, setPrice] = useState("");
+//   const [type, setType] = useState("Bike");
+//   const [location, setLocation] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const [latitude, setLatitude] = useState(null);
+//   const [longitude, setLongitude] = useState(null);
+//   const [suggestions, setSuggestions] = useState([]);
+
+//   const auth = getAuth();
+//   const db = getFirestore();
+
+//   function LocationFetching() {
+//     if (!navigator.geolocation) {
+//       console.error("Geolocation is not supported by this browser.");
+//       return;
+//     }
+
+//     // Show a loading state
+//     setLoading(true);
+
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+//         const { latitude, longitude } = position.coords;
+//         setLatitude(latitude);
+//         setLongitude(longitude);
+
+//         // Use reverse geocoding to fetch location name
+//         fetch(
+//           `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
+//         )
+//           .then((response) => {
+//             if (!response.ok) {
+//               // throw new Error(HTTP error! status: ${ response.status });
+//             }
+//             return response.json();
+//           })
+//           .then((data) => {
+//             const locationName =
+//               data.address.city ||
+//               data.address.town ||
+//               data.address.village ||
+//               data.address.city_district ||
+//               "Unknown Location";
+//             setLocation(locationName);
+//           })
+//           .catch((error) => {
+//             console.error("Error fetching location name:", error);
+//             setLocation("Unable to fetch location");
+//           })
+//           .finally(() => {
+//             setLoading(false);
+//           });
+//       },
+//       (error) => {
+//         // Handle geolocation errors
+//         setLoading(false);
+//         switch (error.code) {
+//           case error.PERMISSION_DENIED:
+//             console.error("User denied the request for Geolocation.");
+//             setLocation("Permission denied");
+//             break;
+//           case error.POSITION_UNAVAILABLE:
+//             console.error("Location information is unavailable.");
+//             setLocation("Location unavailable");
+//             break;
+//           case error.TIMEOUT:
+//             console.error("The request to get user location timed out.");
+//             setLocation("Location request timed out");
+//             break;
+//           default:
+//             console.error("An unknown error occurred.");
+//             setLocation("Unknown error");
+//         }
+//       },
+//       {
+//         enableHighAccuracy: true, // Request high accuracy (uses GPS if available)
+//         timeout: 10000,          // Timeout after 10 seconds
+//         maximumAge: 0,           // Do not use cached results
+//       }
+//     );
+//   }
+
+//   const handleNameChange = (e) => {
+//     const input = e.target.value;
+//     setName(input);
+//     const matches = Object.keys(Vahana).filter((EV) =>
+//       EV.toLowerCase().includes(input.toLowerCase()),
+//     );
+//     setSuggestions(matches);
+//   };
+
+//   const handleSuggestionClick = (suggestion) => {
+//     setName(suggestion);
+//     setSuggestions([]);
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     const user = auth.currentUser;
+
+//     if (!user) {
+//       alert("User is not authenticated");
+//       setLoading(false);
+//       return;
+//     }
+
+//     try {
+//       await addDoc(collection(db, "vehicles"), {
+//         providerId: user.uid,
+//         isSold:false,
+//         name,
+//         type,
+//         price,
+//         location,
+//         latitude,
+//         longitude,
+//       });
+//       setName("");
+//       setType("Bike");
+//       setPrice("");
+//       setLocation("");
+//       setLatitude(null);
+//       setLongitude(null);
+//     } catch (error) {
+//       alert("Error adding vehicle. Please try again.");
+//     }
+//     setLoading(false);
+//   };
+// console.log(location);
+
+
+//   return (
+//     <div className="flex h-screen flex-col items-center gap-3 border pl-7 pr-7 pt-4">
+//       <h2 className="text-center text-2xl font-semibold text-black">
+//         Add New Vehicle
+//       </h2>
+//       <img
+//         className="h-36 rounded drop-shadow-[1px_1px_90px_#c53838]"
+//         src={Vahana[name]?.[0]}
+//         alt=""
+//       />
+//       <div className="space-y-4">
+//         <div className="relative">
+//           <input
+//             type="text"
+//             placeholder="Vehicle Name"
+//             value={name}
+//             onChange={handleNameChange}
+//             required
+//             className="w-full rounded border p-2"
+//           />
+//           {suggestions.length > 0 && (
+//             <ul className="absolute mt-1 w-full rounded border bg-white shadow-md">
+//               {suggestions.map((suggestion) => (
+//                 <li
+//                   key={suggestion}
+//                   onClick={() => handleSuggestionClick(suggestion)}
+//                   className="cursor-pointer p-2 hover:bg-gray-200"
+//                 >
+//                   {suggestion}
+//                 </li>
+//               ))}
+//             </ul>
+//           )}
+//         </div>
+
+//         <div className="flex gap-1">
+//           <div className="flex w-[70%] items-center justify-evenly rounded border bg-white">
+//             <img className="h-6 w-6" src={Rupee} alt="" />
+//             <input
+//               type="number"
+//               placeholder="Price per Day"
+//               value={price}
+//               onChange={(e) => setPrice(e.target.value)}
+//               required
+//               className="w-[84%] border-l-2 border-yellow-400 p-2"
+//             />
+//           </div>
+
+//           <select
+//             className="w-[30%] rounded"
+//             name="Vehicle type"
+//             value={type}
+//             onChange={(e) => setType(e.target.value)}
+//           >
+//             <option value="Bike">Bike</option>
+//             <option value="Scooter">Scooter</option>
+//           </select>
+//         </div>
+
+//         <button
+//           type="button"
+//           onClick={LocationFetching}
+//           className="mt-2 w-full rounded bg-green-500 p-2 text-white hover:bg-green-600 disabled:bg-gray-400"
+//           disabled={loading} // Disable while fetching
+//         >
+//           {loading ? "Fetching Location..." : "Use Current Location"}
+//         </button>
+
+//         <Adding handleSubmit={handleSubmit} loading={loading} />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddVehicle;
+
+
+
 import Adding from "./Adding";
 import Rupee from "../images/Rupee.png";
 import { getAuth } from "firebase/auth";
@@ -360,37 +580,10 @@ const AddVehicle = () => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [helmetsIncluded, setHelmetsIncluded] = useState(false);
 
   const auth = getAuth();
   const db = getFirestore();
-
-  // // Fetch location automatically using Geolocation API
-  // function LocationFetching() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       setLoading(true);
-  //       setLatitude(position.coords.latitude);
-  //       setLongitude(position.coords.longitude);
-  //       // Optionally use reverse geocoding to get location name based on lat/lng
-  //       fetch(
-  //         `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           setLoading(false);
-  //           setLocation(
-  //             data.address.city ||
-  //               data.address.city_district ||
-  //               "Unknown Location",
-  //           );
-  //         })
-  //         .catch((error) => {
-  //           setLoading(false);
-  //           console.error("Error fetching location name:", error);
-  //         });
-  //     });
-  //   }
-  // }
 
   function LocationFetching() {
     if (!navigator.geolocation) {
@@ -409,14 +602,9 @@ const AddVehicle = () => {
 
         // Use reverse geocoding to fetch location name
         fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`,
+          `https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`
         )
-          .then((response) => {
-            if (!response.ok) {
-              // throw new Error(HTTP error! status: ${ response.status });
-            }
-            return response.json();
-          })
+          .then((response) => response.json())
           .then((data) => {
             const locationName =
               data.address.city ||
@@ -457,8 +645,8 @@ const AddVehicle = () => {
       },
       {
         enableHighAccuracy: true, // Request high accuracy (uses GPS if available)
-        timeout: 10000,          // Timeout after 10 seconds
-        maximumAge: 0,           // Do not use cached results
+        timeout: 10000, // Timeout after 10 seconds
+        maximumAge: 0, // Do not use cached results
       }
     );
   }
@@ -467,7 +655,7 @@ const AddVehicle = () => {
     const input = e.target.value;
     setName(input);
     const matches = Object.keys(Vahana).filter((EV) =>
-      EV.toLowerCase().includes(input.toLowerCase()),
+      EV.toLowerCase().includes(input.toLowerCase())
     );
     setSuggestions(matches);
   };
@@ -491,12 +679,14 @@ const AddVehicle = () => {
     try {
       await addDoc(collection(db, "vehicles"), {
         providerId: user.uid,
+        isSold: false,
         name,
         type,
         price,
         location,
         latitude,
         longitude,
+        helmetsIncluded, // Store helmetsIncluded status
       });
       setName("");
       setType("Bike");
@@ -504,13 +694,12 @@ const AddVehicle = () => {
       setLocation("");
       setLatitude(null);
       setLongitude(null);
+      setHelmetsIncluded(false); // Reset the helmetsIncluded field
     } catch (error) {
       alert("Error adding vehicle. Please try again.");
     }
     setLoading(false);
   };
-console.log(location);
-
 
   return (
     <div className="flex h-screen flex-col items-center gap-3 border pl-7 pr-7 pt-4">
@@ -522,29 +711,49 @@ console.log(location);
         src={Vahana[name]?.[0]}
         alt=""
       />
-      <div className="space-y-4">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Vehicle Name"
-            value={name}
-            onChange={handleNameChange}
-            required
-            className="w-full rounded border p-2"
-          />
-          {suggestions.length > 0 && (
-            <ul className="absolute mt-1 w-full rounded border bg-white shadow-md">
-              {suggestions.map((suggestion) => (
-                <li
-                  key={suggestion}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className="cursor-pointer p-2 hover:bg-gray-200"
-                >
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          )}
+      <div className="space-y-4 w-full">
+        <div className="flex items-center gap-4">
+          {/* Vehicle Name Input */}
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder="Vehicle Name"
+              value={name}
+              onChange={handleNameChange}
+              required
+              className="w-full rounded border p-2"
+            />
+            {suggestions.length > 0 && (
+              <ul className="absolute mt-1 w-full rounded border bg-white shadow-md">
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="cursor-pointer p-2 hover:bg-gray-200"
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* Helmets Included Checkbox */}
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="helmetsIncluded"
+              checked={helmetsIncluded}
+              onChange={() => setHelmetsIncluded(!helmetsIncluded)}
+              className="h-5 w-5 rounded border-gray-300 bg-gray-100 text-green-500 focus:ring-0"
+            />
+            <label
+              htmlFor="helmetsIncluded"
+              className="ml-2 text-sm text-gray-700"
+            >
+              Helmets
+            </label>
+          </div>
         </div>
 
         <div className="flex gap-1">

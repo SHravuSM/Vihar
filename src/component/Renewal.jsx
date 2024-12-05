@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Renew from "./Renewal";
 
-const Renewal = () => {
+const Renewal = ({ handleRenewal, userId }) => {
   return (
     <StyledWrapper>
-      <button type="button" className="button">
+      <button onClick={()=>handleRenewal(userId)}type="button" className="button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={16}

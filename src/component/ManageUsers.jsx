@@ -1654,6 +1654,7 @@ import {
   doc,
   deleteDoc,
 } from "firebase/firestore";
+import Renewal from "./Renewal";
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -1669,6 +1670,38 @@ const ManageUsers = () => {
   });
   const [selectedVehicleType, setSelectedVehicleType] = useState("All");
   const db = getFirestore();
+
+  // Handle changing subscription status
+  const handleRenewal = async (userId) => {
+    try {
+      const userRef = doc(db, "users", userId);
+      await updateDoc(userDocRef, {
+        isPaid: true, // Mark as paid
+        paymentDetails: paymentDetails, // Store payment details like transaction ID
+        paymentDate: serverTimestamp(), // Store the current timestamp
+        paymentHistory: arrayUnion(paymentDetails),
+      });
+      const userDocRef = doc(db, "users", userId);
+      let date = new Date();
+
+      const paymentDetails = {
+        transactionId: "txn_123456", // Example: Replace with actual transaction ID from payment gateway
+        amount: 100, // Example: Replace with actual amount paid
+        Date: date.toISOString(),
+      };
+      alert("Payment successful! Your vehicles are now visible for the next 24 hours.");
+      setIsSubscriptionActive(true); // Update the indicator immediately
+
+      // Update the local state
+      setUsers(
+        users.map((user) =>
+          user.id === userId ? { ...user, isPaid: true } : user
+        )
+      );
+    } catch (error) {
+      console.error("Error changing subscription status: ", error);
+    }
+  };
 
   // Fetch all users
   useEffect(() => {
@@ -1921,7 +1954,10 @@ const ManageUsers = () => {
                 <p className="text-gray-600">Email: {user.email}</p>
                 <p className="text-gray-600">User ID: {user.id}</p>
                 <p className="text-gray-600">Role: {user.role}</p>
-                <p className={` text-gray-600`}>Subscription Status : {user.isPaid ? <span className="text-blue-500 font-semibold">Active</span> : <span className="text-red-600">Expired</span> }</p>
+                <p className={` text-gray-600`}>Subscription Status : {user.isPaid ? <span className="text-blue-500 font-semibold">Active</span> : <div><span className="text-red-600">Expired</span>
+                  <Renewal userId={user.id} handleRenewal={handleRenewal} /></div>
+                }
+                </p>
 
                 <div className="mt-4">
                   <p className="text-gray-600">Vehicle Counts:</p>

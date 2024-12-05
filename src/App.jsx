@@ -12,6 +12,7 @@ import ManageVehicles from "./component/ManageVehicles";
 import AdminDashboard from "./component/AdminDashboard";
 import ProviderDashboard from "./component/ProviderDashboard";
 import ProtectedRoute from "./component/ProtectedRoute";
+import ContactUs from "./component/ContactUs";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/join-us" element={<Join />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/vehicles" element={<VehicleList />} />
 
         <Route
@@ -56,6 +58,7 @@ function App() {
             }
           />
           <Route path="account" element={<Account />} />
+          <Route path="contact-us" element={<ContactUs />} />
           <Route path="add-vehicle" element={<AddVehicle />} />
         </Route>
 

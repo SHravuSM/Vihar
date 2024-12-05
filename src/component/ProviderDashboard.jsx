@@ -197,6 +197,7 @@ import Logoff from "./Logoff";
 import Add from "./Add";
 import Renewal from "./Renewal";
 import Base64ImageUpload from "./Base64ImageUpload";
+import Payment from './Payment';
 
 const ProviderDashboard = () => {
   const navigate = useNavigate();
@@ -236,7 +237,7 @@ const ProviderDashboard = () => {
           const userData = userDoc.data();
 
           // Check if the subscription is active
-          if (userData.isPaid && userData.paymentDate) {
+          if (userData.isPaid || userData.paymentDate) {
             const paymentTimestamp = userData.paymentDate.seconds * 1000; // Convert Firestore timestamp to milliseconds
             const currentTime = Date.now();
             const timeLeft = paymentTimestamp + 24 * 60 * 60 * 1000 - currentTime;
@@ -341,6 +342,7 @@ const ProviderDashboard = () => {
             </div>
           </div>
         </div>
+        <button onClick={()=>navigate('/provider/contact-us')} >ContactUs</button>
         <div className="flex w-full flex-col items-center gap-2 px-4 py-2">
           <h2 className="mb-1 text-center text-2xl font-semibold">
             Your Vehicle Listings
@@ -351,6 +353,7 @@ const ProviderDashboard = () => {
             </div>
             <button className="renew" onClick={handleRenewal}>
               <Renewal />
+              {/* <Payment /> */}
             </button>
           </div>
 

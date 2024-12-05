@@ -146,6 +146,7 @@ import Shine1 from "../images/Bikes/Shine1.png";
 import Shine2 from "../images/Bikes/Shine2.png";
 import Shine3 from "../images/Bikes/Shine3.png";
 import { useNavigate } from "react-router-dom";
+// import { useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -156,6 +157,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
   const [inOff, setInOff] = useState(true);
+  const [comName, setComName] = useState('')
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
@@ -204,6 +206,7 @@ export const AuthProvider = ({ children }) => {
       if (!docSnap.exists()) {
         await setDoc(userRef, {
           mobile: number,
+          company: comName,
           role: "vehicle provider",
           name: displayName || "N/A",
           email: email || "N/A",
@@ -237,6 +240,8 @@ export const AuthProvider = ({ children }) => {
     loading,
     Vahana,
     inOff,
+    comName,
+    setComName,
     setInOff,
     handleRegister,
   };

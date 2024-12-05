@@ -7,7 +7,7 @@ export default function Join() {
 
   const handleNum = (e) => setNumber(e.target.value);
 
-  const { handleRegister } = useAuth();
+  const { handleRegister, comName, setComName } = useAuth();
 
   return (
     <div className="flex h-screen w-full items-center justify-center p-2">
@@ -27,6 +27,12 @@ export default function Join() {
             placeholder="Mobile number"
             value={number}
             onChange={handleNum}
+          />
+          <input
+            type="text"
+            placeholder="Enter Business company name"
+            onChange={(e) => setComName(e.target.value)}
+            value={comName}
           />
           {number.length == 10 && (
             <button

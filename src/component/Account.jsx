@@ -14,6 +14,7 @@ import {
   reauthenticateWithPopup,
 } from "firebase/auth";
 import AccountDelete from "./AccountDelete";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
   const handleDelete = async (user) => {

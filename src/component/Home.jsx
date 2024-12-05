@@ -31,7 +31,7 @@ import LoginComponent from "./LoginComponent";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center gap-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center p-1 text-white">
+    <div className="flex h-screen flex-col items-center gap-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center p-1 pt-0 text-white">
       {/* Navigation */}
       <Nav />
 
@@ -51,9 +51,9 @@ export default function Home() {
             <span className="text-6xl font-normal text-yellow-500">Vihar</span>
           </h1>
           <NavLink to="/vehicles" className="text-[15px] font-semibold underline leading-relaxed text-red-400">
-            Booking Vehicles is simple.
+            Booking Vehicles is Simple.
           </NavLink>
-            <p className="text-lg font-light text-white">Focus on your journey — we’ll make booking the easy part.</p>
+            <p className="text-lg font-normal text-blue-500">Focus on your journey — we’ll make booking the easy part.</p>
 
         </div>
       </div>

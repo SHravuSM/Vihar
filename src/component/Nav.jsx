@@ -118,45 +118,33 @@
 //   );
 // }
 import React from "react";
-import home from "../images/Home.png";
-// import Shiv from "../images/Vihar.png";
-import HAMPI from "../images/H2.png";
-import van from "../images/Vehicle.gif";
+import LOGO from "../images/LOGO.png";
+import CARR from "../images/CARR.png";
+import BIKE from "../images/Bike.gif";
+import CONTACTUS from '../images/Contact-Us.png';
 import { NavLink } from "react-router-dom";
 
 export default function Nav() {
   return (
     <div
-      className="flex h-24 w-full items-center p-1 justify-around rounded-lg border-[1px] border-white/20 "
-      // bg-gradient-to-r from-white/80 via-white/60 to-transparent shadow-2xl backdrop-blur-[10px]
-      // style={{
-      //   backdropFilter: "blur(2px)", // Frosted-glass blur effect
-      //   background: "rgba(255, 255, 255, 0.1)", // Increased transparency (even more subtle)
-      //   border: "1px solid rgba(255, 255, 255, 0.2)", // Subtle border for definition
-      // }}
+      className="flex h-24 w-full items-start  justify-between rounded-lg"
     >
       {/* Logo Section */}
-      <div className="flex items-center">
-        <img
-          className=" rounded-lg transition-transform duration-300 hover:scale-110 bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black] md:h-20 lg:h-28"
-          src={HAMPI}
-          alt="Logo"
-        />
-      </div>
+
 
       {/* Search Bar with Floating Effect */}
-      <div className="shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] relative flex h-12 w-1/3 items-center rounded-md border-[1px] border-white/20 bg-black/10 shadow-2xl sm:mr-1 backdrop-blur-sm sm:w-1/2 md:h-14 md:w-[45%]">
+      {/* <div className="shadow-[inset_-4px_-4px_6px_rgba(233, 225, 225, 1),inset_4px_4px_6px_rgba(252, 245, 245, 1)] relative flex h-12 w-1/3 items-center rounded-md border-[1px] border-white/20 bg-black/10 shadow-2xl sm:mr-1 backdrop-blur-sm sm:w-1/2 md:h-14 md:w-[45%]">
         <input
           className="h-full w-full rounded-md border-red-300 bg-transparent px-4 text-red-300 placeholder-white focus:border focus:outline-none focus:ring-transparent focus:ring-offset-2 focus:placeholder:text-red-300 sm:text-sm md:text-base"
           type="text"
           placeholder="Search here"
         />
-      </div>
+      </div> */}
 
       {/* Navigation Links */}
-      <div className="flex items-center gap-5 text-sm font-semibold text-white lg:text-lg">
+      {/* <div className="flex items-center justify-between text-sm font-semibold text-white lg:text-lg"> */}
         <NavLink
-          to="/"
+          to="/contact-us"
           className={({ isActive }) =>
             isActive
               ? "text-orange-400"
@@ -164,11 +152,21 @@ export default function Nav() {
           }
         >
           <img
-            className="h-10 transform transition-transform duration-300 hover:scale-110"
-            src={home}
+            className="h-8 mt-6 transform ml-3 transition-transform duration-300 hover:scale-110"
+            src={CONTACTUS}
             alt="Home"
           />
         </NavLink>
+
+        <div className="fixed top-0 sm:left-[165px]">
+          <img
+            className=" rounded-lg transition-transform duration-300 hover:scale-110 sm:h-20 md:h-20 lg:h-28 "
+            src={LOGO}
+            // bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black]
+            alt="Logo"
+          />
+        </div>
+
         <NavLink
           to="/vehicles"
           className={({ isActive }) =>
@@ -178,12 +176,12 @@ export default function Nav() {
           }
         >
           <img
-            className="h-9 transform transition-transform duration-300 hover:scale-110"
-            src={van}
+            className="h-14 mt-3 mr-3 transform transition-transform duration-300 hover:scale-110"
+            src={BIKE}
             alt="Vehicles"
           />
         </NavLink>
       </div>
-    </div>
+    // </div>
   );
 }
