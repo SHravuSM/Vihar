@@ -27,11 +27,22 @@ import Nav from "./Nav";
 import JoinUsBtn from "./JoinUsBtn";
 import GetStarted from "./GetStarted";
 import { NavLink } from "react-router-dom";
+import HAMPI from '../images/HAMPI1.jpg'
 import LoginComponent from "./LoginComponent";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center gap-1 bg-gradient-to-b from-pink-300 via-violet-500 to-red-300 p-1 pt-0 text-white">
+    //  bg-gradient-to-b from-pink-300 via-violet-500 to-red-300
+    <div
+      className={`flex h-screen flex-col items-center gap-1 bg-cover p-1 pt-0 text-white`}
+      style={{
+        backgroundImage: `url(${HAMPI})`,
+        // backgroundSize: 'cover', // Ensures the image covers the entire div
+        backgroundPosition: 'center', // Centers the image
+        backgroundRepeat: 'no-repeat', // Prevents tiling
+      }}
+    >
+
       {/* Navigation */}
       <Nav />
 
@@ -50,16 +61,16 @@ export default function Home() {
             Explore Your Journey with{" "}
             <span className="text-6xl font-normal text-yellow-500">V!HAR</span>
           </h1>
-          <NavLink to="/vehicles" className="text-[15px] font-normal underline leading-relaxed text-red-400">
+          <NavLink to="/vehicles" className="text-[16px] font-normal underline leading-relaxed text-blue-400">
             Booking Vehicles is simple.
           </NavLink>
-            <p className="text-lg font-light text-white">Enjoy on your journey — we’ll make booking the easy part.</p>
+          <p className="text-lg font-light text-white">Enjoy on your journey — we’ll make booking the easy part.</p>
 
         </div>
       </div>
 
       {/* Footer Section */}
-      <div className="flex w-full flex-col items-center gap-1 bg-gradient-to-t from-transparent via-white/60 to-transparent px-2 pt-8 pb-4">
+      <div className="flex w-full flex-col items-center gap-1 px-2 pt-8 pb-4">
         <div className="flex w-full items-center justify-center gap-5">
           <NavLink to="/join-us">
             <JoinUsBtn />
