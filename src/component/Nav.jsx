@@ -122,9 +122,10 @@ import LOGO from "../images/LOGO.png";
 import CARR from "../images/CARR.png";
 import BIKE from "../images/Bike.gif";
 import CONTACTUS from '../images/Contact-Us.png';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Nav() {
+  const Navigate = useNavigate();
   return (
     <div
       className="flex h-24 w-full items-start  justify-between rounded-lg"
@@ -143,45 +144,31 @@ export default function Nav() {
 
       {/* Navigation Links */}
       {/* <div className="flex items-center justify-between text-sm font-semibold text-white lg:text-lg"> */}
-        <NavLink
-          to="/contact-us"
-          className={({ isActive }) =>
-            isActive
-              ? "text-orange-400"
-              : "transition-colors duration-300 hover:text-orange-400"
-          }
-        >
-          <img
-            className="h-8 mt-4 transform ml-3 transition-transform duration-300 hover:scale-110"
-            src={CONTACTUS}
-            alt="Home"
-          />
-        </NavLink>
 
-        <div className="fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-50">
-          <img
-            className="sm:h-16 md:h-20 lg:h-28 "
-            src={LOGO}
-            // bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black]
-            alt="Logo"
-          />
-        </div>
-
-        <NavLink
-          to="/vehicles"
-          className={({ isActive }) =>
-            isActive
-              ? "text-orange-400"
-              : "transition-colors duration-300 hover:text-orange-400"
-          }
-        >
-          <img
-            className="h-14 mt-1 mr-3 transform transition-transform duration-300 hover:scale-110"
-            src={BIKE}
-            alt="Vehicles"
-          />
-        </NavLink>
+      <div className="fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-0">
+        <img
+          className="sm:h-20 md:h-20 lg:h-28 "
+          src={LOGO}
+          // bg-gradient-to-br from-transparent via-white/20 to-transparent sm:h-20 drop-shadow-[3px_3px_5px_white,3px_3px_10px_black]
+          alt="Logo"
+        />
       </div>
+      <div onClick={() => Navigate('/contact-us')} className="">
+        <img
+          className="h-8  mt-6 transform ml-3 transition-transform duration-300 hover:scale-110"
+          src={CONTACTUS}
+          alt="Home"
+        />
+      </div>
+
+      <div onClick={() => Navigate('/vehicles')} className="">
+        <img
+          className="h-14 mt-3 mr-3 transform transition-transform duration-300 hover:scale-110"
+          src={BIKE}
+          alt="Vehicles"
+        />
+      </div>
+    </div>
     // </div>
   );
 }

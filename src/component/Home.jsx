@@ -31,7 +31,7 @@ import LoginComponent from "./LoginComponent";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center gap-1 bg-[url('../src/images/Hampi7.png')] bg-cover bg-center p-1 pt-0 text-white">
+    <div className="flex h-screen flex-col items-center gap-1 bg-gradient-to-b from-pink-300 via-violet-500 to-red-300 p-1 pt-0 text-white">
       {/* Navigation */}
       <Nav />
 
@@ -48,18 +48,18 @@ export default function Home() {
         >
           <h1 className="text-4xl font-light leading-snug tracking-wider drop-shadow-md">
             Explore Your Journey with{" "}
-            <span className="text-6xl font-normal text-yellow-500">ViHAR</span>
+            <span className="text-6xl font-normal text-yellow-500">V!HAR</span>
           </h1>
-          <NavLink to="/vehicles" className="text-[15px] font-semibold underline leading-relaxed text-red-400">
-            Booking Vehicles is Simple.
+          <NavLink to="/vehicles" className="text-[15px] font-normal underline leading-relaxed text-red-400">
+            Booking Vehicles is simple.
           </NavLink>
-            <p className="text-lg font-normal text-blue-500">Focus on your journey — we’ll make booking the easy part.</p>
+            <p className="text-lg font-light text-white">Enjoy on your journey — we’ll make booking the easy part.</p>
 
         </div>
       </div>
 
       {/* Footer Section */}
-      <div className="flex w-full flex-col items-center gap-1 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-4 shadow-lg">
+      <div className="flex w-full flex-col items-center gap-1 bg-gradient-to-t from-transparent via-white/60 to-transparent px-2 pt-8 pb-4">
         <div className="flex w-full items-center justify-center gap-5">
           <NavLink to="/join-us">
             <JoinUsBtn />
