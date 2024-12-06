@@ -40,23 +40,16 @@
 // export default ContactUs;
 
 import React from "react";
+import HAMPI from '../images/Hampi-Map.jpg'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-yellow-100 to-yellow-50 py-10 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left Section - Illustration */}
-        <div className="flex justify-center items-center">
-          <img
-            src="https://via.placeholder.com/400x300?text=Contact+Us"
-            alt="Contact Illustration"
-            className="rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
-          />
-        </div>
+    <div className="min-h-screen bg-gradient-to-r from-yellow-100 to-yellow-50 py-4 px-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5">
 
         {/* Right Section - Contact Information */}
-        <div className="flex flex-col justify-center p-8 bg-white shadow-lg rounded-lg border border-yellow-200">
+        <div className="flex flex-col justify-center p-8 bg-white shadow-lg rounded-lg border-blue-500">
           <h2 className="text-3xl sm:text-4xl font-bold text-yellow-600 mb-4 text-center lg:text-left">
             Get in Touch
           </h2>
@@ -90,6 +83,16 @@ const ContactUs = () => {
             Send Us a Message
           </button> */}
         </div>
+
+        {/* Left Section - Illustration */}
+        <div className="flex justify-center items-center">
+          <img
+            src={HAMPI}
+            alt="Contact Illustration"
+            className="rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+          />
+        </div>
+
       </div>
     </div>
   );
