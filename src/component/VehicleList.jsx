@@ -19,7 +19,7 @@ const VehicleList = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [providerMobile, setProviderMobile] = useState({}); // To store provider's mobile number
+  const [providerMobile, setProviderMobile] = useState(null); // To store provider's mobile number
   const modalRef = useRef(null);
 
   const openModal = (vehicle) => {
@@ -83,7 +83,7 @@ const VehicleList = () => {
 
     if (providerDoc.exists()) {
       const providerData = providerDoc.data();
-      setProviderMobile({ mobile: providerData.mobile, company: providerData.company }); // Set the mobile number
+      setProviderMobile(providerData.mobile); // Set the mobile number
     } else {
       console.log("No such provider!");
     }
@@ -125,7 +125,7 @@ const VehicleList = () => {
                 {/* <h3>{vehicle.}</h3> */}
                 <div>
                   <div className="flex items-center gap-1">
-                    <h3 className="text-sm font-medium">{vehicle.name}</h3>
+                    <h3 className="text-lg font-medium">{vehicle.name}</h3>
                     {vehicle.helmetsIncluded ? <img className="h-4" src={HELMET} alt="" /> : <></>}
                   </div>
                   <p className="text-sm">₹{vehicle.price}/day</p>
@@ -175,14 +175,11 @@ const VehicleList = () => {
                 <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
-            <div className="space-y-1">
-              <div className="flex flex-col gap-0">
-                <p className="text-gray-800">{selectedVehicle.description}</p>
-                <p className="text-sm font-semibold">{providerMobile.company}</p>
-                <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
-              </div>
+            <div className="space-y-2">
+              <p className="text-gray-800">{selectedVehicle.description}</p>
+              <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
               {/* Pass the provider's mobile number to the SwipeToCallButton */}
-              {providerMobile && <SwipeToCallButton mobile={providerMobile.mobile} />}
+              {providerMobile && <SwipeToCallButton mobile={providerMobile} />}
             </div>
           </div>
         </div>
