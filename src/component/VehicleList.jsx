@@ -125,7 +125,7 @@ const VehicleList = () => {
                 {/* <h3>{vehicle.}</h3> */}
                 <div>
                   <div className="flex items-center gap-1">
-                    <h3 className="text-lg font-medium">{vehicle.name}</h3>
+                    <h3 className="text-sm font-medium">{vehicle.name}</h3>
                     {vehicle.helmetsIncluded ? <img className="h-4" src={HELMET} alt="" /> : <></>}
                   </div>
                   <p className="text-sm">₹{vehicle.price}/day</p>
