@@ -238,6 +238,7 @@ const ProviderVehicles = ({ type }) => {
                   <h3 className="text-sm font-semibold">{vehicle.name}</h3>
                   {vehicle.helmetsIncluded ? <img className="h-4" src={HELMET} alt="" /> : <></>}
                 </div>
+                <p>{vehicle.registrationNo}</p>
                 <p>₹{vehicle.price} per day</p>
                 {/* <p>{vehicle.location}</p> */}
                 <p className={`text-xs`}>

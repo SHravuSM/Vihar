@@ -1058,81 +1058,85 @@ const AddVehicle = () => {
     setSuggestions([]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const user = auth.currentUser;
+  // Adjusted validation regex to match specific formats with optional spaces
+const registrationNoPattern = /^[A-Z]{2}\s?[0-9]{2}\s?[A-Z]{1,2}\s?[0-9]{4}$/; // Example: KA 01 AB 1234
 
-    if (!user) {
-      alert("User is not authenticated");
-      setLoading(false);
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  const user = auth.currentUser;
 
-    // Validation: Ensure all fields are valid
-    if (!name.trim()) {
-      alert("Vehicle name cannot be empty. Please select a valid name.");
-      setLoading(false);
-      return;
-    }
-
-    if (!Object.keys(Vahana).includes(name)) {
-      alert("Please select a vehicle from the suggestions.");
-      setLoading(false);
-      return;
-    }
-
-    if (!price || isNaN(price) || Number(price) <= 0) {
-      alert("Please enter a valid price greater than 0.");
-      setLoading(false);
-      return;
-    }
-
-    if (!type) {
-      alert("Please select a vehicle type.");
-      setLoading(false);
-      return;
-    }
-
-    if (!registrationNo.trim()) {
-      alert("Vehicle registration number cannot be empty.");
-      setLoading(false);
-      return;
-    }
-
-    const registrationNoPattern = /^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$/; // Example: KA01AB1234
-    if (!registrationNoPattern.test(registrationNo)) {
-      alert(
-        "Invalid registration number format. Example of valid format: KA01AB1234"
-      );
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await addDoc(collection(db, "vehicles"), {
-        providerId: user.uid,
-        isSold: false,
-        name,
-        type,
-        price,
-        registrationNo,
-        helmetsIncluded, // Store helmetsIncluded status
-      });
-
-      // Reset form fields after successful submission
-      setName("");
-      setType("Bike");
-      setPrice("");
-      setRegistrationNo("");
-      setHelmetsIncluded(false); // Reset the helmetsIncluded field
-      // alert("Vehicle added successfully!");
-    } catch (error) {
-      alert("Error adding vehicle. Please try again.");
-    }
-
+  if (!user) {
+    alert("User is not authenticated");
     setLoading(false);
-  };
+    return;
+  }
+
+  // Validation: Ensure all fields are valid
+  if (!name.trim()) {
+    alert("Vehicle name cannot be empty. Please select a valid name.");
+    setLoading(false);
+    return;
+  }
+
+  if (!Object.keys(Vahana).includes(name)) {
+    alert("Please select a vehicle from the suggestions.");
+    setLoading(false);
+    return;
+  }
+
+  if (!price || isNaN(price) || Number(price) <= 0) {
+    alert("Please enter a valid price greater than 0.");
+    setLoading(false);
+    return;
+  }
+
+  if (!type) {
+    alert("Please select a vehicle type.");
+    setLoading(false);
+    return;
+  }
+
+  if (!registrationNo.trim()) {
+    alert("Vehicle registration number cannot be empty.");
+    setLoading(false);
+    return;
+  }
+
+  // Normalize spaces for validation
+  const normalizedRegistrationNo = registrationNo.replace(/\s+/g, " ").trim(); // Replace multiple spaces with a single space
+
+  if (!registrationNoPattern.test(normalizedRegistrationNo)) {
+    alert(
+      "Invalid registration number format. Example of valid format: KA 01 AB 1234"
+    );
+    setLoading(false);
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "vehicles"), {
+      providerId: user.uid,
+      isSold: false,
+      name,
+      type,
+      price,
+      registrationNo: normalizedRegistrationNo, // Save with spaces preserved
+      helmetsIncluded,
+    });
+
+    // Reset form fields after successful submission
+    setName("");
+    setType("Bike");
+    setPrice("");
+    setRegistrationNo("");
+    setHelmetsIncluded(false);
+  } catch (error) {
+    alert("Error adding vehicle. Please try again.");
+  }
+
+  setLoading(false);
+};
 
   return (
     <div className="flex h-screen flex-col items-center gap-3 border pl-7 pr-7 pt-4">
