@@ -70,7 +70,8 @@ export default function Home() {
       </div>
 
       {/* Footer Section */}
-      <div className="flex w-full flex-col items-center gap-1 px-2 pt-8 pb-4">
+      <div className="flex w-full flex-col items-center gap-2 px-2 pt-8 pb-1">
+        <GetStarted />
         <div className="flex w-full items-center justify-center gap-5">
           <NavLink to="/join-us">
             <JoinUsBtn />
@@ -80,7 +81,6 @@ export default function Home() {
           </span>
           <LoginComponent />
         </div>
-        <GetStarted />
       </div>
     </div>
   );
