@@ -175,11 +175,14 @@ const VehicleList = () => {
                 <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 flex flex-col items-start">
               <p className="text-gray-800">{selectedVehicle.description}</p>
               <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
               {/* Pass the provider's mobile number to the SwipeToCallButton */}
-              {providerMobile && <SwipeToCallButton mobile={providerMobile} />}
+              <div className="flex flex-col gap-1 justify-center items-center">
+                <SwipeToCallButton mobile={providerMobile} />
+                <h4 className="text-[10px]">Swipe to Call >></h4>
+              </div>
             </div>
           </div>
         </div>

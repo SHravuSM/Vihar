@@ -7,10 +7,10 @@ import {
   where,
   updateDoc,
   doc,
-  deleteDoc,
+  deleteDoc, arrayUnion, Timestamp
 } from "firebase/firestore";
 
-export default function ManageUsers () {
+export default function ManageUsers() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedUserId, setExpandedUserId] = useState(null);
@@ -60,6 +60,31 @@ export default function ManageUsers () {
       setUserVehicles(vehicleList);
     } catch (error) {
       console.error("Error fetching vehicles: ", error);
+    }
+  };
+
+  const renewSubscription = async (companyId, amount, transactionId) => {
+    try {
+      // Reference to the company document
+      const companyRef = doc(db, "users", companyId);
+
+      // Get current date and time
+      const currentDate = Timestamp.now();
+
+      // Update company document with renewal details
+      await updateDoc(companyRef, {
+        isPaid: true, // Mark as paid
+        paymentDate: currentDate, // Set payment date to current date
+        paymentHistory: arrayUnion({ // Add new payment history
+          amount: amount,
+          date: currentDate.toDate().toISOString(),
+          transactionId: transactionId,
+        }),
+      });
+
+      console.log("Subscription renewed successfully!");
+    } catch (error) {
+      console.error("Error renewing subscription:", error);
     }
   };
 
@@ -225,41 +250,26 @@ export default function ManageUsers () {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h2 className="mb-6 text-3xl font-semibold text-gray-800">Manage Users</h2>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <h2 className="mb-8 text-4xl font-semibold text-gray-800">Manage Users</h2>
 
       {/* Vehicle Type Filter Bar */}
-      <div className="mb-6 flex space-x-4">
-        <button
-          onClick={() => setSelectedVehicleType("All")}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600 focus:outline-none"
-        >
-          All
-        </button>
-        <button
-          onClick={() => setSelectedVehicleType("Scooter")}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600 focus:outline-none"
-        >
-          Scooter
-        </button>
-        <button
-          onClick={() => setSelectedVehicleType("Car")}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600 focus:outline-none"
-        >
-          Car
-        </button>
-        <button
-          onClick={() => setSelectedVehicleType("Bike")}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600 focus:outline-none"
-        >
-          Bike
-        </button>
+      <div className="mb-8 flex space-x-6">
+        {["All", "Scooter", "Car", "Bike"].map((type) => (
+          <button
+            key={type}
+            onClick={() => setSelectedVehicleType(type)}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+          >
+            {type}
+          </button>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {users.length === 0 ? (
-          <div className="col-span-3 rounded-lg bg-white p-4 text-center shadow-md">
-            <p className="text-xl text-gray-500">No users found.</p>
+          <div className="col-span-3 rounded-lg bg-white p-8 text-center shadow-lg">
+            <p className="text-2xl text-gray-500">No users found.</p>
           </div>
         ) : (
           users.map((user) => {
@@ -268,64 +278,77 @@ export default function ManageUsers () {
             return (
               <div
                 key={user.id}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-md"
+                className="rounded-lg border border-gray-200 bg-white p-6 shadow-lg hover:shadow-2xl transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {user.name}
-                </h3>
+                <h3 className="text-xl font-semibold text-gray-800">{user.name}</h3>
                 <p className="text-gray-600">Email: {user.email}</p>
                 <p className="text-gray-600">User ID: {user.id}</p>
                 <p className="text-gray-600">Role: {user.role}</p>
-                <p className={` text-gray-600`}>Subscription Status : {user.isPaid ? <span className="text-blue-500 font-semibold">Active</span> : <span className="text-red-600">Expired</span> }</p>
+                <p className={`text-gray-600 mt-2`}>
+                  Subscription Status:{" "}
+                  {user.isPaid ? (
+                    <span className="text-blue-500 font-semibold">Active</span>
+                  ) : (
+                    <span className="text-red-600">Expired</span>
+                  )}
+                </p>
 
-                <div className="mt-4">
+                {/* Renew Button */}
+                <button
+                  onClick={() => renewSubscription(user.id, 25, "txn_510226")}
+                  className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold text-lg rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                >
+                  Renew Now
+                </button>
+
+                {/* Vehicle Counts */}
+                <div className="mt-6">
                   <p className="text-gray-600">Vehicle Counts:</p>
-                  <ul className="">
+                  <ul className="ml-6 space-y-2">
                     <li>Scooters: {vehicleCounts["Scooter"] || 0}</li>
                     <li>Cars: {vehicleCounts["Car"] || 0}</li>
                     <li>Bikes: {vehicleCounts["Bike"] || 0}</li>
                   </ul>
                 </div>
 
-                <div className="mt-4">
+                {/* Change Role */}
+                <div className="mt-6">
                   <label className="block text-gray-700">Change Role</label>
                   <select
                     value={user.role}
-                    onChange={(e) =>
-                      handleChangeRole(user.id, e.target.value)
-                    }
-                    className="w-40 rounded-md border border-gray-300 p-2 mt-2"
+                    onChange={(e) => handleChangeRole(user.id, e.target.value)}
+                    className="w-40 mt-2 rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   >
                     <option value="vehicle provider">Vehicle Provider</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
 
-                <div className="mt-4 flex space-x-4">
+                {/* Action Buttons */}
+                <div className="mt-6 flex space-x-4">
                   <button
                     onClick={() => handleDeleteUser(user.id)}
-                    className="rounded-md bg-red-500 px-4 py-2 text-white shadow hover:bg-red-600 focus:outline-none"
+                    className="px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300"
                   >
                     Delete User
                   </button>
 
                   <button
                     onClick={() => handleUserExpand(user.id)}
-                    className="rounded-md bg-gray-300 px-4 py-2 text-gray-700"
+                    className="px-6 py-3 bg-gray-300 text-gray-700 rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
                   >
-                    {expandedUserId === user.id
-                      ? "Hide Details"
-                      : "Show Details"}
+                    {expandedUserId === user.id ? "Hide Details" : "Show Details"}
                   </button>
                 </div>
 
+                {/* Expanded Details */}
                 {expandedUserId === user.id && (
-                  <div className="mt-4 space-y-4">
+                  <div className="mt-6 space-y-6">
                     <h4 className="text-xl font-semibold">Vehicles:</h4>
                     {sortedVehicles.map((vehicle) => (
                       <div
                         key={vehicle.id}
-                        className="rounded-lg border border-gray-200 bg-white p-4 shadow-md"
+                        className="rounded-lg border border-gray-200 bg-white p-6 shadow-lg"
                       >
                         <h5 className="text-lg font-semibold text-gray-800">
                           {vehicle.name}
@@ -334,16 +357,17 @@ export default function ManageUsers () {
                         <p className="text-gray-600">Location: {vehicle.location}</p>
                         <p className="text-gray-600">Type: {vehicle.type}</p>
 
+                        {/* Vehicle Action Buttons */}
                         <div className="mt-4 space-x-4">
                           <button
                             onClick={() => handleEditVehicle(vehicle)}
-                            className="rounded-md bg-yellow-500 px-4 py-2 text-white shadow hover:bg-yellow-600 focus:outline-none"
+                            className="px-6 py-3 bg-yellow-500 text-white rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all duration-300"
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDeleteVehicle(vehicle.id)}
-                            className="rounded-md bg-red-500 px-4 py-2 text-white shadow hover:bg-red-600 focus:outline-none"
+                            className="px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300"
                           >
                             Delete
                           </button>
@@ -363,7 +387,7 @@ export default function ManageUsers () {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
           <form
             onSubmit={handleSubmitVehicleEdit}
-            className="rounded-lg bg-white p-6 shadow-md"
+            className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full"
           >
             <h3 className="text-xl font-semibold text-gray-800">Edit Vehicle</h3>
             <div className="mt-4">
@@ -373,7 +397,7 @@ export default function ManageUsers () {
                 name="name"
                 value={vehicleForm.name}
                 onChange={handleVehicleFormChange}
-                className="w-full rounded-md border border-gray-300 p-2 mt-2"
+                className="w-full mt-2 rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
             <div className="mt-4">
@@ -383,7 +407,7 @@ export default function ManageUsers () {
                 name="price"
                 value={vehicleForm.price}
                 onChange={handleVehicleFormChange}
-                className="w-full rounded-md border border-gray-300 p-2 mt-2"
+                className="w-full mt-2 rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
             <div className="mt-4">
@@ -393,7 +417,7 @@ export default function ManageUsers () {
                 name="location"
                 value={vehicleForm.location}
                 onChange={handleVehicleFormChange}
-                className="w-full rounded-md border border-gray-300 p-2 mt-2"
+                className="w-full mt-2 rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
             <div className="mt-4">
@@ -402,24 +426,24 @@ export default function ManageUsers () {
                 name="type"
                 value={vehicleForm.type}
                 onChange={handleVehicleFormChange}
-                className="w-full rounded-md border border-gray-300 p-2 mt-2"
+                className="w-full mt-2 rounded-md border border-gray-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 <option value="Scooter">Scooter</option>
                 <option value="Car">Car</option>
                 <option value="Bike">Bike</option>
               </select>
             </div>
-            <div className="mt-4 flex space-x-4">
+            <div className="mt-6 flex space-x-4">
               <button
                 type="submit"
-                className="rounded-md bg-blue-500 px-4 py-2 text-white shadow hover:bg-blue-600 focus:outline-none"
+                className="px-6 py-3 bg-blue-600 text-white font-semibold text-lg rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setVehicleBeingEdited(null)}
-                className="rounded-md bg-gray-500 px-4 py-2 text-white shadow hover:bg-gray-600 focus:outline-none"
+                className="px-6 py-3 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
               >
                 Cancel
               </button>
@@ -428,5 +452,6 @@ export default function ManageUsers () {
         </div>
       )}
     </div>
+
   );
 };
