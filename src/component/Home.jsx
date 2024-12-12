@@ -126,7 +126,7 @@ export default function Home() {
           <div className="flex items-center gap-0 bg-white/20 pr-1 pl-2 rounded-lg shadow-lg">
             <img
               onClick={() => navigate('/vehicles')}
-              className="h-16 cursor-pointer transition-transform duration-300 hover:scale-110"
+              className="h-14 cursor-pointer transition-transform duration-300 hover:scale-110"
               src={BIKE}
               alt="Vehicles"
             />

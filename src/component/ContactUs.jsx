@@ -85,12 +85,13 @@ const ContactUs = () => {
         </div>
 
         {/* Left Section - Illustration */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center flex-col gap-2 items-center">
           <img
             src={HAMPI}
             alt="Contact Illustration"
             className="rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
           />
+          <h2>Map Credits to - <a href="https://hampi.in/" className="text-blue-500">Hampi.in</a></h2>
         </div>
 
       </div>

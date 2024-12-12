@@ -153,12 +153,13 @@ export default function Nav() {
           alt="Logo"
         />
       </div>
-      <div onClick={() => Navigate('/contact-us')} className="">
+      <div onClick={() => Navigate('/contact-us')} className="flex flex-col justify-center  gap-0">
         <img
           className="h-8  mt-6 transform mr-5 transition-transform duration-300 hover:scale-110"
           src={CONTACTUS}
           alt="Home"
         />
+        {/* <h2 className="text-black ml-1 w-8 text-sm font-light">Help</h2> */}
       </div>
 
       {/* <div onClick={() => Navigate('/vehicles')} className="">
