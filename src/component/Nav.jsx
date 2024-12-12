@@ -120,7 +120,7 @@
 import React from "react";
 import LOGO from "../images/LOGO.png";
 import CARR from "../images/CARR.png";
-import BIKE from "../images/Bike.gif";
+// import BIKE from "../images/Bike.gif";
 import CONTACTUS from '../images/Contact-Us.png';
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -128,7 +128,7 @@ export default function Nav() {
   const Navigate = useNavigate();
   return (
     <div
-      className="flex h-24 w-full items-start  justify-between rounded-lg"
+      className="flex h-24 w-full items-start justify-end rounded-lg"
     >
       {/* Logo Section */}
 
@@ -155,19 +155,19 @@ export default function Nav() {
       </div>
       <div onClick={() => Navigate('/contact-us')} className="">
         <img
-          className="h-8  mt-6 transform ml-3 transition-transform duration-300 hover:scale-110"
+          className="h-8  mt-6 transform mr-5 transition-transform duration-300 hover:scale-110"
           src={CONTACTUS}
           alt="Home"
         />
       </div>
 
-      <div onClick={() => Navigate('/vehicles')} className="">
+      {/* <div onClick={() => Navigate('/vehicles')} className="">
         <img
           className="h-14 mt-3 mr-3 transform transition-transform duration-300 hover:scale-110"
           src={BIKE}
           alt="Vehicles"
         />
-      </div>
+      </div> */}
     </div>
     // </div>
   );

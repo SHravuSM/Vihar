@@ -5,8 +5,7 @@ const GetStarted = () => {
   return (
     <StyledWrapper>
       <p className="btn-shine sm:text-md">
-        Join to Get Started & List your
-        <span className="text-black sm:text-xl">🚲</span>Today.
+        Join to Get Started & List your Business
       </p>
     </StyledWrapper>
   );

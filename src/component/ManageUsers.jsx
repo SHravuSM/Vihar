@@ -10,7 +10,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-const ManageUsers = () => {
+export default function ManageUsers () {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [expandedUserId, setExpandedUserId] = useState(null);
@@ -430,5 +430,3 @@ const ManageUsers = () => {
     </div>
   );
 };
-
-export default ManageUsers;
