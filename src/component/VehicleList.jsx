@@ -118,7 +118,7 @@ const VehicleList = () => {
               <hr className="w-8 border-2 text-red-500 bg-red-500 rounded-3xl rotate-90" />
               <div className='flex items-center gap-2'>
                 <img className="h-8 w-8" src={MAINTAIN} alt="Maintenance Icon" title="Maintenance" />
-                <p className="text-sm font-medium text-gray-700">Maintenance</p>
+                <p className="text-sm font-medium text-gray-700">24/7 Roadside Assistance</p>
               </div>
             </div>
             {/* <div className="flex items-center justify-center gap-2">
