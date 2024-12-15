@@ -5,6 +5,10 @@ import LOPA from "./LOPA"; // Loading spinner component
 import Close from "../images/Close.png";
 import RIGHT from "../images/Right.png";
 import LEFT from "../images/Left.png";
+import INSURANCE from "../images/insurance.png";
+import MAINTAIN from "../images/maintenance.png";
+import GUARD from "../images/guard.png";
+import SUPPORT from "../images/always_support.png";
 import HELMET from '../images/Helmet.gif'
 import { useSwipeable } from "react-swipeable";
 import SwipeToCallButton from "./SwipeToCallButton";
@@ -96,11 +100,38 @@ const VehicleList = () => {
 
   return (
     <div className="flex flex-col items-center w-full p-4">
-      <div className="">
+      <div className="flex flex-col items-center">
         <h2 className="text-center text-xl font-bold">Available Vehicles for Rent</h2>
-        <h3 className="border text-sm text-gray-700 mt-4 mb-2 text-center px-4 py-2 bg-yellow-50 border-l-4 border-yellow-400">
-          For <span className="text-blue-500">Security</span> purposes, we keep your ID proofs <span className="text-green-500">Safely</span> until returning the Vehicle's safely.
-        </h3>
+        <div className="mt-4 mb-2 rounded-lg bg-yellow-50 p-4 shadow-lg">
+          <div className="flex items-center gap-3 border-l-4 border-yellow-400 pl-3">
+            <p className="text-sm font-medium text-gray-700">
+              For <span className="text-blue-500 font-semibold">Security</span> purposes, we keep your ID proofs{" "}
+              <span className="text-green-500 font-semibold">Safely</span> until the Vehicle is returned safely.
+            </p>
+          </div>
+          <div className="mt-4 gap-3 flex flex-col">
+            <div className="flex items-center justify-around gap-5">
+              <div className='flex items-center gap-2'>
+                <img className="h-7 w-7" src={INSURANCE} alt="Insurance Icon" title="Insurance" />
+                <p className="text-sm font-medium text-gray-700">Vehicle Insurance</p>
+              </div>
+              <hr className="w-8 border-2 text-red-500 bg-red-500 rounded-3xl rotate-90" />
+              <div className='flex items-center gap-2'>
+                <img className="h-8 w-8" src={MAINTAIN} alt="Maintenance Icon" title="Maintenance" />
+                <p className="text-sm font-medium text-gray-700">Maintenance</p>
+              </div>
+            </div>
+            {/* <div className="flex items-center justify-center gap-2">
+            <img className="h-8 w-8" src={GUARD} alt="Security Icon" title="Security" />
+            <p className="text-sm font-medium text-gray-700">Police Security</p>
+          </div> */}
+            {/* <div className="flex items-center justify-start gap-3">
+            <img className="h-8 w-8" src={SUPPORT} alt="Support Icon" title="Support" />
+            <p className="text-sm font-medium text-gray-700">Support</p>
+          </div> */}
+          </div>
+        </div>
+
       </div>
 
       <div className="flex flex-col items-center w-full gap-3 pt-0 p-4 pr-1 pl-1">
@@ -180,19 +211,14 @@ const VehicleList = () => {
                 <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
-            <div className="space-y-2 flex flex-col items-start">
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1">
-                  <img className="rounded-2xl h-6" src={photo} alt="" />
-                  <p className="text-red-400 text-xl font-semibold p-0">{company}</p>
-                </div>
-                <p className="text-md p-0 text-green-900 ">₹{selectedVehicle.price}/day</p>
+            <div className="gap-1 flex flex-col items-start">
+              <div className="flex items-center gap-1">
+                <img className="rounded-2xl h-6" src={photo} alt="" />
+                <button className="text-red-400 text-xl tracking-wide font-semibold p-0">{company}</button>
               </div>
-              {/* Pass the provider's mobile number to the SwipeToCallButton */}
-              <div className="flex flex-col gap-1 justify-center items-center">
-                <SwipeToCallButton mobile={providerMobile} />
-                <h4 className="text-[10px]">Swipe to Call >></h4>
-              </div>
+              <p className="text-lg p-0 text-green-900 ">₹{selectedVehicle.price}/day</p>
+              <SwipeToCallButton mobile={providerMobile} />
+              <h4 className="text-[10px]">Swipe to Call >></h4>
             </div>
           </div>
         </div>
