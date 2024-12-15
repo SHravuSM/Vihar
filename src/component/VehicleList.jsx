@@ -15,11 +15,15 @@ import SwipeToCallButton from "./SwipeToCallButton";
 import useFetchVehicles from "../hooks/useFetchVehicles"; // Custom hook for fetching vehicles
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
 import { use } from "react";
+import { useNavigate } from 'react-router-dom';
+import ProviderVehiclesViewer from "./ProviderVehiclesViewer";
+import { NavLink } from 'react-router-dom';
 
 const VehicleList = () => {
   const { Vahana } = useAuth();
   const [type, setType] = useState("Bike"); // Default to "Bike"
   const { vehicles, loading, error, comName } = useFetchVehicles(type);
+  const Navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   const [company, setCompany] = useState('')
@@ -174,52 +178,120 @@ const VehicleList = () => {
       </div>
 
       {showModal && selectedVehicle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+        // <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+        //   <div
+        //     ref={modalRef}
+        //     className="relative w-full max-w-md rounded-lg bg-white shadow-lg p-6 space-y-4 md:max-w-lg"
+        //   >
+        //     <button
+        //       onClick={closeModal}
+        //       className="absolute top-4 right-4 text-xl text-gray-600 hover:text-black"
+        //     >
+        //       <img className="h-5" src={Close} alt="Close" />
+        //     </button>
+        //     <div className="flex items-center justify-center gap-1">
+        //       <h2 className="text-2xl font-semibold text-center">{selectedVehicle.name}</h2>
+        //       {selectedVehicle.helmetsIncluded ? <img className="h-6" src={HELMET} alt="" /> : <></>}
+        //     </div>
+        //     <div
+        //       {...swipeHandlers}
+        //       className="relative flex items-center justify-center gap-2 overflow-hidden"
+        //     >
+        //       <button
+        //         onClick={handlePrev}
+        //         className="absolute left-0 p-2 text-gray-500 hover:text-gray-700 z-10"
+        //       >
+        //         <img className="h-6" src={LEFT} alt="Previous" />
+        //       </button>
+        //       <img
+        //         src={Vahana[selectedVehicle.name]?.[currentImageIndex] || "https://via.placeholder.com/150"}
+        //         alt={selectedVehicle.name}
+        //         className="w-48 h-48 object-contain"
+        //       />
+        //       <button
+        //         onClick={handleNext}
+        //         className="absolute right-0 p-2 text-gray-500 hover:text-gray-700 z-10"
+        //       >
+        //         <img className="h-6" src={RIGHT} alt="Next" />
+        //       </button>
+        //     </div>
+        //     <div className="gap-1 flex flex-col items-start">
+        //       <div className="flex items-center gap-1">
+        //         <img className="rounded-2xl h-6" src={photo} alt="" />
+        //         <button className="text-red-400 text-xl tracking-wide font-semibold p-0">{company}</button>
+        //       </div>
+        //       <p className="text-lg p-0 text-green-900 ">₹{selectedVehicle.price}/day</p>
+        //       <SwipeToCallButton mobile={providerMobile} />
+        //       <h4 className="text-[10px]">Swipe to Call >></h4>
+        //     </div>
+        //   </div>
+        // </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-b from-black/70 to-black/50 p-4">
           <div
             ref={modalRef}
-            className="relative w-full max-w-md rounded-lg bg-white shadow-lg p-6 space-y-4 md:max-w-lg"
+            className="relative w-full max-w-md rounded-lg bg-white shadow-xl p-4 space-y-6 md:max-w-lg"
           >
+            {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 text-xl text-gray-600 hover:text-black"
+              className="absolute top-2 right-2 p-2 text-gray-500 hover:text-black transition-transform duration-200 hover:scale-110"
             >
-              <img className="h-5" src={Close} alt="Close" />
+              <img className="h-7" src={Close} alt="Close" />
             </button>
-            <div className="flex items-center justify-center gap-1">
-              <h2 className="text-2xl font-semibold text-center">{selectedVehicle.name}</h2>
-              {selectedVehicle.helmetsIncluded ? <img className="h-6" src={HELMET} alt="" /> : <></>}
+
+            {/* Vehicle Name and Helmet Icon */}
+            <div className="flex items-center justify-center gap-2">
+              <h2 className="text-3xl font-semibold text-center text-gray-800">{selectedVehicle.name}</h2>
+              {selectedVehicle.helmetsIncluded && (
+                <img className="h-6 animate-pulse" src={HELMET} alt="Helmet Included" />
+              )}
             </div>
+
+            {/* Image Carousel */}
             <div
               {...swipeHandlers}
               className="relative flex items-center justify-center gap-2 overflow-hidden"
             >
               <button
                 onClick={handlePrev}
-                className="absolute left-0 p-2 text-gray-500 hover:text-gray-700 z-10"
+                className="absolute left-4 p-3 rounded-ful text-gray-600 hover:bg-gray-200 z-10"
               >
                 <img className="h-6" src={LEFT} alt="Previous" />
               </button>
               <img
                 src={Vahana[selectedVehicle.name]?.[currentImageIndex] || "https://via.placeholder.com/150"}
                 alt={selectedVehicle.name}
-                className="w-48 h-48 object-contain"
+                className="w-56 h-56 object-contain rounded-lg "
               />
               <button
                 onClick={handleNext}
-                className="absolute right-0 p-2 text-gray-500 hover:text-gray-700 z-10"
+                className="absolute right-4 p-3 rounded-full text-gray-600 hover:bg-gray-200 z-10"
               >
                 <img className="h-6" src={RIGHT} alt="Next" />
               </button>
             </div>
-            <div className="gap-1 flex flex-col items-start">
-              <div className="flex items-center gap-1">
-                <img className="rounded-2xl h-6" src={photo} alt="" />
-                <button className="text-red-400 text-xl tracking-wide font-semibold p-0">{company}</button>
+
+            {/* Vehicle Details */}
+            <div className="flex items-center">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <img className="rounded-full h-7 w-7 object-cover shadow-sm" src={photo} alt="Company Logo" />
+                  <NavLink
+                    to={`/vehicles/${selectedVehicle.providerId}`}
+                    className="text-lg font-semibold text-red-500 hover:underline">{company}</NavLink>
+                </div>
+                <p className="text-lg font-semibold mb-1 text-green-700">₹{selectedVehicle.price}/day</p>
+                <div className="flex flex-col items-start">
+                  <SwipeToCallButton mobile={providerMobile} />
+                  <h4 className="text-xs text-gray-500 mt-3 animate-bounce">Swipe to Call &gt;&gt;</h4>
+                </div>
               </div>
-              <p className="text-lg p-0 text-green-900 ">₹{selectedVehicle.price}/day</p>
-              <SwipeToCallButton mobile={providerMobile} />
-              <h4 className="text-[10px]">Swipe to Call >></h4>
+              <div>
+              </div>
             </div>
+
+            {/* Swipe to Call */}
+
           </div>
         </div>
       )}

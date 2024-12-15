@@ -5,7 +5,7 @@ import Join from "./component/Join";
 import Account from "./component/Account";
 import NotFound from "./component/NotFound";
 import AddVehicle from "./component/AddVehicle";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import ManageUsers from "./component/ManageUsers";
 import VehicleList from "./component/VehicleList";
 import ManageVehicles from "./component/ManageVehicles";
@@ -14,6 +14,18 @@ import ProviderDashboard from "./component/ProviderDashboard";
 import ProtectedRoute from "./component/ProtectedRoute";
 import ContactUs from "./component/ContactUs";
 import HotelList from "./component/HotelList";
+import ProviderVehiclesViewer from "./component/ProviderVehiclesViewer";
+
+const ProviderVehiclesViewerWrapper = () => {
+  const { providerId } = useParams();
+
+  if (!providerId) {
+    return <div>Error: Provider ID is missing in the URL.</div>;
+  }
+
+  return <ProviderVehiclesViewer providerId={providerId} />;
+};
+
 
 function App() {
   return (
@@ -23,6 +35,7 @@ function App() {
         <Route path="/join-us" element={<Join />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/vehicles" element={<VehicleList />} />
+        <Route path="/vehicles/:providerId" element={<ProviderVehiclesViewerWrapper />} />
         <Route path="/hotels" element={<HotelList />} />
 
         <Route
