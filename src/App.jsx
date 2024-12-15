@@ -13,6 +13,7 @@ import AdminDashboard from "./component/AdminDashboard";
 import ProviderDashboard from "./component/ProviderDashboard";
 import ProtectedRoute from "./component/ProtectedRoute";
 import ContactUs from "./component/ContactUs";
+import HotelList from "./component/HotelList";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/join-us" element={<Join />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/vehicles" element={<VehicleList />} />
+        <Route path="/hotels" element={<HotelList />} />
 
         <Route
           path="/admin"

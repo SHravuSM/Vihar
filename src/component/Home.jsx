@@ -132,7 +132,8 @@ export default function Home() {
             />
             <hr className="w-8 border text-black rounded-lg rotate-90" />
             <img
-              className="h-14 transition-transform duration-300 hover:scale-110"
+            onClick={() => navigate('/hotels')}
+              className="h-12 transition-transform duration-300 hover:scale-110"
               src={HOTEL}
               alt="Hotel"
             />

@@ -10,6 +10,7 @@ import { useSwipeable } from "react-swipeable";
 import SwipeToCallButton from "./SwipeToCallButton";
 import useFetchVehicles from "../hooks/useFetchVehicles"; // Custom hook for fetching vehicles
 import { getFirestore, doc, getDoc } from "firebase/firestore"; // Firebase Firestore functions
+import { use } from "react";
 
 const VehicleList = () => {
   const { Vahana } = useAuth();
@@ -17,6 +18,8 @@ const VehicleList = () => {
   const { vehicles, loading, error, comName } = useFetchVehicles(type);
 
   const [showModal, setShowModal] = useState(false);
+  const [company, setCompany] = useState('')
+  const [photo, setPhoto] = useState('')
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [providerMobile, setProviderMobile] = useState(null); // To store provider's mobile number
@@ -84,6 +87,8 @@ const VehicleList = () => {
     if (providerDoc.exists()) {
       const providerData = providerDoc.data();
       setProviderMobile(providerData.mobile); // Set the mobile number
+      setCompany(providerData.company)
+      setPhoto(providerData.photoURL)
     } else {
       console.log("No such provider!");
     }
@@ -176,8 +181,13 @@ const VehicleList = () => {
               </button>
             </div>
             <div className="space-y-2 flex flex-col items-start">
-              <p className="text-gray-800">{selectedVehicle.description}</p>
-              <p className="text-lg font-semibold">₹{selectedVehicle.price}/day</p>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1">
+                  <img className="rounded-2xl h-6" src={photo} alt="" />
+                  <p className="text-red-400 text-xl font-semibold p-0">{company}</p>
+                </div>
+                <p className="text-md p-0 text-green-900 ">₹{selectedVehicle.price}/day</p>
+              </div>
               {/* Pass the provider's mobile number to the SwipeToCallButton */}
               <div className="flex flex-col gap-1 justify-center items-center">
                 <SwipeToCallButton mobile={providerMobile} />
